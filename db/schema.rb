@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204135624) do
+ActiveRecord::Schema.define(version: 20171204144317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(version: 20171204135624) do
     t.string "website_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "identification_url"
+    t.string "cgvu_url"
+    t.string "data_privacy_url"
+    t.string "cookie_system_url"
     t.index ["user_id"], name: "index_analyses_on_user_id"
   end
 
