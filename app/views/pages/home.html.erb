@@ -1,6 +1,5 @@
 <style> .navbar-wagon{ display: none; } </style>
-
-<div class="banner-landing" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%), url('<%= asset_path "banner-home-photo.jpg"  %>');">
+<div class="banner-landing" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "banner-home-photo.jpg"  %>');">
   <div class="banner-content">
     <div class="container">
       <div class="row">
@@ -9,10 +8,7 @@
               <div class="home-logo">
               <%=image_tag("logo.png", alt: "Onorm")%>
               </div>
-              <div class="wrapper">
-                <input class="search" type="text" id="search" />
-                <input class="submit" type="submit" value=" " />
-              </div>
+              <h4>L'assistant juridique intelligent de votre MVP</h4>
             </div>
           </div>
       </div>
@@ -21,10 +17,19 @@
 </div>
 <div class="container">
   <div class="slogan">
-    <h2><strong>L'assistant juridique intelligent de votre MVP</strong></h2>
+    <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
+    <br>
+    <div class="wrapper">
+      <input class="search" type="text" id="search" />
+      <input class="submit" type="submit" value=" " />
+    </div>
   </div>
 
   <div class="row">
+    <div class="titre-temoignages">
+    <h4><strong>De nombreuses start-ups l'ont déjà adopté ...</strong></h4>
+    <br>
+    </div>
     <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
       <p>« Grâce à Onorm, j'ai pu lancer mon MVP en toute sérénité. Mes mentions légales ont été vérifiées et leur légalité certifiée. »</p>
       <div class="identity">
@@ -43,7 +48,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <p>« Au moment de démarrer ma marketplace, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. En quelques clics, Onorm s'est chargé de tout vérifier.»</p>
+      <p>« Au moment de démarrer ma marketplace, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. En quelques clics, Onorm s'est chargé de tout vérifier. »</p>
       <div class="identity">
         <div>
           <%= image_tag("no_profile_picture_male 2.jpg", class:"avatar-large") %>
@@ -76,5 +81,6 @@
       </div>
     </div>
   </div>
+  <br>
 </div>
 
