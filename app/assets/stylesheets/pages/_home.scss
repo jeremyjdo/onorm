@@ -1,7 +1,5 @@
 // Specific CSS for your home-pag
-.container-testimonials {
-  padding: 0px 40px 0px 40px;
-}
+
 .slogan  {
   font-size: 25px;
   font-weight: bold;
@@ -59,15 +57,15 @@
 }
 
 .banner_customer_interview_text {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 20px;
   color: rgba(0,0,0,.54);
   font-style: italic;
   font-family: 'Raleway', sans-serif;
-
+  font-weight: 300;
   p {
     font-family: 'Raleway', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     min-height: 160px;
   }
 }
