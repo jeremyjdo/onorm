@@ -1,8 +1,31 @@
-// Specific CSS for your home-page
+// Specific CSS for your home-pag
+.container-testimonials {
+  padding: 0px 40px 0px 40px;
+}
+.slogan  {
+  font-size: 25px;
+  font-weight: bold;
+  color: #5e6366;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
 .banner {
   color: white;
   text-align: center;
   height: 70vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  background: no-repeat center center fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-landing {
+  color: white;
+  text-align: center;
+  height: 400px;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   background-size: cover !important;
   background: no-repeat center center fixed;
@@ -36,7 +59,7 @@
 }
 
 .banner_customer_interview_text {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 20px;
   color: rgba(0,0,0,.54);
   font-style: italic;
@@ -44,7 +67,7 @@
 
   p {
     font-family: 'Raleway', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     min-height: 160px;
   }
 }
