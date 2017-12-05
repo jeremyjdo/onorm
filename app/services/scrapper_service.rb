@@ -25,7 +25,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     html_doc.css('a').each do |target|
       wording = target.text.strip.upcase
       target_url = target.attribute('href').value
-      target_url = url + target_url if target_url.first === "/"
+      target_url = url + target_url if target_url.first == "/"
       if @cgvu_wording_library.include?(wording)
         puts @cgvu_url = target_url
       elsif @identification_wording_library.include?(wording)
