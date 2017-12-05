@@ -1,0 +1,5 @@
+meta_product_name: "Onorm"
+meta_title: "Onorm - Analyse de site web en un clic"
+meta_description: "Analyser les mentions légales de votre MVP en un clic"
+meta_image: "cover.png"                       # should exist in `app/assets/images/`
+# twitter_account: "@product_twitter_account"   # required for Twitter Cards
