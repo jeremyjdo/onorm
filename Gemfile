@@ -8,6 +8,7 @@ gem 'pg'
 gem 'puma'
 gem 'rails', '5.1.4'
 gem 'redis'
+gem 'rest-client'
 
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
@@ -16,6 +17,12 @@ gem 'jquery-rails'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
+
+# scraping
+gem 'capybara'
+gem 'poltergeist'
+gem 'phantomjs', require: 'phantomjs/poltergeist'
+gem 'launchy'
 
 group :development, :test do
   gem 'pry-byebug'
