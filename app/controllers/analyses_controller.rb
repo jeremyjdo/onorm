@@ -39,11 +39,11 @@ class AnalysesController < ApplicationController
   end
 
   def cookie_system_check(analysis)
-    cookie_checker = cookieService.new
-    cookies = cookie_checker.cookie_list
+    cookie_checker = CookieService.new
     @cookie_system = CookieSystem.new
-    cookie_list != {} ? @cookie_system.cookie_usage = true : @cookie_system.cookie_usage = false
-    cookie_banner? ? @cookie_system.cookie_user_agreement = true : @cookie_system.cookie_user_agreement = false
+    @cookie_system.analysis = @analysis
+    cookie_checker.cookie_list(analysis.website_url) != {} ? @cookie_system.cookie_usage = true : @cookie_system.cookie_usage = false
+    cookie_checker.cookie_banner?(analysis.website_url) ? @cookie_system.cookie_user_agreement = true : @cookie_system.cookie_user_agreement = false
     @cookie_system.save!
   end
 end

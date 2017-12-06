@@ -34,7 +34,7 @@ class CookieService
   end
 
   def cookie_banner?(url)
-    has_banner = false
+    # has_banner = false
     init_capybara
 
     @browser = Capybara.current_session
@@ -48,15 +48,15 @@ class CookieService
     raw_data = browser.first('div', text:'cookie')
 
     # p raw_data
+    return !raw_data.nil?
 
+    # if !raw_data.nil?
+    #   # prints the content of the banner text, with a bit more if the div is large
+    #   # p raw_data.text
+    #   has_banner = true
+    # end
 
-    if !raw_data.nil?
-      # prints the content of the banner text, with a bit more if the div is large
-      # p raw_data.text
-      has_banner = true
-    end
-
-    return has_banner
+    # return has_banner
   end
 
   # test sur plusieurs sites

@@ -1,7 +1,4 @@
-<!-- <p><%= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p> -->
-<!-- <p><%= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p> -->
-<!-- <p><%= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p> -->
-<!-- <p><%= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p> -->
+
 
 <div class="content padding-top-navbar">
   <div class="banner-analyses" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%);">
@@ -10,18 +7,22 @@
         <div class="col-xs-12 col-md-6">
           <div class="card">
             <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
+              <p><%= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p>
             </div>
           </div>
           <div class="card">
             <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
+              <p><%= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
             </div>
           </div>
           <div class="card">
             <div class="orange score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
+              <p><%= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p>
             </div>
           </div>
           <div class="card">
             <div class="green score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
+              <p><%= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p>
             </div>
           </div>
         </div>
