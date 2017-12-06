@@ -23,6 +23,15 @@ class CookieService
     return cookies
   end
 
+  def cookie_list(url)
+    cookie_l = {}
+    presence(url).split("; ").each do |c|
+      a = c.split("=")
+      cookie_l[a[0].to_sym] = a[1]
+    end
+    # returns a hash of cookies
+    return cookie_l
+  end
 
   private
 
