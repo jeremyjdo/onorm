@@ -1,2 +1,7 @@
 <h1>Analyses#show</h1>
 <p>Find me in app/views/analyses/show.html.erb</p>
+
+<p><%= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p>
+<p><%= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
+<p><%= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p>
+<p><%= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p>
