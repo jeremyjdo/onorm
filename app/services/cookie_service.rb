@@ -1,6 +1,49 @@
+
 class CookieService
-  def initialize
-    reponse = RestClient.get 'https://www.doctrine.fr'
-    cookies = reponse.cookies
+
+  private
+
+  attr_reader :url, :browser
+
+  public
+
+  def presence(url)
+    init_capybara
+
+    @browser = Capybara.current_session
+
+    # To get the desktop version for the scraped page, in order to get access
+    # to the flat booking form
+    @browser.driver.resize(3072, 2304)
+
+    @browser.visit(url)
+
+    cookies = @browser.evaluate_script("document.cookie")
+
+    return cookies
+  end
+
+
+  private
+
+  def init_capybara
+    require 'capybara/poltergeist'
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path, js_errors: false)
+    end
+
+    Capybara.default_driver = :poltergeist
+
+    # To debug with a real browser, if needed
+    # Capybara.register_driver :selenium do |app|
+    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
+    # end
+
+    # Capybara.javascript_driver = :chrome
+
+    # Capybara.configure do |config|
+    #   config.default_max_wait_time = 10 # seconds
+    #   config.default_driver        = :selenium
+    # end
   end
 end
