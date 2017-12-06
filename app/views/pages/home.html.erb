@@ -9,6 +9,15 @@
               <%=image_tag("logo.png", alt: "Onorm")%>
               </div>
               <h4>L'assistant juridique intelligent de votre MVP</h4>
+
+              <div class="wrapper">
+                <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+                  <div class=''>
+                    <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' } %>
+                    <%= f.submit "", class: "submit" %>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
       </div>
