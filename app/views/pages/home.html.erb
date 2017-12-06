@@ -10,14 +10,6 @@
               </div>
               <h4>L'assistant juridique intelligent de votre MVP</h4>
 
-              <div class="wrapper">
-                <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
-                  <div class=''>
-                    <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' } %>
-                    <%= f.submit "", class: "submit" %>
-                  </div>
-                <% end %>
-              </div>
             </div>
           </div>
       </div>
@@ -29,8 +21,12 @@
     <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
     <br>
     <div class="wrapper">
-      <input class="search" type="text" id="search" />
-      <input class="submit" type="submit" value=" " />
+      <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+        <div class=''>
+          <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' } %>
+          <%= f.submit "", class: "submit" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
