@@ -27,8 +27,8 @@
 }
 
 .round {
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   border-radius: 50%;
   background-size: cover;
   color: white;
@@ -118,12 +118,12 @@ div#sidebarAd.cleanslate .ad-sponsor {
   -webkit-animation-iteration-count: infinite;
 }
 
-.green.score { -webkit-animation-name: greenPulse; -webkit-animation-duration: 3s; }
-.blue.score { -webkit-animation-name: bluePulse; -webkit-animation-duration: 3s; }
-.red.score { -webkit-animation-name: redPulse; -webkit-animation-duration: 3s; }
-.magenta.score { -webkit-animation-name: magentaPulse; -webkit-animation-duration: 3s; }
-.orange.score { -webkit-animation-name: orangePulse; -webkit-animation-duration: 3s; }
-.orangellow.score { -webkit-animation-name: orangellowPulse; -webkit-animation-duration: 3s; }
+.green.score { -webkit-animation-name: greenPulse; -webkit-animation-duration: 2s; }
+.blue.score { -webkit-animation-name: bluePulse; -webkit-animation-duration: 2s; }
+.red.score { -webkit-animation-name: redPulse; -webkit-animation-duration: 2s; }
+.magenta.score { -webkit-animation-name: magentaPulse; -webkit-animation-duration: 2s; }
+.orange.score { -webkit-animation-name: orangePulse; -webkit-animation-duration: 2s; }
+.orangellow.score { -webkit-animation-name: orangellowPulse; -webkit-animation-duration: 2s; }
 
 .wall-of-scores { text-align: center; margin-top: 2em; margin-bottom: 2em; }
 
