@@ -14,17 +14,12 @@
                 <%#= text_field_tag(:website_url) %>
                 <%# submit_tag("") %>
 
-                <%= simple_form_for @analysis do |f| %>
+                <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
                   <div class=''>
-                    <%= f.input :website_url, class: "search", id: "search" %>
-                    <%= f.submit class: "submit", value: "" %>
+                    <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' } %>
+                    <%= f.submit "", class: "submit" %>
                   </div>
                 <% end %>
-
-                <form action: %>>
-                  <input class="search" type="text" id="search" />
-                  <input class="submit" type="submit" value="" />
-                </form>
               </div>
             </div>
           </div>
