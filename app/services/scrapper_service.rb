@@ -31,6 +31,9 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     @identification_address_presence = false
     @identification_address_text  = ""
 
+# INSTANCE VARIABLE FOR IDENTIFICATION -> SOCIAL CAPITAL
+    @identification_capital_presence = false
+    @identification_capital_text  = ""
   end
 
   def presence(url)
@@ -60,12 +63,15 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
 
     identification_legal_form(html_doc)
     identification_address(html_doc)
+    identification_capital(html_doc)
 
     puts @identification_company_name_presence
     puts @identification_legal_form_presence
     puts @identification_legal_form_text
     puts @identification_address_presence
     puts @identification_address_text
+    puts @identification_capital_presence
+    puts @identification_capital_text
   end
 
   private
@@ -92,6 +98,15 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
         @identification_address_text  = raw_target.to_s
         @identification_address_presence = true
       end
+    end
+  end
+
+  def identification_capital(html_doc)
+    raw_target = html_doc.search("body").text.match(/^.*\bcapital\b.*$/i)
+
+    if raw_target
+      @identification_capital_text  = raw_target.to_s
+      @identification_capital_presence = true
     end
   end
 
