@@ -23,11 +23,13 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     @identification_legal_form_text = ""
 
 # INSTANCE VARIABLE FOR IDENTIFICATION -> COMPANY_NAME
-    #annotation : For the moment, we don't grab the company name - if legal form is present, we extrapolate and we suppose the company name is also present (just before legal form)
+    #annotation : For the moment, we don't grab the company name - if legal form is present, we extrapolate and we suppose the company name is also present (just before legal form). To obtain it, we could alter the regex
     @identification_company_name_presence = false
     @identification_company_name_text = ""
 
-# INSTANCE VARIABLE FOR IDENTIFICATION -> COMPANY_NAME
+# INSTANCE VARIABLE FOR IDENTIFICATION -> LEGAL ADDRESS
+    @identification_address_presence = false
+    @identification_address_text  = ""
 
   end
 
@@ -57,24 +59,39 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     html_doc = Nokogiri::HTML(html_file)
 
     identification_legal_form(html_doc)
+    identification_address(html_doc)
 
     puts @identification_company_name_presence
     puts @identification_legal_form_presence
     puts @identification_legal_form_text
+    puts @identification_address_presence
+    puts @identification_address_text
   end
 
   private
 
   def identification_legal_form(html_doc)
-    #IMPROVEMENT - IF NOTHING FOUND, SEARCH ON THE NON_ACRONYME VERSION => Ex : société par actions simplifiée
+    #FUTURE IMPROVEMENT - IF NOTHING FOUND, SEARCH ON THE NON_ACRONYME VERSION => Ex : société par actions simplifiée
     #ANNOTATION = Match if we just want the first occurence, scan if we want all the occurence
-    #ANNOTATION = We can grab the full sentence by altering the regex code
+    #ANNOTATION = We can grab the full sentence by altering the regex code => ^.*\bSAS\b.*$
     raw_target = html_doc.search("body").text.match(/\b(SA|SAS|SARL|SASU|EI|EIRL|EURL|EARL|GAEC|GEIE|GIE|SASU|SC|SCA|SCI|SCIC|SCM|SCOP|SCP|SCS|SEL|SELAFA|SELARL|SELAS|SELCA|SEM|SEML|SEP|SICA|SNC)\b/)
     if raw_target
-      @identification_legal_form_text  = raw_target
+      @identification_legal_form_text  = raw_target.to_s
       @identification_legal_form_presence = true
 
       @identification_company_name_presence = true
+    end
+  end
+
+  def identification_address(html_doc)
+    #ANNOTATION - All possible entry point for regex => http://www.cohesion-territoires.gouv.fr/IMG/pdf/annexe_14-11-25_abreviations_des_noms_de_voie_def.pdf
+    raw_target = html_doc.search("body").text.match(/^.*\b(allée|autoroute|avenue|boulevard|butte|carrefour|centre commercial|chaussée|chemin|cité|domaine|faubourg|galerie|gare|impasse|lieu-dit|lotissement|maison|mont|parc|parvis|passage|pavillon|place|pont|quai|quartier|résidence|rond-point|route|rue|ruelle|sentier|square|villa|voie|zone industrielle)\b.*$/i)
+
+    if raw_target
+      unless raw_target.to_s.match(/\bBP\b/) #if it's a postal box, it's not okay
+        @identification_address_text  = raw_target.to_s
+        @identification_address_presence = true
+      end
     end
   end
 
