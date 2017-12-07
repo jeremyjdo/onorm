@@ -147,13 +147,12 @@ button.accordion {
   background-position: center;
   color: white;
   position: relative;
-  border: 5px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 button.accordion.active {
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
@@ -165,10 +164,9 @@ div.panel {
   padding: 0 18px;
   background-color: white;
   display: none;
-  width: 600px;
   padding-top: 15px;
   padding-left: 15px;
-  height: 100px;
+  height: 300px;
   width: 600px;
   background-size: cover !important;
   background-position: center;
@@ -176,5 +174,58 @@ div.panel {
   position: relative;
   border: 5px;
   border-radius: 10px;
+  text-align: left;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion-medal {
+  cursor: pointer;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  background-size: cover !important;
+  background-position: center;
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+button.accordion-medal.active {
+  margin-bottom: 10px;
+}
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion-medal.active, button.accordion:hover {
+  background-color: #4e978c;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel-medal {
+  background-color: white;
+  height: 100px;
+  margin: auto;
+  color: black;
+  position: relative;
+  border: 5px;
+  border-radius: 10px;
+  width: 400px;
+  cursor: pointer;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  background-size: cover !important;
+  background-position: center;
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
