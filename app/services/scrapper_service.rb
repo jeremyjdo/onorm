@@ -71,13 +71,13 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
       target_url = target.attribute('href').value
       target_url = url + target_url if target_url.first == "/"
       if @cgvu_wording_library.include?(wording)
-           @cgvu_url = target_url
+          puts @cgvu_url = target_url
       elsif @identification_wording_library.include?(wording)
-           @identification_url = target_url
+          puts @identification_url = target_url
       elsif @cookie_system_wording_library.include?(wording)
-           @cookie_system_url = target_url
+          puts @cookie_system_url = target_url
       elsif @data_privacy_wording_library.include?(wording)
-           @data_privacy_url = target_url
+          puts @data_privacy_url = target_url
       end
     end
   end
@@ -97,29 +97,31 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     identification_publication_director(html_doc)
     identification_host(html_doc)
 
-    identification_scorer
+    # identification_scorer
+
+
   # TESTER => Uncomment and run identification in a Sandbox to test
-    # puts @identification_company_name_presence
-    # puts @identification_legal_form_presence
-    # puts @identification_legal_form_text
-    # puts @identification_address_presence
-    # puts @identification_address_text
-    # puts @identification_capital_presence
-    # puts @identification_capital_text
-    # puts @identification_email_presence
-    # puts @identification_email_text
-    # puts @identification_phone_presence
-    # puts @identification_phone_text
-    # puts @identification_rcs_presence
-    # puts @identification_rcs_text
-    # puts @identification_tva_presence
-    # puts @identification_tva_text
-    # puts @identification_publication_director_presence
-    # puts @identification_publication_director_text
-    # puts @identification_host_name_presence
-    # puts @identification_host_address_presence
-    # puts @identification_host_phone_presence
-    # puts @identification_host_text
+    puts @identification_company_name_presence
+    puts @identification_legal_form_presence
+    puts @identification_legal_form_text
+    puts @identification_address_presence
+    puts @identification_address_text
+    puts @identification_capital_presence
+    puts @identification_capital_text
+    puts @identification_email_presence
+    puts @identification_email_text
+    puts @identification_phone_presence
+    puts @identification_phone_text
+    puts @identification_rcs_presence
+    puts @identification_rcs_text
+    puts @identification_tva_presence
+    puts @identification_tva_text
+    puts @identification_publication_director_presence
+    puts @identification_publication_director_text
+    puts @identification_host_name_presence
+    puts @identification_host_address_presence
+    puts @identification_host_phone_presence
+    puts @identification_host_text
   end
 
   private
@@ -231,7 +233,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     end
   end
 
-  def identification_scorer
+  # def identification_scorer
 
-  end
+  # end
 end
