@@ -13,19 +13,22 @@ class AnalysesController < ApplicationController
 
   def create
     @analysis = Analysis.new(analysis_params)
-    scrapper = ScrapperService.new
+    presence_service = PresenceService.new(@analysis)
 
-    #Scraps URL
-    scrapper.presence(@analysis.website_url)
-    @analysis.cgvu_url = scrapper.cgvu_url
-    @analysis.identification_url = scrapper.identification_url
-    @analysis.data_privacy_url = scrapper.data_privacy_url
-    @analysis.cookie_system_url = scrapper.cookie_system_url
+    presence_service.call
 
+  #Checks if cookies are present
+    cookie_system_check(@analysis)
+
+  #Run Identification Analysis if identification_url is present
+    if @analysis.identification_url != ""
+      identification_service = IdentificationService.new(@analysis)
+      identification_service.call
+    end
+
+
+  #Final checkup
     if @analysis.save!
-      #Checks if cookies are present
-      cookie_system_check(@analysis)
-
       redirect_to analysis_path(@analysis)
     else
       render "root"
