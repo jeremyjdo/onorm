@@ -9,7 +9,7 @@ class IdentificationService
     @analysis = analysis
 
     # INSTANCE VARIABLE FOR IDENTIFICATION -> SCORE
-        @identification_score = 0
+        @identification_score = 0.to_f
 
     # INSTANCE VARIABLE FOR IDENTIFICATION -> LEGAL_FORM
         @identification_legal_form_presence = false
@@ -70,7 +70,7 @@ class IdentificationService
     identification_publication_director(html_doc)
     identification_host(html_doc)
 
-    #identification_scorer
+    identification_scorer
 
     identification_generator
   end
@@ -185,6 +185,35 @@ class IdentificationService
   end
 
   def identification_scorer
+    # Score is computed to return a float between 0 and 1
+    # [factor, coefficient for ponderation] => Just Change integers to alter coefficient
+    scorer_table = [
+      [@identification_company_name_presence,1],
+      [@identification_legal_form_presence,1],
+      [@identification_address_presence,1],
+      [@identification_capital_presence,1],
+      [@identification_email_presence,1],
+      [@identification_phone_presence,1],
+      [@identification_rcs_presence,1],
+      [@identification_tva_presence,1],
+      [@identification_publication_director_presence,1],
+      [@identification_host_name_presence,1],
+      [@identification_host_address_presence,1],
+      [@identification_host_phone_presence,1]
+    ]
+
+    total_points = 0
+    maximum_points = 0
+
+    scorer_table.each do |factor_and_coeff|
+      if factor_and_coeff[0] == true
+        total_points = total_points + factor_and_coeff[1]
+      end
+      maximum_points = maximum_points + factor_and_coeff[1]
+    end
+    if total_points != 0
+      @identification_score = total_points.to_f / maximum_points.to_f
+    end
   end
 
   def identification_generator
