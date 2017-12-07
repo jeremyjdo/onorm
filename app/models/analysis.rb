@@ -1,5 +1,6 @@
 class Analysis < ApplicationRecord
   belongs_to :user, optional: true
+  validates :website_url, presence: true, website_url: true
   has_one :cgvu
   has_one :cookie_system
   has_one :data_privacy

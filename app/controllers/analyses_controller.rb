@@ -7,32 +7,27 @@ class AnalysesController < ApplicationController
   end
 
   # Home joue le rôle de new
-  def new
-
-  end
+  # def new
+  # end
 
   def create
     @analysis = Analysis.new(analysis_params)
+    if @analysis.save
+        presence_service = PresenceService.new(@analysis)
+        presence_service.call
 
-    presence_service = PresenceService.new(@analysis)
-    presence_service.call
+      #Checks if cookies are present
+        cookie_service = CookieService.new(@analysis)
+        cookie_service.call
 
-  #Checks if cookies are present
-    cookie_service = CookieService.new(@analysis)
-    cookie_service.call
-
-  #Run Identification Analysis if identification_url is present
-    if @analysis.identification_url != ""
-      identification_service = IdentificationService.new(@analysis)
-      identification_service.call
-    end
-
-
-  #Final checkup
-    if @analysis.save!
-      redirect_to analysis_path(@analysis)
+      #Run Identification Analysis if identification_url is present
+        if @analysis.identification_url != ""
+          identification_service = IdentificationService.new(@analysis)
+          identification_service.call
+        end
+          redirect_to analysis_path(@analysis)
     else
-      render "root"
+      render 'pages/home'
     end
   end
 
