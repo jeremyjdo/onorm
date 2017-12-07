@@ -4,7 +4,7 @@ require 'json'
 
 class CognitiveService
 
-  def cognitive_text_analysis(text)
+  def text_analysis(text)
     uri = 'https://westeurope.api.cognitive.microsoft.com/'
     path = '/text/analytics/v2.0/keyPhrases'
     uri = URI(uri + path)
@@ -26,7 +26,7 @@ class CognitiveService
     puts JSON::pretty_generate (JSON (response.body))
   end
 
-  def cognitive_luis(text)
+  def luis(text)
     host = 'https://westeurope.api.cognitive.microsoft.com/'
     appId = ENV["COGNITIVE_LUIS_APPID_KEY"]
     subscriptionKey = ENV["COGNITIVE_LUIS_SUBSCRIPTION_KEY"]
