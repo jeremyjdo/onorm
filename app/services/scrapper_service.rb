@@ -97,7 +97,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     identification_publication_director(html_doc)
     identification_host(html_doc)
 
-    # identification_scorer
+
 
 
   # TESTER => Uncomment and run identification in a Sandbox to test
@@ -218,8 +218,8 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
   end
 
   def identification_host_address(raw_host)
-    raw_target = raw_host.to_s.match(/^\b(allée|autoroute|avenue|boulevard|butte|carrefour|centre commercial|chaussée|chemin|cité|domaine|faubourg|galerie|gare|impasse|lieu-dit|lotissement|maison|mont|parc|parvis|passage|pavillon|place|pont|quai|quartier|résidence|rond-point|route|rue|ruelle|sentier|square|villa|voie|zone industrielle)\b.*$/i)
-
+    raw_target = raw_host.to_s.match(/^.*\b(allée|autoroute|avenue|boulevard|butte|carrefour|centre commercial|chaussée|chemin|cité|domaine|faubourg|galerie|gare|impasse|lieu-dit|lotissement|maison|mont|parc|parvis|passage|pavillon|place|pont|quai|quartier|résidence|rond-point|route|rue|ruelle|sentier|square|villa|voie|zone industrielle)\b.*$/i)
+    binding.pry
     if raw_target
       @identification_host_address_presence = true
     end
