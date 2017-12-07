@@ -3,7 +3,7 @@ require 'nokogiri'
 
 class IdentificationService
 
-attr_accessor :identification_address_presence, :identification_address_text, :identification_capital_presence, :identification_capital_text, :identification_legal_form_presence, :identification_legal_form_text, :identification_company_name_presence, :identification_host_text, :identification_host_name_presence, :identification_host_address_presence, :identification_host_phone_presence, :identification_rcs_presence, :identification_rcs_text, :identification_tva_presence, :identification_tva_text, :identification_publication_director_presence, :identification_publication_director_text, :identification_email_presence, :identification_email_text, :identification_phone_presence, :identification_phone_text
+#attr_accessor :identification_address_presence, :identification_address_text, :identification_capital_presence, :identification_capital_text, :identification_legal_form_presence, :identification_legal_form_text, :identification_company_name_presence, :identification_host_text, :identification_host_name_presence, :identification_host_address_presence, :identification_host_phone_presence, :identification_rcs_presence, :identification_rcs_text, :identification_tva_presence, :identification_tva_text, :identification_publication_director_presence, :identification_publication_director_text, :identification_email_presence, :identification_email_text, :identification_phone_presence, :identification_phone_text
 
   def initialize(analysis)
     @analysis = analysis
