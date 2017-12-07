@@ -13,8 +13,8 @@ class AnalysesController < ApplicationController
 
   def create
     @analysis = Analysis.new(analysis_params)
-    presence_service = PresenceService.new(@analysis)
 
+    presence_service = PresenceService.new(@analysis)
     presence_service.call
 
   #Checks if cookies are present
