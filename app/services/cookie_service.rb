@@ -11,13 +11,14 @@ class CookieService
     @cookies_list = {}
     @cookie_usage = false
     @cookie_user_agreement = false
+    @cookie_score = 0.to_f
   end
 
   def call
     cookie_list
     cookie_banner?
 
-    #cookie_system_scorer
+    cookie_system_scorer
     cookie_system_generator
   end
 
@@ -60,12 +61,23 @@ class CookieService
     end
   end
 
+  def cookie_system_scorer
+    if @cookie_usage
+      if @cookie_user_agreement && @analysis.cookie_system_url != ""
+        @cookie_score = 1.to_f
+      elsif @cookie_user_agreement || @analysis.cookie_system_url != ""
+        @cookie_score = 0.5.to_f
+      end
+    end
+  end
   def cookie_system_generator
     @cookie_system = CookieSystem.new
 
     @cookie_system.cookie_usage = @cookie_usage
 
     @cookie_system.cookie_user_agreement = @cookie_user_agreement
+
+    @cookie_system.score = @cookie_score
 
     @cookie_system.analysis = @analysis
 
