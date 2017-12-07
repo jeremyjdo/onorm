@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204144317) do
+ActiveRecord::Schema.define(version: 20171207101938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,27 @@ ActiveRecord::Schema.define(version: 20171204144317) do
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "company_name_presence"
+    t.boolean "legal_form_presence"
+    t.text "legal_form_text"
+    t.boolean "address_presence"
+    t.text "address_text"
+    t.boolean "capital_presence"
+    t.text "capital_text"
+    t.boolean "email_presence"
+    t.text "email_text"
+    t.boolean "phone_presence"
+    t.text "phone_text"
+    t.boolean "publication_director_presence"
+    t.text "publication_director_text"
+    t.boolean "rcs_presence"
+    t.text "rcs_text"
+    t.boolean "tva_presence"
+    t.text "tva_text"
+    t.boolean "host_name_presence"
+    t.boolean "host_address_presence"
+    t.boolean "host_phone_presence"
+    t.text "host_text"
     t.index ["analysis_id"], name: "index_identifications_on_analysis_id"
   end
 
