@@ -7,28 +7,19 @@ class WebsiteUrlValidator < ActiveModel::EachValidator
     false
   end
 
-  # def self.exist?(value)
-  #   code = RestClient.get(value).code
-  # end
+  def self.exist?(value)
+    code = RestClient.get('http://example.com/resource')
+  rescue
+    false
+  end
 
   def validate_each(record, attribute, value)
-    unless value.present? && self.class.compliant?(value)
-      record.errors.add(attribute, "Vous devez entrer une adresse HTTP valide")
+    if value.present? && self.class.compliant?(value)
+      unless self.class.exist?(value)
+        record.errors.add(attribute, "L'adresse entrée semble inaccessible")
+      end
+    else
+      record.errors.add(attribute, "Vous devez entrer une adresse URL valide")
     end
   end
 end
-
-  # def valid_url?(url)
-  #   uri = URI.parse(url)
-  #   # Modif HTTP et HTTPS
-  #   (uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS) && !uri.host.nil?
-
-  #   # Socket ERROR ? http:s//!!!!!!!!!!!.com
-  #   rescue URI::InvalidURIError || # Socket Error
-  #   # doc simple form
-  #   # error.add 'not valid'
-  #     false
-  # end
-
-  # # réponse HTTP autre que 200
-  # # 301

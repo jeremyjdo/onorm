@@ -27,8 +27,8 @@ body { padding-top: 0em; }
       <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
         <div class=''>
           <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' }, placeholder: 'http://www.domain.com' %>
-          <%= f.error :website_url, id: "url-search-error" %>
           <%= f.submit "", class: "submit" %>
+          <%= f.error :website_url, id: "url-search-error" %>
         </div>
       <% end %>
     </div>
