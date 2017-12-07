@@ -1,4 +1,3 @@
-
 class CookieService
 
   private
@@ -7,34 +6,40 @@ class CookieService
 
   public
 
-  def presence(url)
-    init_capybara
-
-    @browser = Capybara.current_session
-
-    # To get the desktop version for the scraped page, in order to get access
-    # to the flat booking form
-    @browser.driver.resize(3072, 2304)
-
-    @browser.visit(url)
-
-    cookies = @browser.evaluate_script("document.cookie")
-
-    return cookies
+  def initialize(analysis)
+    @analysis = analysis
+    @cookies_list = {}
+    @cookie_usage = false
+    @cookie_user_agreement = false
   end
 
-  def cookie_list(url)
+  def call
+    cookie_list
+    cookie_banner?
+
+    #cookie_system_scorer
+    cookie_system_generator
+  end
+
+  def cookie_list
+    url = @analysis.website_url
     cookie_l = {}
     presence(url).split("; ").each do |c|
       a = c.split("=")
       cookie_l[a[0].to_sym] = a[1]
     end
-    # returns a hash of cookies
-    return cookie_l
+
+    if cookie_l != {}
+      @cookie_usage = true
+      @cookies_list = cookie_l
+    else
+      @cookie_usage = false
+    end
   end
 
-  def cookie_banner?(url)
+  def cookie_banner?
     # has_banner = false
+    url = @analysis.website_url
     init_capybara
 
     @browser = Capybara.current_session
@@ -47,43 +52,64 @@ class CookieService
 
     raw_data = browser.first('div', text:'cookie')
 
-    # p raw_data
-    return !raw_data.nil?
-
-    # if !raw_data.nil?
-    #   # prints the content of the banner text, with a bit more if the div is large
-    #   # p raw_data.text
-    #   has_banner = true
-    # end
-
-    # return has_banner
+    # returns true if site has banner
+    if !raw_data.nil?
+      @cookie_user_agreement = true
+    else
+      @cookie_user_agreement = false
+    end
   end
 
-  # test sur plusieurs sites
-  def cookie_test
-    puts ""
-    puts "TEST Blizzard : True"
-    puts cookie_banner?('https://www.blizzard.com/fr-fr/')
+  def cookie_system_generator
+    @cookie_system = CookieSystem.new
 
-    puts ""
-    puts "TEST Parlement Euro : True"
-    puts cookie_banner?('http://www.europarl.europa.eu/portal/fr')
+    @cookie_system.cookie_usage = @cookie_usage
 
-    puts ""
-    puts "Test Fnac : True"
-    puts cookie_banner?('https://www.fnac.com/')
+    @cookie_system.cookie_user_agreement = @cookie_user_agreement
 
-    puts ""
-    puts "TNW : True"
-    puts cookie_banner?('https://thenextweb.com/')
+    @cookie_system.analysis = @analysis
 
-    puts ""
-    puts "Doctrine : False"
-    puts cookie_banner?('https://doctrine.fr/')
+    @cookie_system.save!
   end
+
+  # # test sur plusieurs sites
+  # def cookie_test
+  #   puts ""
+  #   puts "TEST Blizzard : True"
+  #   puts cookie_banner?('https://www.blizzard.com/fr-fr/')
+
+  #   puts ""
+  #   puts "TEST Parlement Euro : True"
+  #   puts cookie_banner?('http://www.europarl.europa.eu/portal/fr')
+
+  #   puts ""
+  #   puts "Test Fnac : True"
+  #   puts cookie_banner?('https://www.fnac.com/')
+
+  #   puts ""
+  #   puts "TNW : True"
+  #   puts cookie_banner?('https://thenextweb.com/')
+
+  #   puts ""
+  #   puts "Doctrine : False"
+  #   puts cookie_banner?('https://doctrine.fr/')
+  # end
 
 
   private
+
+  def presence(url)
+    init_capybara
+    @browser = Capybara.current_session
+
+    # To get the desktop version for the scraped page, in order to get access
+    # to the flat booking form
+    @browser.driver.resize(3072, 2304)
+    @browser.visit(url)
+
+    cookies = @browser.evaluate_script("document.cookie")
+    return cookies
+  end
 
   def init_capybara
     require 'capybara/poltergeist'
