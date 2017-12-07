@@ -10,11 +10,3 @@ $(document).ready(function() {
           $(this).next().slideToggle(400);
      });
 });
-
-$(document).ready(function() {
-     $(".accordion-medal-desc").fadeOut(0);
-     $(".accordion-medal").click(function() {
-          $(".accordion-medal-desc").not($(this).next()).slideUp('fast');
-          $(this).next().slideToggle(400);
-     });
-});
