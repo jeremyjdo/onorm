@@ -1,7 +1,4 @@
-<!-- <p><%= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p> -->
-<!-- <p><%= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p> -->
-<!-- <p><%= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p> -->
-<!-- <p><%= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p> -->
+
 
 <div class="content padding-top-navbar">
   <div class="banner-analyses" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%);">
@@ -14,28 +11,46 @@
           </div>
           </button>
           <div class="panel">
-            <p>Lorem ipsum...</p>
+<!--               <p><%#= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p>
+ -->            <p>Lorem ipsum...</p>
           </div>
           <button class="accordion">
           <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">Section 1
           </div>
           </button>
           <div class="panel">
-            <p>Lorem ipsum...</p>
+<!--               <p><%#= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
+ -->            <p>Lorem ipsum...</p>
           </div>
           <button class="accordion">
           <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">Section 1
           </div>
           </button>
           <div class="panel">
-            <p>Lorem ipsum...</p>
+<!--               <p><%#= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p>
+ -->            <p>Lorem ipsum...</p>
           </div>
           <button class="accordion">
           <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">Section 1
+             <%  a = @analysis.cookie_system.cookie_usage
+                  b = @analysis.cookie_system.cookie_user_agreement
+
+                  # banner but cookies without consent
+                  cookie_score = "5/10" if a && b
+                  # banner and no cookies without consent
+                  cookie_score = "10/10" if !a && b
+                  # no banner and cookies without consent
+                  cookie_score = "0/10" if a && !b
+                  # no banner and no cookies without consent
+                  cookie_score = "10/10" if !a && !b
+               %>
+
+              <p> <%= cookie_score %></p>
           </div>
           </button>
           <div class="panel">
-            <p>Lorem ipsum...</p>
+<!--               <p><%#= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p>
+ -->            <p>Lorem ipsum...</p>
           </div>
         </div>
         <div class="col-md-6">
