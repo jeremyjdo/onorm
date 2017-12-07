@@ -7,28 +7,32 @@ class AnalysesController < ApplicationController
   end
 
   # Home joue le rôle de new
-  def new
-
-  end
+  # def new
+  # end
 
   def create
     @analysis = Analysis.new(analysis_params)
-    scrapper = ScrapperService.new
+    if @analysis.save
 
-    #Scraps URL
-    scrapper.presence(@analysis.website_url)
-    @analysis.cgvu_url = scrapper.cgvu_url
-    @analysis.identification_url = scrapper.identification_url
-    @analysis.data_privacy_url = scrapper.data_privacy_url
-    @analysis.cookie_system_url = scrapper.cookie_system_url
+      scrapper = ScrapperService.new
 
-    if @analysis.save!
-      #Checks if cookies are present
-      cookie_system_check(@analysis)
+      #Scraps URL
+      scrapper.presence(@analysis.website_url)
+      @analysis.cgvu_url = scrapper.cgvu_url
+      @analysis.identification_url = scrapper.identification_url
+      @analysis.data_privacy_url = scrapper.data_privacy_url
+      @analysis.cookie_system_url = scrapper.cookie_system_url
 
-      redirect_to analysis_path(@analysis)
+      if @analysis.save!
+        #Checks if cookies are present
+        cookie_system_check(@analysis)
+
+        redirect_to analysis_path(@analysis)
+      else
+        render 'pages/home'
+      end
     else
-      render "root"
+      render 'pages/home'
     end
   end
 
