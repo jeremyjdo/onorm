@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207101938) do
+ActiveRecord::Schema.define(version: 20171207161410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20171207101938) do
     t.boolean "cookie_user_agreement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "score"
     t.index ["analysis_id"], name: "index_cookie_systems_on_analysis_id"
   end
 
@@ -55,7 +56,7 @@ ActiveRecord::Schema.define(version: 20171207101938) do
 
   create_table "identifications", force: :cascade do |t|
     t.bigint "analysis_id"
-    t.integer "score"
+    t.float "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "company_name_presence"
