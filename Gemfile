@@ -23,6 +23,7 @@ gem 'capybara'
 gem 'poltergeist'
 gem 'phantomjs', require: 'phantomjs/poltergeist'
 gem 'launchy'
+gem 'show_me_the_cookies'
 
 group :development, :test do
   gem 'pry-byebug'

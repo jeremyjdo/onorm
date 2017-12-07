@@ -7,10 +7,11 @@
   background-color: white;
   line-height: 1.5em;
   display: flex;
+  bottom: 0;
   color: #000;
   font-family: 'Raleway', sans-serif;
-
 }
+
 .footer-links {
   display: flex;
   align-items: center;
@@ -32,7 +33,7 @@
 .footer-container {
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 70px;
+  padding-bottom: 30px;
   width: 1002px;
   max-width: 95%;
 }
