@@ -7,6 +7,10 @@ class WebsiteUrlValidator < ActiveModel::EachValidator
     false
   end
 
+  # def self.exist?(value)
+  #   code = RestClient.get(value).code
+  # end
+
   def validate_each(record, attribute, value)
     unless value.present? && self.class.compliant?(value)
       record.errors.add(attribute, "Vous devez entrer une adresse HTTP valide")
