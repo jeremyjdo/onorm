@@ -3,6 +3,8 @@
 <head>
   <title>The page you were looking for doesn't exist (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <style>
   body{
     margin: 0px !important;
@@ -28,7 +30,59 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
   }
+
+  h1 {
+    font-size: 190px;
+    color: white;
+    margin: auto;
+    text-shadow: 2px 2px grey;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  p {
+    font-size: 40px;
+    text-align: center;
+    color: #5f6265;
+    font-family: 'Raleway', sans-serif;
+    padding: 0 50px;
+  }
+
+  .comeback {
+    font-size: 1.6rem;
+    color: #33b288;
+    line-height: normal;
+    border: 1px solid #33b288;
+    padding: 2rem 6rem;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 1rem 3rem;
+    width: 20%;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    background-color: white;
+
+    transition: all 1s ease 0s;
+    z-index: -1;
+  }
+
+  .comeback:hover {
+    background-color: #33b288;
+    /*transform: translateX(0%) translateY(0%);*/
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    color: #33b288;
+
+  }
+
+  .comeback:hover  a {
+      color: white;
+    }
 
   </style>
 
@@ -40,15 +94,16 @@
   <!-- This file lives in public/404.html -->
       <div class="dialog">
         <div>
-          <h1>The page you were looking for doesn't exist.</h1>
+          <h1>404</h1>
           <div class="image-container">
               <img src="../images/green-medal.png" alt="404">
           </div>
-
-          <p>You may have mistyped the address or the page may have moved.</p>
-
+          <p>Contrairement à nos mentions légales,<br> la page que vous cherchez n'existe pas.</p>
         </div>
-        <p>If you are the application owner check the logs for more information.</p>
+
+        <div class="comeback">
+          <a href="/" title="Accéder à l'accueil">Revenir à l'accueil</a>
+        </div>
       </div>
 </body>
 </html>
