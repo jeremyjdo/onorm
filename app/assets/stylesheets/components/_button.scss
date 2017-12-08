@@ -129,8 +129,7 @@ div#sidebarAd.cleanslate .ad-sponsor {
 
 /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
-  background-color: #a0ddb7;
-  color: #444;
+  background-color: #5f6265;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -142,7 +141,6 @@ button.accordion {
   padding-left: 15px;
   height: 100px;
   width: 600px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
   background-size: cover !important;
   background-position: center;
   color: white;
@@ -156,7 +154,7 @@ button.accordion.active {
 }
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
-  background-color: #4e978c;
+  background-color: #5f6265;
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -166,7 +164,7 @@ div.panel {
   display: none;
   padding-top: 15px;
   padding-left: 15px;
-  height: 300px;
+  height: 550px;
   width: 600px;
   background-size: cover !important;
   background-position: center;
@@ -175,6 +173,9 @@ div.panel {
   border: 5px;
   border-radius: 10px;
   text-align: left;
+  p {
+    font-size: 90%;
+  }
 }
 
 /* Style the buttons that are used to open and close the accordion panel */
