@@ -104,7 +104,7 @@
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
                 Numéro de téléphone de l'hébergeur</p>
-              <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+              <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Pour en savoir plus</a></i></small></p>
             <% else %>
               <p> Il semblerait que votre site internet ne possède pas de Mentions Légales</p>
             <% end %>
@@ -177,18 +177,23 @@
                       <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies</p>
                      <% else  %>
                       <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas informer de manière suffisante sur l'usage de vos cookies</p>
+                      <p> Pour être aux normes, veuillez ajouter ce code sur votre site</p>
+                      <div id="codeSnippet">
+<pre>
+<code><%=  '<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-eu-cookie-law-popup.css"/>
+<script src="js/jquery-eu-cookie-law-popup.js"></script>
+
+<body class="eupopup eupopup-top">'%>
+</code>
+</pre>
+                      </div>
                      <% end  %>
                  <% else  %>
                     <p><%= image_tag "green-tick.png", size: "20x20" %>Vous ne semblez pas utiliser de cookies sans acceptation explicite de l'utilisateur.</p>
                  <% end  %>
-<div id="codeSnippet">
-<pre>
-<code>
-Exemple de code
-</code>
-</pre>
-</div>
-              <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+
+              <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Pour en savoir plus</a></i></small></p>
           </div>
           <!-- <button class="accordion">
             <div class="col-xs-3">
