@@ -4,4 +4,7 @@ class PagesController < ApplicationController
   def home
     @analysis = Analysis.new
   end
+
+  def team
+  end
 end
