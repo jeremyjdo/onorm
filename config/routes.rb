@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :analyses, :only => [:index, :show, :new, :create]
 
   get "/team", to: 'pages#team'
+  get "/cgu", to: 'pages#cgu'
+
 end

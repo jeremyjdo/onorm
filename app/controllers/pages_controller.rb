@@ -7,4 +7,7 @@ class PagesController < ApplicationController
 
   def team
   end
+
+  def cgu
+  end
 end
