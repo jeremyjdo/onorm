@@ -26,25 +26,24 @@ class AnalysesController < ApplicationController
           identification_service.call
         end
 
-        computing_total_score(@analysis)
+        @analysis.total_score = 0
+        if @analysis.cookie_system != nil
+          @analysis.total_score = @analysis.total_score + @analysis.cookie_system.score
+        end
+        if @analysis.identification != nil
+          @analysis.total_score = @analysis.total_score + @analysis.identification.score
+        end
+
+          @analysis.save!
         redirect_to analysis_path(@analysis)
     else
       render 'pages/home'
     end
   end
 
-  # private
+  private
 
   def analysis_params
     params.require(:analysis).permit(:website_url)
-  end
-
-  def computing_total_score(analysis)
-
-    analysis.identification.score = (analysis.identification.score * 50).round(2)
-    analysis.cookie_system.score  = (analysis.cookie_system.score * 50).round(2)
-    analysis.total_score = analysis.cookie_system.score + analysis.identification.score
-    analysis.save!
-
   end
 end
