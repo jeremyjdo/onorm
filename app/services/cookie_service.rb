@@ -70,6 +70,10 @@ class CookieService
       end
       @cookie_score = (@cookie_score * 50)
       @cookie_score.round(2)
+    else
+      @cookie_score = 1.to_f
+      @cookie_score = (@cookie_score * 50)
+      @cookie_score.round(2)
     end
   end
 

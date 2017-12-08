@@ -158,7 +158,7 @@ class IdentificationService
   end
 
   def identification_host(html_doc)
-    raw_host = html_doc.search("body").text.match(/^.*\bhébergeur\b.*$/i)
+    raw_host = html_doc.search("body").text.match(/^.*\b(hébergeur|hébergé)\b.*$/i)
 
     if raw_host
       @identification_host_text  = raw_host.to_s

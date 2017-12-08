@@ -19,7 +19,7 @@
                   </div>
                 <% end %>
               <% else %>
-                <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
               <% end %>
 
             </div>
@@ -30,80 +30,80 @@
           </button>
           <div class="panel">
             <% if @analysis.identification %>
-              <p> Vos mentions légales : <%= @analysis.identification_url %></p>
+              <p> Vos mentions légales : <%= link_to @analysis.identification_url, @analysis.identification_url %></p>
               <br>
               <p><% if @analysis.identification.company_name_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Raison Sociale</p>
+                Raison Sociale</p>
                <p><% if @analysis.identification.legal_form_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Forme Juridique</p>
+                Forme Juridique</p>
                <p><% if @analysis.identification.address_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Siège Social</p>
+                Siège Social</p>
                <p><% if @analysis.identification.capital_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Capital Social</p>
+                Capital Social</p>
                <p><% if @analysis.identification.email_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Adresse de courrier électronique</p>
+                Adresse de courrier électronique</p>
                <p><% if @analysis.identification.phone_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Numéro de téléphone</p>
+                Numéro de téléphone</p>
                <p><% if @analysis.identification.rcs_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Numéro d'inscription RCS</p>
+                Numéro d'inscription RCS</p>
                <p><% if @analysis.identification.tva_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Numéro individuel d'identification fiscale</p>
+                Numéro individuel d'identification fiscale</p>
                <p><% if @analysis.identification.publication_director_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Nom du directeur de la publication</p>
+                Nom du directeur de la publication</p>
                <p><% if @analysis.identification.host_name_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Raison Sociale de l'hébergeur</p>
+                Raison Sociale de l'hébergeur</p>
                <p><% if @analysis.identification.host_address_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Adresse de l'hébergeur</p>
+                Adresse de l'hébergeur</p>
                <p><% if @analysis.identification.host_phone_presence %>
                   <%= image_tag "green-tick.png", size: "20x20" %>
                  <% else  %>
                   <%= image_tag "red-cross.png", size: "20x20"  %>
                  <% end  %>
-               Numéro de téléphone de l'hébergeur</p>
+                Numéro de téléphone de l'hébergeur</p>
               <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
             <% else %>
               <p> Il semblerait que votre site internet ne possède pas de Mentions Légales</p>
@@ -152,7 +152,7 @@
                   </div>
                 <% end %>
               <% else %>
-                <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
               <% end %>
 
             </div>
@@ -163,7 +163,25 @@
           </button>
           <div class="panel">
 <!--               <p><%#= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p>
- -->            <p>Lorem ipsum...</p>
+ -->           <% if @analysis.cookie_system_url != ""  %>
+                 <p> Votre page d'information pour les cookies : <%= link_to @analysis.cookie_system_url , @analysis.cookie_system_url %></p>
+              <% elsif @analysis.cookie_system_url == "" && @analysis.cookie_system.cookie_usage %>
+                <p> Il semblerait que votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies.</p>
+                <% else %>
+              <% end %>
+
+              <br>
+              <% if @analysis.cookie_system.cookie_usage %>
+                <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous utilisez des cookies sans acceptation explicite de l'utilisateur.</p>
+                      <% if @analysis.cookie_system.cookie_user_agreement %>
+                      <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies</p>
+                     <% else  %>
+                      <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas informer de manière suffisante sur l'usage de vos cookies</p>
+                     <% end  %>
+                 <% else  %>
+                    <p><%= image_tag "green-tick.png", size: "20x20" %>Vous ne semblez pas utiliser de cookies sans acceptation explicite de l'utilisateur.</p>
+                 <% end  %>
+              <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
           </div>
           <!-- <button class="accordion">
             <div class="col-xs-3">
@@ -186,7 +204,8 @@
               <h1>Résultat <strong><%= @analysis.total_score %>/100</strong></h1>
             </div>
             <div class="panel-medal">
-              <p>Lorem ipsum...</p>
+              <p><%= URI.parse(@analysis.website_url).host %></p>
+              <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
             </div>
           </div>
           </div>
