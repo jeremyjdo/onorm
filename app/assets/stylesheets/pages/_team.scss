@@ -5,3 +5,23 @@
   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
   font-family: 'Raleway', sans-serif;
 }
+
+.team p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  min-height: 160px;
+}
+
+.team b {
+  font-family: 'Raleway', sans-serif;
+}
+
+.team {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.identity {
+  display: flex;
+  flex-direction: row;
+}
