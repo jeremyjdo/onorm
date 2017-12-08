@@ -8,9 +8,7 @@ class WebsiteUrlValidator < ActiveModel::EachValidator
   end
 
   def self.exist?(value)
-    code = RestClient.get(value)
-  # rescue Redirect => e
-  # redirected_url = e.url
+    RestClient.get(value)
   rescue
     false
   end
