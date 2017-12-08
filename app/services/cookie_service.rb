@@ -68,8 +68,11 @@ class CookieService
       elsif @cookie_user_agreement || @analysis.cookie_system_url != ""
         @cookie_score = 0.5.to_f
       end
+      @cookie_score = (@cookie_score * 50)
+      @cookie_score.round(2)
     end
   end
+
   def cookie_system_generator
     @cookie_system = CookieSystem.new
 
