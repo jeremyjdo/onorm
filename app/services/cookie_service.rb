@@ -47,7 +47,7 @@ class CookieService
 
     # To get the desktop version for the scraped page, in order to get access
     # to the flat booking form
-    @browser.driver.resize(3072, 2304)
+    # @browser.driver.resize(3072, 2304)
 
     @browser.visit(url)
 

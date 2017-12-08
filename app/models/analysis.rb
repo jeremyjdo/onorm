@@ -17,6 +17,13 @@ class Analysis < ApplicationRecord
       self.website_url = http_url if test_url(http_url)
       self.website_url = https_url if test_url(https_url)
     end
+
+    if (/(^www)/ =~ self.website_url)
+      http_url = "http://#{self.website_url}"
+      https_url = "https://#{self.website_url}"
+      self.website_url = http_url if test_url(http_url)
+      self.website_url = https_url if test_url(https_url)
+    end
   end
 
   def test_url(url)
