@@ -210,6 +210,8 @@ button.accordion-medal.active, button.accordion:hover {
 
 /* Style the accordion panel. Note: hidden by default */
 div.panel-medal {
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-size: 20px;
   background-color: #60958c;
   height: 575px;
@@ -232,6 +234,7 @@ div.panel-medal {
   }
   .btn-medium {
   font-size: 14px;
+  margin-bottom: 10px;
   }
 }
 
