@@ -4,22 +4,31 @@
     <div class="col-md-5 panel-summary">
           <div class="panel-medal">
             <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-              <h1><%= @analysis.total_score %></h1>
-              <h2>/100</h2>
+<!--               <h1><%= @analysis.total_score %></h1>
+              <h2>/100</h2> -->
+              <div class="container-gauge">
+                  <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
+              </div>
             </div>
             <p><%= URI.parse(@analysis.website_url).host %></p>
             <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
-                      <button class="accordion">
+                      <button class="accordion bouton-mentions-legales">
                         <div class="col-xs-3">
                           <% if @analysis.identification != nil %>
                             <% if @analysis.identification.score > 33.33  %>
                               <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
+                                <h2>/50</h2>
                               </div>
                             <% elsif @analysis.identification.score > 16.66 %>
                               <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
+                                <h2>/50</h2>
                               </div>
                             <% else %>
                               <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
+                                <h2>/50</h2>
                               </div>
                             <% end %>
                           <% else %>
@@ -28,7 +37,6 @@
                         </div>
                         <div class="col-xs-9 text-center analyses-header">
                           <p>Mentions Légales</p>
-                          <p><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %>/50</p>
                         </div>
                       </button>
 
@@ -56,28 +64,36 @@
                           <p><%#= @analysis.cgvu_url != "" ? @analysis.cgvu.score.round(2) : "0" %>/25</p>
                         </div>
                       </button> -->
-                      <button class="accordion">
+                      <button class="accordion bouton-cookies">
                         <div class="col-xs-3">
 
                           <% if @analysis.cookie_system != nil %>
                             <% if @analysis.cookie_system.score > 33.33  %>
                               <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                <h2>/50</h2>
                               </div>
                             <% elsif @analysis.cookie_system.score > 16.66 %>
                               <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                <h2>/50</h2>
                               </div>
                             <% else %>
                               <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                <h2>/50</h2>
                               </div>
                             <% end %>
                           <% else %>
-                            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
+                            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                              <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                              <h2>/50</h2>
+                            </div>
                           <% end %>
 
                         </div>
                         <div class="col-xs-9 text-center analyses-header">
                           <p>Cookies</p>
-                          <p><%= @analysis.cookie_system.score.to_i%>/50</p>
                         </div>
                       </button>
 
@@ -92,54 +108,69 @@
                       </button> -->
 
             <!--  DEBUT DU PLACEHOLDER A DELETER -->
-                                                    <button class="accordion">
+                                                    <button class="accordion bouton-cgvu">
                                                         <div class="col-xs-3">
 
                                                           <% if @analysis.cookie_system != nil %>
                                                             <% if @analysis.cookie_system.score > 33.33  %>
                                                               <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+                                                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                <h2>/50</h2>
                                                               </div>
                                                             <% elsif @analysis.cookie_system.score > 16.66 %>
                                                               <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+                                                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                <h2>/50</h2>
                                                               </div>
                                                             <% else %>
                                                               <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                                                <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                <h2>/50</h2>
                                                               </div>
                                                             <% end %>
                                                           <% else %>
-                                                            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
+                                                            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                                              <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                              <h2>/50</h2>
+                                                            </div>
                                                           <% end %>
 
                                                         </div>
                                                         <div class="col-xs-9 text-center analyses-header">
                                                           <p>CGU / CGV</p>
-                                                          <p><%= @analysis.cookie_system.score.to_i%>/50</p>
                                                         </div>
                                                       </button>
 
 
-                                                                <button class="accordion">
+                                                                <button class="accordion bouton-dataprivacy">
                                                                   <div class="col-xs-3">
 
                                                                     <% if @analysis.cookie_system != nil %>
                                                                       <% if @analysis.cookie_system.score > 33.33  %>
                                                                         <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+                                                                          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                          <h2>/50</h2>
                                                                         </div>
                                                                       <% elsif @analysis.cookie_system.score > 16.66 %>
                                                                         <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+                                                                          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                          <h2>/50</h2>
                                                                         </div>
                                                                       <% else %>
                                                                         <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                                                          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                          <h2>/50</h2>
                                                                         </div>
                                                                       <% end %>
                                                                     <% else %>
-                                                                      <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
+                                                                      <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                                                                        <h1><%= @analysis.cookie_system.score.to_i%></h1>
+                                                                        <h2>/50</h2>
+                                                                      </div>
                                                                     <% end %>
-
                                                                   </div>
                                                                   <div class="col-xs-9 text-center analyses-header">
                                                                     <p>Données Confidentielles</p>
-                                                                    <p><%= @analysis.cookie_system.score.to_i%>/50</p>
                                                                   </div>
                                                                 </button>
 
