@@ -1,15 +1,14 @@
 .btn-medium {
-  color: #999999;
+  background-color: #60958c;
   border: 1px solid #999999;
-  padding: 10px 15px;
-  border-radius: 50px;
-  font-weight: lighter;
-  opacity: 0.6;
+  border-radius: 10px;
+  color: white;
 }
+
 .btn-medium:hover {
-  opacity: 1;
+  background-color: #5f6264;
   text-decoration: none;
-  color: #999999;
+  color: white;
 }
 .btn-treehouse {
   color: white;
@@ -27,11 +26,16 @@
 }
 
 .round {
-  height: 75px;
-  width: 75px;
+  margin: auto;
+  margin-top: 8px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   background-size: cover;
   color: white;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
 }
 .round:hover {
   text-decoration: none;
@@ -131,22 +135,21 @@ div#sidebarAd.cleanslate .ad-sponsor {
 button.accordion {
   background-color: #5f6265;
   cursor: pointer;
-  padding: 18px;
   width: 100%;
   text-align: left;
   border: none;
   outline: none;
   transition: 0.4s;
-  padding-top: 15px;
   padding-left: 15px;
-  height: 100px;
-  width: 600px;
+  height: 75px;
+  width: 470px;
   background-size: cover !important;
   background-position: center;
   color: white;
   position: relative;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 button.accordion.active {
@@ -207,26 +210,28 @@ button.accordion-medal.active, button.accordion:hover {
 
 /* Style the accordion panel. Note: hidden by default */
 div.panel-medal {
-  background-color: white;
-  height: 100px;
-  margin: auto;
-  color: black;
+  font-size: 20px;
+  background-color: #60958c;
+  height: 575px;
+  color: white;
   position: relative;
   border: 5px;
   border-radius: 10px;
-  width: 400px;
+  width: 500px;
   cursor: pointer;
-  text-align: left;
   border: none;
   outline: none;
-  transition: 0.4s;
-  background-size: cover !important;
-  background-position: center;
   position: relative;
   border-radius: 10px;
-  margin-bottom: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
+  p {
+    margin: 0 0 0 0;
+  }
+  .btn-medium {
+  font-size: 14px;
+  }
 }
 
