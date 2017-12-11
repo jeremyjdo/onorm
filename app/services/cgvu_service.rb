@@ -44,6 +44,7 @@ attr_accessor :raw_articles
                   break
                 end
             else
+              raw_article_body = raw_article_body + el.text
               break
             end
           end
@@ -55,8 +56,7 @@ attr_accessor :raw_articles
     end
     p @raw_articles
   end
-
-
+end
 
 
 #     doc.at('page').search('image, text, video').each do |node|
@@ -75,4 +75,3 @@ attr_accessor :raw_articles
 #   puts item.next_element.text
 # end
 
-end
