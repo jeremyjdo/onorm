@@ -1,5 +1,6 @@
 .content {
   min-height: 70vh;
+  padding-bottom: 20px;
 }
 .banner-analyses {
   color: white;
@@ -11,7 +12,74 @@
   align-items: center;
   padding-top: 40px;
   padding-left: 30px;
-  margin-bottom: 30px;
+  width: 1441px;
+}
+.panel-results {
+  margin: auto;
+  display: flex;
+  align-items: right;
+  flex-direction: column;
+  height: 100%;
+}
+.panel-summary {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.row {
+  width: 1441px;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+  padding: 0 18px;
+  background-color: white;
+  padding-top: 15px;
+  padding-left: 15px;
+  height: 575px;
+  width: 750px;
+  background-size: cover !important;
+  background-position: center;
+  color: black;
+  position: relative;
+  border: 5px;
+  border-radius: 10px;
+  text-align: left;
+  p {
+    font-size: 90%;
+  }
+}
+
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel-medal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  background-color: #60958c;
+  height: 575px;
+  color: white;
+  position: relative;
+  border: 5px;
+  border-radius: 10px;
+  width: 500px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  p {
+    margin: 0 0 0 0;
+  }
+  .btn-medium {
+  font-size: 14px;
+  margin-bottom: 10px;
+  }
 }
 
 .resultat p {
