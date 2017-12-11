@@ -1,0 +1,140 @@
+<head>
+ <meta charset="UTF-8">
+</head>
+
+
+
+<div>
+  <h1>Les résultats de votre audit</h1>
+</div>
+<br>
+<br>
+<br>
+
+<div>
+  <h2>Mentions Légales</h2>
+    <div class="panel">
+      <% if @analysis.identification %>
+      <p><%= link_to @analysis.identification_url, @analysis.identification_url %></p>
+      <p><% if @analysis.identification.company_name_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Raison Sociale</p>
+       <p><% if @analysis.identification.legal_form_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Forme Juridique</p>
+       <p><% if @analysis.identification.address_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Siège Social</p>
+       <p><% if @analysis.identification.capital_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Capital Social</p>
+       <p><% if @analysis.identification.email_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Adresse de courrier électronique</p>
+       <p><% if @analysis.identification.phone_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Numéro de téléphone</p>
+       <p><% if @analysis.identification.rcs_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Numéro d'inscription RCS</p>
+       <p><% if @analysis.identification.tva_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Numéro individuel d'identification fiscale</p>
+       <p><% if @analysis.identification.publication_director_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Nom du directeur de la publication</p>
+       <p><% if @analysis.identification.host_name_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Raison Sociale de l'hébergeur</p>
+       <p><% if @analysis.identification.host_address_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Adresse de l'hébergeur</p>
+       <p><% if @analysis.identification.host_phone_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+         <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+         <% end  %>
+        Numéro de téléphone de l'hébergeur</p>
+      <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+    <% else %>
+      <p> Il semblerait que votre site internet ne possède pas de Mentions Légales</p>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<br>
+
+<div>
+  <h2>Cookies</h2>
+    <% if @analysis.cookie_system_url != ""  %>
+     <p>Votre page d'information pour les cookies : <%= link_to @analysis.cookie_system_url , @analysis.cookie_system_url %></p>
+    <% elsif @analysis.cookie_system_url == "" && @analysis.cookie_system.cookie_usage %>
+      <p> Il semblerait que votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies.</p>
+    <% else %>
+    <% end %>
+
+  <% if @analysis.cookie_system.cookie_usage %>
+    <p><%= image_tag "red-cross.png", size: "20x20"  %> Vous utilisez des cookies sans acceptation explicite de l'utilisateur.</p>
+  <% if @analysis.cookie_system.cookie_user_agreement %>
+    <p><%= image_tag "green-tick.png", size: "20x20" %> Vous informez l'utilisateur sur l'usage de vos cookies</p>
+  <% else  %>
+    <p><%= image_tag "red-cross.png", size: "20x20"  %> Vous ne semblez pas informer de manière suffisante sur l'usage de vos cookies</p>
+  <% end  %>
+  <% else  %>
+    <p><%= image_tag "green-tick.png", size: "20x20" %> Vous ne semblez pas utiliser de cookies sans acceptation explicite de l'utilisateur.</p>
+  <% end  %>
+
+  <div id="codeSnippet">
+    <pre>
+      <code>
+        Exemple de code
+      </code>
+    </pre>
+  </div>
+    <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+</div>
+
+<br>
+<br>
+
+<div>
+  <h2>CGU/CGV</h2>
+</div>
+
+<div>
+  <h2>Données confidentielles/personnelles</h2>
+</div>
