@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :analyses, :only => [:index, :show, :new, :create]
+  resources :analyses, :only => [:index, :new, :show, :create]
 
   get "/team", to: 'pages#team'
   get "/cgu", to: 'pages#cgu'

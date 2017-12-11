@@ -6,6 +6,10 @@ class AnalysesController < ApplicationController
     @analysis = Analysis.find(params[:id])
   end
 
+  # def show_test
+
+  # end
+
   # Home joue le rôle de new
   # def new
   # end
