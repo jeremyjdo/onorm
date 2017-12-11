@@ -32,10 +32,19 @@
   width: 60px;
   border-radius: 50%;
   background-size: cover;
-  color: white;
+  color: black;
   align-items: center;
   flex-direction: column;
   display: flex;
+  h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 0 0 0 0;
+  }
+  h2 {
+    font-size: 14px;
+    margin: 0 0 0 0;
+  }
 }
 .round:hover {
   text-decoration: none;
@@ -158,4 +167,13 @@ button.accordion:hover {
   color: black;
 }
 
+.container-gauge {
+  width: 200px;
+  text-align: center;
+}
 
+.gauge {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+}
