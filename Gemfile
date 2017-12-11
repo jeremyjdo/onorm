@@ -21,6 +21,7 @@ gem 'uglifier'
 #Background Job
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
+gem 'sinatra'
 
 # cookies & scrapping
 gem 'capybara'
