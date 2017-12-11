@@ -13,6 +13,10 @@ class AnalysesController < ApplicationController
     end
   end
 
+  # def show_test
+
+  # end
+
   # Home joue le rôle de new
   # def new
   # end
