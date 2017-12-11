@@ -45,8 +45,6 @@ class CookieService
 
     @browser = Capybara.current_session
 
-    # To get the desktop version for the scraped page, in order to get access
-    # to the flat booking form
     # @browser.driver.resize(3072, 2304)
 
     @browser.visit(url)
@@ -133,7 +131,12 @@ class CookieService
   def init_capybara
     require 'capybara/poltergeist'
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path, js_errors: false)
+      Capybara::Poltergeist::Driver.new(app,
+       phantomjs: Phantomjs.path,
+        js_errors: false,
+        phantomjs_options: ['--load-images=no'],
+        # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
+        )
     end
 
     Capybara.default_driver = :poltergeist
