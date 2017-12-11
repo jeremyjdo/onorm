@@ -40,6 +40,11 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
       end
     end
 
+    @cgvu_url = @identification_url if @cgvu_url == ""
+    @identification_url = @cgvu_url if @identification_url == ""
+    @cookie_system_url = @cgvu_url if @cookie_system_url == ""
+    @data_privacy_url = @cgvu_url if @data_privacy_url == ""
+
     @analysis.cgvu_url = @cgvu_url
     @analysis.identification_url = @identification_url
     @analysis.cookie_system_url = @cookie_system_url

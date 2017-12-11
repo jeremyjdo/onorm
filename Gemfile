@@ -18,7 +18,12 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 
-# cookies
+#Background Job
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'
+gem 'sinatra'
+
+# cookies & scrapping
 gem 'capybara'
 gem 'poltergeist'
 gem 'phantomjs', require: 'phantomjs/poltergeist'
