@@ -152,86 +152,10 @@ button.accordion {
   margin-bottom: 5px;
 }
 
-button.accordion.active {
-  margin-bottom: 10px;
-}
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion.active, button.accordion:hover {
-  background-color: #5f6265;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-div.panel {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  padding-top: 15px;
-  padding-left: 15px;
-  height: 600px;
-  width: 600px;
-  background-size: cover !important;
-  background-position: center;
+button.accordion:hover {
+  background-color: #D9D9D9;
   color: black;
-  position: relative;
-  border: 5px;
-  border-radius: 10px;
-  text-align: left;
-  p {
-    font-size: 90%;
-  }
 }
 
-/* Style the buttons that are used to open and close the accordion panel */
-button.accordion-medal {
-  cursor: pointer;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  background-size: cover !important;
-  background-position: center;
-  position: relative;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-button.accordion-medal.active {
-  margin-bottom: 10px;
-}
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-button.accordion-medal.active, button.accordion:hover {
-  background-color: #4e978c;
-}
-
-/* Style the accordion panel. Note: hidden by default */
-div.panel-medal {
-  font-size: 20px;
-  background-color: #60958c;
-  height: 575px;
-  color: white;
-  position: relative;
-  border: 5px;
-  border-radius: 10px;
-  width: 500px;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  position: relative;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  p {
-    margin: 0 0 0 0;
-  }
-  .btn-medium {
-  font-size: 14px;
-  }
-}
 
