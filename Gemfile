@@ -23,6 +23,10 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 gem 'sinatra'
 
+#pdf
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # cookies & scrapping
 gem 'capybara'
 gem 'poltergeist'

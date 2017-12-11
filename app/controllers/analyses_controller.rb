@@ -4,6 +4,13 @@ class AnalysesController < ApplicationController
 
   def show
     @analysis = Analysis.find(params[:id])
+     respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "analysis"  # Excluding ".pdf" extension.
+
+      end
+    end
   end
 
   # Home joue le rôle de new
