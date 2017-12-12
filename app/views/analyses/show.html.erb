@@ -285,5 +285,13 @@
         }
       }
     );
+        App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: (data) => {
+          console.log(data)
+        }
+      }
+    );
   </script>
 <% end %>

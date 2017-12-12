@@ -53,5 +53,10 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     unless @analysis.save!
       render "root"
     end
+
+    # Identification cable test
+    # ActionCable.server.broadcast("presence_for_analysis_#{@analysis.id}", {
+    #   identification_url: @analysis.identification_url
+    # })
   end
 end
