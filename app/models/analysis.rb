@@ -17,6 +17,7 @@ class Analysis < ApplicationRecord
   end
 
   def refactor_url
+
     the_url = self.website_url
 
     # Checks if the entry starts with http:// or https://
@@ -48,8 +49,9 @@ class Analysis < ApplicationRecord
     end
 
     # checks if both url work
-    self.website_url = http_url if test_url(http_url)
+    self.website_url = http_url # if test_url(http_url)
     self.website_url = https_url if test_url(https_url)
+
   end
 end
 
