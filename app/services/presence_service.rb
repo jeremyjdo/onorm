@@ -20,7 +20,6 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
   end
 
   def call
-    start = Time.now
     url = @analysis.website_url
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
@@ -54,6 +53,5 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     unless @analysis.save!
       render "root"
     end
-    puts Time.now - start
   end
 end

@@ -20,11 +20,13 @@ class AnalysesController < ApplicationController
   def create
     @analysis = Analysis.new(analysis_params)
     if @analysis.save
-        # presence_service = PresenceService.new(@analysis)
-        # presence_service.call
+      # gets the URLS
+      PresenceJob.perform_later(@analysis.id)
 
       #Checks if cookies are present
       CookieSystemJob.perform_later(@analysis.id)
+
+      # ALL OTHER JOBS ARE STARTED in the Presence JOB because of dependencies
 
       #Run Identification Analysis if identification_url is present
         # if @analysis.identification_url != ""
