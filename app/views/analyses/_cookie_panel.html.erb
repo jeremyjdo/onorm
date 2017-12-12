@@ -1,0 +1,38 @@
+
+<div class="panel panel-cookies">
+      <p><%= analysis.cookie_system_url == "" ? "No Cookie url" : analysis.cookie_system_url%></p>
+
+        <% if !analysis.cookie_system.nil? %>
+          <% if !analysis.cookie_system_url.blank?  %>
+            <p> Votre page d'information pour les cookies : <%= link_to analysis.cookie_system_url , analysis.cookie_system_url %></p>
+          <% elsif analysis.cookie_system_url.blank? && analysis.cookie_system.cookie_usage %>
+            <p> Il semblerait que votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies.</p>
+          <% else %>
+          <% end %>
+
+          <br>
+
+          <% if analysis.cookie_system.cookie_usage %>
+            <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous utilisez des cookies sans acceptation explicite de l'utilisateur.</p>
+            <% if analysis.cookie_system.cookie_user_agreement %>
+              <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies</p>
+            <% else  %>
+              <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas informer de manière suffisante sur l'usage de vos cookies</p>
+            <% end  %>
+          <% else  %>
+            <p><%= image_tag "green-tick.png", size: "20x20" %>Vous ne semblez pas utiliser de cookies sans acceptation explicite de l'utilisateur.</p>
+          <% end  %>
+
+          <div id="codeSnippet">
+            <pre>
+              <code>
+                Exemple de code
+              </code>
+            </pre>
+          </div>
+        <% else %>
+          <p> Chargement en cours</p>
+        <% end %>
+
+        <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+      </div>
