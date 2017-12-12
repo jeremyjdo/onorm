@@ -1,6 +1,6 @@
 .content {
   min-height: 70vh;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 .banner-analyses {
   color: white;
@@ -28,12 +28,13 @@
   flex-direction: column;
   height: 100%;
 }
-.row {
+.row-analyses {
   width: 1441px;
 }
 
 /* Style the accordion panel. Note: hidden by default */
 div.panel {
+  display: none;
   padding: 0 18px;
   background-color: white;
   padding-top: 15px;
@@ -47,6 +48,7 @@ div.panel {
   border: 5px;
   border-radius: 10px;
   text-align: left;
+  margin-bottom: 0px;
   p {
     font-size: 90%;
   }

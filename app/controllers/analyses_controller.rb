@@ -7,7 +7,7 @@ class AnalysesController < ApplicationController
      respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "analysis"  # Excluding ".pdf" extension.
+        render pdf: "analysis", layout: "pdf"  # Excluding ".pdf" extension.
 
       end
     end
