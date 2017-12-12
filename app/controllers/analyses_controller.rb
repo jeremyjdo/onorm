@@ -26,13 +26,8 @@ class AnalysesController < ApplicationController
       #Checks if cookies are present
       CookieSystemJob.perform_later(@analysis.id)
 
-      # ALL OTHER JOBS ARE STARTED in the Presence JOB because of dependencies
+      # ALL OTHER JOBS ARE STARTED in the Presence Service because of dependencies
 
-      #Run Identification Analysis if identification_url is present
-        # if @analysis.identification_url != ""
-        #   identification_service = IdentificationService.new(@analysis)
-        #   identification_service.call
-        # end
 
         # @analysis.total_score = 0
         # if @analysis.cookie_system != nil

@@ -1,0 +1,92 @@
+<div class="panel panel-mentions-legales">
+  <% if !analysis.identification.nil? %>
+    <% if !analysis.identification_url.blank?  %>
+      <p> Vos mentions légales peuvent être consultées ici : <%= link_to analysis.identification_url , analysis.identification_url %></p>
+    <% elsif analysis.identification_url.blank? && analysis.identification.cookie_usage %>
+      <p> Il semblerait que votre site internet ne possède pas de page de mentions légales facilement accesssible.</p>
+    <% else %>
+    <% end %>
+
+    <br>
+
+  <% if analysis.identification %>
+  <p><% if analysis.identification.company_name_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Raison Sociale</p>
+  <p><% if analysis.identification.legal_form_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Forme Juridique</p>
+  <p><% if analysis.identification.address_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Siège Social</p>
+  <p><% if analysis.identification.capital_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Capital Social</p>
+  <p><% if analysis.identification.email_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Adresse de courrier électronique</p>
+  <p><% if analysis.identification.phone_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Numéro de téléphone</p>
+  <p><% if analysis.identification.rcs_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Numéro d'inscription RCS</p>
+  <p><% if analysis.identification.tva_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Numéro individuel d'identification fiscale</p>
+  <p><% if analysis.identification.publication_director_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Nom du directeur de la publication</p>
+  <p><% if analysis.identification.host_name_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Raison Sociale de l'hébergeur</p>
+  <p><% if analysis.identification.host_address_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Adresse de l'hébergeur</p>
+  <p><% if analysis.identification.host_phone_presence %>
+    <%= image_tag "green-tick.png", size: "20x20" %>
+    <% else  %>
+    <%= image_tag "red-cross.png", size: "20x20"  %>
+    <% end  %>
+  Numéro de téléphone de l'hébergeur</p>
+  <% else %>
+    <p> Chargement en cours</p>
+  <% end %>
+  <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
+  <% else %>
+  <p> Il semblerait que votre site internet ne possède pas de Mentions Légales</p>
+  <% end %>
+</div>

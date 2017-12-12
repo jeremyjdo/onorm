@@ -8,6 +8,7 @@ class CookieService
 
   def initialize(analysis)
     @analysis = analysis
+    init_capybara
     @cookies_list = {}
     @cookie_usage = false
     @cookie_user_agreement = false
@@ -23,9 +24,8 @@ class CookieService
   end
 
   def cookie_list
-    url = @analysis.website_url
     cookie_l = {}
-    presence(url).split("; ").each do |c|
+    presence.split("; ").each do |c|
       a = c.split("=")
       cookie_l[a[0].to_sym] = a[1]
     end
@@ -40,16 +40,9 @@ class CookieService
 
   def cookie_banner?
     # has_banner = false
-    url = @analysis.website_url
-    init_capybara
-
-    @browser = Capybara.current_session
-
     # @browser.driver.resize(3072, 2304)
 
-    @browser.visit(url)
-
-    raw_data = browser.first('div', text:'cookie')
+    raw_data = @browser.first('div', text:'cookie')
 
     # returns true if site has banner
     if !raw_data.nil?
@@ -115,42 +108,18 @@ class CookieService
 
   private
 
-  def presence(url)
-    init_capybara
-    @browser = Capybara.current_session
+  def presence
 
     # To get the desktop version for the scraped page, in order to get access
     # to the flat booking form
-    @browser.driver.resize(3072, 2304)
-    @browser.visit(url)
 
     cookies = @browser.evaluate_script("document.cookie")
     return cookies
   end
 
   def init_capybara
-    require 'capybara/poltergeist'
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app,
-       phantomjs: Phantomjs.path,
-        js_errors: false,
-        phantomjs_options: ['--load-images=no'],
-        # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
-        )
-    end
-
-    Capybara.default_driver = :poltergeist
-
-    # To debug with a real browser, if needed
-    # Capybara.register_driver :selenium do |app|
-    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
-    # end
-
-    # Capybara.javascript_driver = :chrome
-
-    # Capybara.configure do |config|
-    #   config.default_max_wait_time = 10 # seconds
-    #   config.default_driver        = :selenium
-    # end
+    @browser = Capybara.current_session
+    url = @analysis.website_url
+    @browser.visit(url)
   end
 end

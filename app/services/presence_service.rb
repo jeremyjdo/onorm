@@ -50,8 +50,15 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     @analysis.cookie_system_url = @cookie_system_url
     @analysis.data_privacy_url = @data_privacy_url
 
+    #Run Identification Analysis if identification_url is present
+
     unless @analysis.save!
       render "root"
+    end
+
+    # Must be after the analysis save
+    if @analysis.identification_url != ""
+      IdentificationJob.perform_later(@analysis.id)
     end
 
     # Identification cable test

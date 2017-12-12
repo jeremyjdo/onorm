@@ -27,6 +27,8 @@
             <% else %>
               <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
             <% end %>
+            <p><%= URI.parse(@analysis.website_url).host %></p>
+            <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
 
             <!-- <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
               <h1><%= @analysis.total_score %></h1>
@@ -35,78 +37,16 @@
                   <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
               </div>
             </div> -->
-            <p><%= URI.parse(@analysis.website_url).host %></p>
-            <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
-                      <button class="accordion bouton-mentions-legales">
-                        <div class="col-xs-3">
-                          <% if @analysis.identification != nil %>
-                            <% if @analysis.identification.score > 33.33  %>
-                              <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
-                                <h2>/50</h2>
-                              </div>
-                            <% elsif @analysis.identification.score > 16.66 %>
-                              <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
-                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
-                                <h2>/50</h2>
-                              </div>
-                            <% else %>
-                              <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                                <h1><%= @analysis.identification_url != "" ? @analysis.identification.score.to_i : "0" %></h1>
-                                <h2>/50</h2>
-                              </div>
-                            <% end %>
-                          <% else %>
-                            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                              <h1>0</h1>
-                              <h2>/50</h2>
-                            </div>
-                          <% end %>
-                        </div>
-                        <div class="col-xs-9 text-center analyses-header">
-                          <p>Mentions Légales</p>
-                        </div>
-                      </button>
+                      <div id="identification-header-remote">
+                        <%= render 'analyses/identification_header', identification: @analysis.identification, analysis: @analysis %>
+                      </div>
 
-                     <!--  <button class="accordion">
-                        <div class="col-xs-3">
 
-                          <%# if @analysis.cgvu != nil %>
-                            <%# if @analysis.cgvu.score > 33.33  %>
-                              <div class="green score round" style="background-image: url('<%#= asset_path "green-medal.png"  %>');">
-                              </div>
-                            <%# elsif @analysis.cgvu.score > 16.66 %>
-                              <div class="orange score round" style="background-image: url('<%#= asset_path "orange-medal.png"  %>');">
-                              </div>
-                            <%# else %>
-                              <div class="red score round" style="background-image: url('<%#= asset_path "red-medal.png"  %>');">
-                              </div>
-                            <%# end %>
-                          <%# else %>
-                            <div class="red score round" style="background-image: url('<%#= asset_path "red-medal.png"  %>');">
-                          <%# end %>
-
-                        </div>
-                        <div class="col-xs-9 text-center analyses-header">
-                          <p>CGU / CGV</p>
-                          <p><%#= @analysis.cgvu_url != "" ? @analysis.cgvu.score.round(2) : "0" %>/25</p>
-                        </div>
-                      </button> -->
                       <div id="cookie-header-remote">
                         <%= render 'analyses/cookie_header', cookie_system: @analysis.cookie_system %>
                       </div>
 
-                      <!-- <button class="accordion">
-                        <div class="col-xs-3">
-                          <div class="orange score round" style="background-image: url('<%#= asset_path "orange-medal.png"  %>');">
-                          </div>
-                        </div>
-                        <div class="col-xs-9 text-center analyses-header">
-                          <p>Données Confidentielles</p>
-                        </div>
-                      </button> -->
 
-            <!--  DEBUT DU PLACEHOLDER A DELETER -->
       <button class="accordion bouton-cgvu">
           <div class="col-xs-3">
             <% if @analysis.cookie_system != nil %>
@@ -175,87 +115,11 @@
 
     </div>
     <div class="col-md-7 panel-results">
-      <div class="panel panel-mentions-legales">
-          <% if @analysis.identification %>
-            <p> Vos mentions légales : <%= link_to @analysis.identification_url, @analysis.identification_url %></p>
-            <br>
-            <p><% if @analysis.identification.company_name_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Raison Sociale</p>
-             <p><% if @analysis.identification.legal_form_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Forme Juridique</p>
-             <p><% if @analysis.identification.address_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Siège Social</p>
-             <p><% if @analysis.identification.capital_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Capital Social</p>
-             <p><% if @analysis.identification.email_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Adresse de courrier électronique</p>
-             <p><% if @analysis.identification.phone_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Numéro de téléphone</p>
-             <p><% if @analysis.identification.rcs_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Numéro d'inscription RCS</p>
-             <p><% if @analysis.identification.tva_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Numéro individuel d'identification fiscale</p>
-             <p><% if @analysis.identification.publication_director_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Nom du directeur de la publication</p>
-             <p><% if @analysis.identification.host_name_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Raison Sociale de l'hébergeur</p>
-             <p><% if @analysis.identification.host_address_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Adresse de l'hébergeur</p>
-             <p><% if @analysis.identification.host_phone_presence %>
-                <%= image_tag "green-tick.png", size: "20x20" %>
-               <% else  %>
-                <%= image_tag "red-cross.png", size: "20x20"  %>
-               <% end  %>
-              Numéro de téléphone de l'hébergeur</p>
-            <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
-          <% else %>
-            <p> Il semblerait que votre site internet ne possède pas de Mentions Légales</p>
-          <% end %>
+
+        <div id="identification-panel-remote">
+          <%= render 'analyses/identification_panel', analysis: @analysis %>
         </div>
+
 
         <div id="cookie-panel-remote">
           <%= render 'analyses/cookie_panel', analysis: @analysis %>
@@ -275,21 +139,36 @@
 </div>
 <% content_for :after_js do %>
   <script>
+    // App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+    //   { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
+    //   {
+    //     received: (data) => {
+    //       console.log(data)
+    //     }
+    //   }
+    // );
+    App['identification_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'IdentificationChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: (data) => {
+          const i_header = document.getElementById('identification-header-remote');
+          i_header.innerHTML = data.identification_header_partial;
+          const i_panel = document.getElementById('identification-panel-remote');
+          i_panel.innerHTML = data.identification_panel_partial;
+          panelShow("mentions-legales")
+        }
+      }
+    );
+
     App['cookie_system_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'CookieSystemChannel', analysis_id: <%= @analysis.id %> },
       {
         received: (data) => {
-          const header = document.getElementById('cookie-header-remote');
-          header.innerHTML = data.cookie_header_partial;
+          const c_header = document.getElementById('cookie-header-remote');
+          c_header.innerHTML = data.cookie_header_partial;
+          const c_panel = document.getElementById('cookie-panel-remote');
+          c_panel.innerHTML = data.cookie_panel_partial;
           panelShow("cookies")
-        }
-      }
-    );
-        App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
-      { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
-      {
-        received: (data) => {
-          console.log(data)
         }
       }
     );
