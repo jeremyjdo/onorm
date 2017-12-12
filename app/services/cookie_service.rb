@@ -8,7 +8,6 @@ class CookieService
 
   def initialize(analysis)
     @analysis = analysis
-    init_capybara
     @cookies_list = {}
     @cookie_usage = false
     @cookie_user_agreement = false
@@ -16,11 +15,15 @@ class CookieService
   end
 
   def call
+    init_capybara
+
     cookie_list
     cookie_banner?
 
     cookie_system_scorer
     cookie_system_generator
+
+    quit_capybara
   end
 
   def cookie_list
@@ -39,10 +42,8 @@ class CookieService
   end
 
   def cookie_banner?
-    # has_banner = false
-    # @browser.driver.resize(3072, 2304)
 
-    raw_data = @browser.first('div', text:'cookie')
+    raw_data = @session.first('div', text:'cookie')
 
     # returns true if site has banner
     if !raw_data.nil?
@@ -82,10 +83,11 @@ class CookieService
     @cookie_system.save!
   end
 
-  # # test sur plusieurs sites
+  # test sur plusieurs sites
   # def cookie_test
   #   puts ""
   #   puts "TEST Blizzard : True"
+  #   puts
   #   puts cookie_banner?('https://www.blizzard.com/fr-fr/')
 
   #   puts ""
@@ -113,13 +115,56 @@ class CookieService
     # To get the desktop version for the scraped page, in order to get access
     # to the flat booking form
 
-    cookies = @browser.evaluate_script("document.cookie")
+    cookies = @session.evaluate_script("document.cookie")
+
     return cookies
   end
 
   def init_capybara
-    @browser = Capybara.current_session
+    require 'capybara/poltergeist'
+     Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app,
+        phantomjs: Phantomjs.path,
+        js_errors: false,
+        autoLoadImages: false,
+        ignoreSslErrors: true
+        # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
+      )
+    end
+
+    @session = Capybara::Session.new(:poltergeist)
     url = @analysis.website_url
-    @browser.visit(url)
+    @session.visit(url)
+
+    # Capybara.default_driver = :poltergeist
+
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
+    # puts Capybara.methods - Object.methods
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
+    # puts @session
+    # puts @session.class
+    # puts @session.methods - Object.methods
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
+
+    # @session.driver.clear_memory_cache
+
+  end
+
+  def quit_capybara
+    @session.reset_session!
+    @session.driver.quit
+    @session = nil
   end
 end

@@ -1,14 +1,15 @@
-require 'capybara/poltergeist'
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app,
-    phantomjs: Phantomjs.path,
-    js_errors: false,
-    phantomjs_options: ['--load-images=no']
-    # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
-  )
-end
+# require 'capybara/poltergeist'
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app,
+#     phantomjs: Phantomjs.path,
+#     js_errors: false,
+#     autoLoadImages: false,
+#     ignoreSslErrors: true
+#     # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
+#   )
+# end
 
-Capybara.default_driver = :poltergeist
+# Capybara.default_driver = :poltergeist
 # To debug with a real browser, if needed
 # Capybara.register_driver :selenium do |app|
 #   Capybara::Selenium::Driver.new(app, browser: :chrome)
