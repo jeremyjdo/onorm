@@ -6,63 +6,65 @@
   </div>
 </div>
 <div class="container">
-  <div class="slogan">
-    <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
-    <br>
-    <div class="wrapper">
-      <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
-        <div class=''>
-          <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' }, placeholder: 'http://www.domain.com' %>
-          <%= f.submit "", class: "submit" %>
-          <%= f.error :website_url, id: "url-search-error" %>
-        </div>
-      <% end %>
+    <div class="slogan">
+      <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
+      <br>
+      <div class="wrapper">
+        <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+          <div class=''>
+            <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' }, placeholder: 'http://www.domain.com' %>
+            <%= f.submit "", class: "submit" %>
+            <%= f.error :website_url, id: "url-search-error" %>
+          </div>
+        <% end %>
+      </div>
     </div>
+
+
+
+
+  <div class="titre-temoignages">
+  <h4><strong>De nombreuses start-ups l'ont déjà adopté ...</strong></h4>
+  <br>
   </div>
-
-
-<div class="titre-temoignages">
-<h4><strong>De nombreuses start-ups l'ont déjà adopté ...</strong></h4>
-<br>
-</div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <div class="card">
-        <p>« Grâce à Onorm, j'ai pu lancer mon MVP en toute sérénité. Mes mentions légales ont été vérifiées et leur légalité certifiée. »</p>
-        <div class="identity">
-          <div>
-            <%= image_tag("aurelien.jpg", class:"avatar-large avatar-bordered") %>
-          </div>
-          <div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
+        <div class="card">
+          <p>« Grâce à Onorm, j'ai pu lancer mon MVP en toute sérénité. Mes mentions légales ont été vérifiées et leur légalité certifiée. »</p>
+          <div class="identity">
             <div>
-              <b>Aurélien Allard</b>
+              <%= image_tag("aurelien.jpg", class:"avatar-large avatar-bordered") %>
             </div>
             <div>
-              Cofondateur de Weazr
+              <div>
+                <b>Aurélien Allard</b>
+              </div>
+              <div>
+                Cofondateur de Weazr
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <div class="card">
-        <p>« Au moment de démarrer ma marketplace, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. En quelques clics, Onorm s'est chargé de tout vérifier. »</p>
-        <div class="identity">
-          <div>
-            <%= image_tag("clement.jpg", class:"avatar-large avatar-bordered") %>
-          </div>
-          <div>
+      <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
+        <div class="card">
+          <p>« Au moment de démarrer ma marketplace, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. En quelques clics, Onorm s'est chargé de tout vérifier. »</p>
+          <div class="identity">
             <div>
-              <b>Clément Flinois</b>
+              <%= image_tag("clement.jpg", class:"avatar-large avatar-bordered") %>
             </div>
             <div>
-              Cofondateur de Piggybnk
+              <div>
+                <b>Clément Flinois</b>
+              </div>
+              <div>
+                Cofondateur de Piggybnk
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
     <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
