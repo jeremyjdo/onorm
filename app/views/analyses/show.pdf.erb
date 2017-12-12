@@ -1,16 +1,24 @@
 <div>
-  <%= wicked_pdf_image_tag "green-medal.png", size: "100x100" %>
-  <h1>Les résultats de votre audit</h1>
+  <%= wicked_pdf_image_tag "green-medal.png", size: "100x100"  %>
+  <div class="slogan-pdf">
+    <p>Onorm, l'assistant juridique de votre MVP</p>
+  </div>
+<br>
+<br>
+<br>
+  <div class="title">
+    <h1>Les résultats de votre audit</h1>
+  </div>
 </div>
 <br>
 <br>
 <br>
 
-<div>
+<div class="result">
   <h2>Mentions Légales</h2>
     <div class="panel">
       <% if @analysis.identification %>
-      <p><%= link_to @analysis.identification_url, @analysis.identification_url %></p>
+      <p id="link"><%= link_to @analysis.identification_url, @analysis.identification_url %></p>
       <p><% if @analysis.identification.company_name_presence %>
           <%= wicked_pdf_image_tag "green-tick.png", size: "20x20" %>
          <% else  %>
@@ -93,10 +101,10 @@
 <br>
 <br>
 
-<div>
+<div class="result">
   <h2>Cookies</h2>
     <% if @analysis.cookie_system_url != ""  %>
-     <p>Votre page d'information pour les cookies : <%= link_to @analysis.cookie_system_url , @analysis.cookie_system_url %></p>
+     <p id="link"><%= link_to @analysis.cookie_system_url , @analysis.cookie_system_url %></p>
     <% elsif @analysis.cookie_system_url == "" && @analysis.cookie_system.cookie_usage %>
       <p> Il semblerait que votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies.</p>
     <% else %>
@@ -126,10 +134,13 @@
 <br>
 <br>
 
-<div>
+<div class="result">
   <h2>CGU/CGV</h2>
 </div>
 
-<div>
+<br>
+<br>
+
+<div class=result>
   <h2>Données confidentielles/personnelles</h2>
 </div>
