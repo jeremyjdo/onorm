@@ -23,7 +23,8 @@ class CognitiveService
       http.request (request)
     end
 
-    puts JSON::pretty_generate (JSON (response.body))
+    json = JSON::pretty_generate (JSON (response.body))
+    JSON.parse(json)
   end
 
   def luis(text)
@@ -58,8 +59,7 @@ class CognitiveService
       http.request(request)
     end
 
-    puts "\nJSON Response:\n\n"
-    puts JSON::pretty_generate(JSON(response.body))
+    json = JSON::pretty_generate(JSON(response.body))
+    JSON.parse(json)
   end
-
 end

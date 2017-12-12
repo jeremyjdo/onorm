@@ -5,12 +5,14 @@ class CGVUService
 
 attr_accessor :raw_articles
 
-  def initialize(analysis)
+  def initialize(analysis, brain)
     @analysis = analysis
 
     @cgvu_score = 0.to_f
 
     @raw_articles = []
+
+    @brain = brain
   end
 
   def call
@@ -18,14 +20,19 @@ attr_accessor :raw_articles
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
 
-    header_entry(html_doc)
+    scrap_by_header_pattern(html_doc)
 
+    unless @raw_articles.any?
+      return #FALLBACK A INTEGRER
+    end
+
+    articles_analyze
 
   end
 
   private
 
-  def header_entry(html_doc)
+  def scrap_by_header_pattern(html_doc)
     raw_target = html_doc.at("body").search('h1, h2, h3, h4, h5, h6')
     if raw_target
       raw_target.each_with_index do |header, index|
@@ -54,7 +61,40 @@ attr_accessor :raw_articles
         end
       end
     end
-    p @raw_articles
+  end
+
+  def articles_analyze
+    #@raw_articles.each do |raw_article|
+      selected_key_concepts_pools = []
+      # article_identification(raw_article)
+    #end
+      article_identification(@raw_articles[0], selected_key_concepts_pools)
+      article_evaluation(@raw_articles[0], selected_key_concepts_pools)
+  end
+
+  def article_identification(raw_article, selected_key_concepts_pools)
+    result = @brain.luis(raw_article[0])
+    entities = result["entities"]
+    entities.each do |entity|
+
+      case entity
+      #when "TRentitynameforonekeythematic"
+        #@cgvu_TRthematic_article_presence = true
+        #selected_key_concepts_pools << @TRthematic_key_concepts_pool
+      #when "TRentitynameforonekeythematic"
+        #@cgvu_TRthematic_article_presence = true
+        #selected_key_concepts_pools << @TRthematic_key_concepts_pool
+      #when "TRentitynameforonekeythematic"
+        #@cgvu_TRthematic_article_presence = true
+        #selected_key_concepts_pools << @TRthematic_key_concepts_pool
+      end
+
+
+    end
+  end
+
+  def article_evaluation(raw_article, selected_key_concepts_pools)
+
   end
 end
 
