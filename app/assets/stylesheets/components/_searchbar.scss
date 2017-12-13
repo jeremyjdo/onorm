@@ -8,7 +8,6 @@ input {
 .wrapper {
   text-align: center;
   position: relative;
-  height: 40px;
   font-size: 0;
   top: 50%;
   transform: translateY(-50%);
@@ -21,15 +20,15 @@ input {
   max-width: 400px;
   height: 40px;
   border: 1px solid darken(white, 30%);
-  border-radius: 20px 0 0 20px;
+  border-radius: 1px 0 0 1px;
 }
 
 .submit {
   cursor: pointer;
   border: none;
-  background: url("/assets/loupe.png") no-repeat center center, #4e978c;
+  background: url("/assets/loupe.png") no-repeat center center, #D3AF7B;
   background-size: 20px 20px;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 1px 1px 0;
   padding: 15px 25px;
   display: inline-block;
   width: 150px;
@@ -37,7 +36,7 @@ input {
 }
 
 #url-search-error {
-  font-size: 18px;
+  font-size: 14px;
   color: #a94442;
   margin-top: -0.5em;
 }

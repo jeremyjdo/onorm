@@ -9,13 +9,16 @@
   display: flex;
   bottom: 0;
   color: #000;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Panamera', sans-serif;
 }
 
 .footer-links {
   display: flex;
   align-items: center;
   color: #787878;
+  .fa {
+    color: #1a237e;
+  }
 }
 .footer-links a {
   color: #787878;
@@ -50,7 +53,7 @@
   font-size: 15px;
   line-height: 1.4em;
   font-weight: 600;
-  color: #323232;
+  color: #1a237e;
 }
 
 .footer-group-list-item {
