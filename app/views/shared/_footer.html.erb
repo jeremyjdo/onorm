@@ -11,9 +11,9 @@
       <span class="footer-group-title">Ressources</span>
         <div class="footer-group-list-item">Aide</div>
         <div class="footer-group-list-item">Donner votre avis</div>
-        <div class="footer-group-list-item">Blog</div>
+        <div class="footer-group-list-item"><%= link_to "Blog", blog_path, class: "footer-links"  %></div>
         <div class="footer-group-list-item"><%= link_to "Mentions légales", '/cgu', class: "footer-links"  %> </div>
-        <div class="footer-group-list-item"><%= link_to "Conditions générales d'utilisation", '/cgu', class: "footer-links"  %></div>
+        <div class="footer-group-list-item"><%= link_to "Conditions générales d'utilisation", cgu_path, class: "footer-links"  %></div>
     </div>
 
     <div class="footer-group">
