@@ -8,9 +8,38 @@ class CognitiveService
     uri = 'https://westeurope.api.cognitive.microsoft.com/'
     path = '/text/analytics/v2.0/keyPhrases'
     uri = URI(uri + path)
+
+    split_text = text.chars.each_slice(5000).map(&:join)
+    nb_split_part = split_text.size
+
+    case nb_split_part
+    when 1
+    documents = { 'documents': [
+    { 'id' => '1', 'language' => 'fr', 'text' => split_text[0] },
+    ]}
+    when 2
+    documents = { 'documents': [
+    { 'id' => '1', 'language' => 'fr', 'text' => split_text[0] },
+    { 'id' => '2', 'language' => 'fr', 'text' => split_text[1] },
+    ]}
+    when 3
+    documents = { 'documents': [
+    { 'id' => '1', 'language' => 'fr', 'text' => split_text[0] },
+    { 'id' => '2', 'language' => 'fr', 'text' => split_text[1] },
+    { 'id' => '3', 'language' => 'fr', 'text' => split_text[2] },
+    ]}
+    when 4
+    documents = { 'documents': [
+    { 'id' => '1', 'language' => 'fr', 'text' => split_text[0] },
+    { 'id' => '2', 'language' => 'fr', 'text' => split_text[1] },
+    { 'id' => '3', 'language' => 'fr', 'text' => split_text[2] },
+    { 'id' => '4', 'language' => 'fr', 'text' => split_text[3] },
+    ]}
+    else
     documents = { 'documents': [
     { 'id' => '1', 'language' => 'fr', 'text' => text },
     ]}
+    end
 
     puts 'Please wait a moment for the results to appear.'
 
@@ -23,7 +52,39 @@ class CognitiveService
       http.request (request)
     end
 
-    puts JSON::pretty_generate (JSON (response.body))
+    json = JSON::pretty_generate (JSON (response.body))
+    result = JSON.parse(json)
+
+    case nb_split_part
+    when 1
+    article_key_phrases = result["documents"][0]["keyPhrases"]
+
+    when 2
+    article_key_phrases = []
+    article_key_phrases << result["documents"][0]["keyPhrases"]
+    article_key_phrases << result["documents"][1]["keyPhrases"]
+    article_key_phrases = article_key_phrases.flatten
+
+    when 3
+    article_key_phrases = []
+    article_key_phrases << result["documents"][0]["keyPhrases"]
+    article_key_phrases << result["documents"][1]["keyPhrases"]
+    article_key_phrases << result["documents"][2]["keyPhrases"]
+    article_key_phrases = article_key_phrases.flatten
+
+    when 4
+    article_key_phrases = []
+    article_key_phrases << result["documents"][0]["keyPhrases"]
+    article_key_phrases << result["documents"][1]["keyPhrases"]
+    article_key_phrases << result["documents"][2]["keyPhrases"]
+    article_key_phrases << result["documents"][3]["keyPhrases"]
+    article_key_phrases = article_key_phrases.flatten
+
+    else
+    article_key_phrases = result["documents"][0]["keyPhrases"]
+
+    end
+    return article_key_phrases
   end
 
   def luis(text)
@@ -58,8 +119,7 @@ class CognitiveService
       http.request(request)
     end
 
-    puts "\nJSON Response:\n\n"
-    puts JSON::pretty_generate(JSON(response.body))
+    json = JSON::pretty_generate(JSON(response.body))
+    JSON.parse(json)
   end
-
 end
