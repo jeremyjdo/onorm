@@ -21,14 +21,14 @@
 
  function panelShow(category_string)
  {
-    $(`.bouton-${category_string}`).click(function(){
-      $(`.panel-${category_string}`).toggle(500);
-      // $(".panel-results > .panel").attr('style', 'display: none');
+    $('.bouton-' + category_string).click(function(){
+      $(".panel-results > div > .panel").hide();
+      $('.panel-' + category_string).toggle(500);
     });
  }
 
 var a = ["mentions-legales","cookies", "cgvu", "data-privacy"]
 
-a.forEach((element) => {
+a.forEach(function(element) {
   panelShow(element);
 });
