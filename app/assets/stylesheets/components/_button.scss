@@ -1,19 +1,16 @@
 .btn-medium {
-  background-color: #60958c;
-  border: 1px solid #999999;
-  border-radius: 10px;
-  color: white;
+  background-color: #22304e;
+  color: #cdb082;
 }
 
 .btn-medium:hover {
-  background-color: #5f6264;
+  background-color: #cdb082;
   text-decoration: none;
-  color: white;
+  color: #22304e;
 }
 .btn-treehouse {
   color: white;
   padding: 10px 15px;
-  border-radius: 4px;
   font-weight: bold;
   background: #6AD58B;
   transition: background 0.3s ease;
@@ -142,7 +139,7 @@ div#sidebarAd.cleanslate .ad-sponsor {
 
 /* Style the buttons that are used to open and close the accordion panel */
 button.accordion {
-  background-color: #5f6265;
+  background-color: #22304E;
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -154,9 +151,8 @@ button.accordion {
   width: 470px;
   background-size: cover !important;
   background-position: center;
-  color: white;
+  color: #cdb082;
   position: relative;
-  border-radius: 10px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
