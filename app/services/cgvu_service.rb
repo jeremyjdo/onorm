@@ -107,20 +107,22 @@ class CGVUService
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
 
+#Firstly we scrap and parse articles, by using the headers pattern (Article Title)
     scrap_by_header_pattern(html_doc)
 
     unless @raw_articles.any?
-      return #FALLBACK A INTEGRER
+      return #FALLBACK A INTEGRER si aucun article n'a été trouvé. Possible Improvement : Create a another scraper/parser, using for ex the index article table
     end
 
+#Secondly, we run the analysis of the different articles
     articles_analyze
-    binding.pry
+
     cgvu_scorer
     cgvu_generator
 
   end
 
-  #private
+  private
 
 ###############################################################
 
@@ -128,6 +130,7 @@ class CGVUService
     raw_target = html_doc.at("body").search('h1, h2, h3, h4, h5, h6')
     if raw_target
       raw_target.each_with_index do |header, index|
+#We seach with a regex various Article Title Patterns
         if header.text.strip.match(/(article \d+\b)|(\A\d+ \b)|(\A\d+. \b)/i)
 
           raw_article = []
@@ -135,6 +138,7 @@ class CGVUService
           raw_article_body = ""
           el = header.next_element
 
+#DON'T TOUCH -> the While block allow us to capture the whole body article and to break at the next identified Header OR when we are iterating on the last article OR when we detect a Article Title Pattern
           while(true) do
             if el.try(:next_element)
               raw_article_body = raw_article_body + el.text
@@ -158,6 +162,8 @@ class CGVUService
 ###############################################################
 
   def articles_analyze
+#We conduct the different steps of the analysis for each article
+#Selected Groups is an array which will stock the identified group/clauses for each article. We need to clean it at the end of the iteration, before conducting the next article analysis
     @raw_articles.each do |raw_article|
       @selected_groups = []
       article_identification(raw_article)
@@ -167,41 +173,50 @@ class CGVUService
   end
 
   def article_identification(raw_article)
+#We send the Article Title To MICROSOFT LANGUAGE UNDERSTANDING INTELLIGENT SYSTEM, to identify entities related to specific groups/clauses
+#You have to Train LUIS MODEL. It's possible that iterating on entities is not the best alternative for a post-MVP version. Then, you could refactor it in order to iterate on intents.
     result = @brain.luis(raw_article[0])
-    entities = result["entities"]
+    entities = []
+
+    raw_entities = result["entities"]
+    raw_entities.each do |raw_entity|
+     entities << raw_entity["type"]
+    end
+
+#For each detected entities, we stock the key reference of related groups/clauses in @selected_groups + we save the article title in a ref variable + we activate related boolean
     entities.each do |entity|
 
-      if entity = "service"
+      if entity == "service"
         @selected_groups << "service" if @service_presence == false
         @service_article_ref = raw_article[0] if @service_presence == false
         @service_presence = true
 
-      elsif entity = "price"
+      elsif entity == "price"
         @selected_groups << "price" if @price_presence == false
         @price_article_ref = raw_article[0] if @price_presence == false
         @price_presence = true
 
-      elsif entity = "delivery"
+      elsif entity == "delivery"
         @selected_groups << "delivery" if @delivery_presence == false
         @delivery_article_ref = raw_article[0] if @delivery_presence == false
         @delivery_presence = true
 
-      elsif entity = "payment"
+      elsif entity == "payment"
         @selected_groups << "payment" if @payment_presence == false
         @payment_article_ref = raw_article[0] if @payment_presence == false
         @payment_presence = true
 
-      elsif entity = "contract_conclusion"
+      elsif entity == "contract_conclusion"
         @selected_groups << "contract_conclusion" if @contract_conclusion_presence == false
         @contract_conclusion_article_ref = raw_article[0] if @contract_conclusion_presence == false
         @contract_conclusion_presence = true
 
-      elsif entity = "retractation"
+      elsif entity == "retractation"
         @selected_groups << "retractation" if @retractation_presence == false
         @retractation_article_ref = raw_article[0] if @retractation_presence == false
         @retractation_presence = true
 
-      elsif entity = "guaranteeandsav"
+      elsif entity == "guaranteeandsav"
         @selected_groups << "guaranteeandsav" if @guaranteeandsav_presence == false
         @guaranteeandsav_article_ref = raw_article[0] if @guaranteeandsav_presence == false
         @guaranteeandsav_presence = true
@@ -210,47 +225,49 @@ class CGVUService
   end
 
   def article_evaluation(raw_article)
+  #We send the body article to MICROSOFT TEXT ANALYSIS COGNITIVE SERVICE, in order to extract Key Contents of the Article. (Based on deep semantic relationships)
     article_body = raw_article[1]
 
     raw_article_key_phrases = @brain.text_analysis(article_body)
 
     article_key_phrases = raw_article_key_phrases.map { |kp| kp.downcase }
 
+  #We use each group/clause key saved in @selected_groups in order to call the related functions
     @selected_groups.each do |group|
 
-      if group = "service"
+      if group == "service"
         #We test for all the required information of the service group
         cgvu_service_access(article_body, article_key_phrases)
         cgvu_service_description(article_body, article_key_phrases)
 
-      elsif group = "delivery"
+      elsif group == "delivery"
         #We test for all the required information of the delivery group
         cgvu_delivery_modality(article_body, article_key_phrases)
         cgvu_delivery_shipping(article_body, article_key_phrases)
         cgvu_delivery_time(article_body, article_key_phrases)
 
-      elsif group = "price"
+      elsif group == "price"
         #We test for all the required information of the price group
         cgvu_price_mention(article_body, article_key_phrases)
         cgvu_price_euro_currency(article_body, article_key_phrases)
         cgvu_price_ttc(article_body, article_key_phrases)
 
-      elsif group = "payment"
+      elsif group == "payment"
         #We test for all the required information of the payment group
         cgvu_payment_mention(article_body, article_key_phrases)
 
-      elsif group = "contract_conslusion"
+      elsif group == "contract_conslusion"
         #We test for all the required information of the contract_conslusion group
         cgvu_contract_conslusion_modality(article_body, article_key_phrases)
         cgvu_contract_conslusion_human_error(article_body, article_key_phrases)
         cgvu_contract_conslusion_agreement(article_body, article_key_phrases)
         cgvu_contract_conslusion_offer_durability(article_body, article_key_phrases)
 
-      elsif group = "retractation"
+      elsif group == "retractation"
         #We test for all the required information of the retractation group
         cgvu_retractation_right(article_body, article_key_phrases)
 
-      elsif group = "guaranteeandsav"
+      elsif group == "guaranteeandsav"
         #We test for all the required information of the guaranteeandsav group
         cgvu_guaranteeandsav_guarantee(article_body, article_key_phrases)
         cgvu_guaranteeandsav_sav(article_body, article_key_phrases)
@@ -263,6 +280,7 @@ class CGVUService
 
   def cgvu_scorer
 
+#We calculate the global score of CGVU
     scorer_table = [
       @service_access_score,
       @service_description_score,
@@ -295,11 +313,11 @@ class CGVUService
       @cgvu_score = total_points.to_f / maximum_points.to_f
     end
 
-    binding.pry
     @cgvu_score = (@cgvu_score * 25)
   end
 
   def cgvu_generator
+#We generate the CGVU instance and save it to the Analysis object
     cgvu = Cgvu.new
 
     cgvu.score = @cgvu_score
@@ -343,12 +361,17 @@ class CGVUService
 
     cgvu.analysis = @analysis
 
-    binding.pry
     cgvu.save!
   end
 
 ###############################################################
 ###############################################################
+#METHODS FOR REQUIRED INFORMATION IDENTIFICATION
+#For each of the following methods :
+#1. We try to detect the required information in the Key Phrases of the Article, extracted by Text Analysis
+# => If we have a match, we save its presence and we attribute the maximum score. (Deep semantic relationships => ++ probability of a coherent concept and ++ probability of a reader-friendly article)
+#2. If the first try has no result, we reconduct the test with the whole Article
+# => If we have a match, we save its presence and we attribute a score with a penalty. (No Deep semantic relationships => -- probability of a coherent concept and -- probability of a reader-friendly article)
 ###############################################################
 #SERVICE
 
@@ -449,14 +472,14 @@ class CGVUService
 
   def cgvu_price_mention(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/^.*\bprix\b.*$/i)
 
     if raw_target
       @price_mention_score  = 1.to_f
       @price_mention_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/^.*\bprix\b.*$/i)
 
       if raw_target
       @price_mention_score = 0.66.to_f
@@ -467,14 +490,14 @@ class CGVUService
 
   def cgvu_price_euro_currency(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/^.*\b(euros)|(euro)|(€)\b.*$/i)
 
     if raw_target
       @price_euro_currency_score  = 1.to_f
       @price_euro_currency_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/^.*\b(euros)|(euro)|(€)\b.*$/i)
 
       if raw_target
       @price_euro_currency_score = 0.66.to_f
@@ -485,14 +508,14 @@ class CGVUService
 
   def cgvu_price_ttc(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/^.*\b(toutes taxes comprises)|(TVA)\b.*$/i)
 
     if raw_target
       @price_ttc_score  = 1.to_f
       @price_ttc_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/^.*\b(toutes taxes comprises)|(TVA)\b.*$/i)
 
       if raw_target
       @price_ttc_score = 0.66.to_f
@@ -658,6 +681,55 @@ class CGVUService
   end
 end
 
+
+###############################################################
+#TUTORIAL - QUICKLY INTEGRATE A NEW CLAUSE
+#TR -> To Replace
+#Add the following code to the entities Enumerable (article_identification). (the LUIS entity should have the same name as the group/clause name)
+#
+# if entity == "TRgroupname"
+#         @selected_groups << "TRgroupname" if @TRgroupname_presence == false
+#         @TRgroupname_article_ref = raw_article[0] if @TRgroupname_presence == false
+#         @TRgroupname_presence = true
+#
+#
+#
+#
+#Add the following code to the selected_groups Enumerable (article_evaluation)
+#
+# elsif group == "TRgroupname"
+#         cgvu_TRgroupname_TRrequiredfirstinformationname(article_body, article_key_phrases)
+#         cgvu_TRgroupname_TRrequiredsecondinformationname(article_body, article_key_phrases)
+#         cgvu_TRgroupname_TRrequiredthirdinformationname(article_body, article_key_phrases)
+#         ....
+#
+#
+#
+#
+#Then, create the method for each required information, with the following template
+#
+# def cgvu_TRgroupname_TRrequiredinformationname(article_body, article_key_phrases)
+#     raw_target = article_key_phrases.join(" ").match(/#TRREGEXformatchingtherequiredinformation/)
+#
+#     if raw_target
+#       @TRgroupname_TRrequiredinformationname_score  = 1.to_f
+#       @TRgroupname_TRrequiredinformationname_presence = true
+#     else
+#
+#       raw_target = article_body.match(/#TRREGEXformatchingtherequiredinformation/)
+#
+#       if raw_target
+#       @TRgroupname_TRrequiredinformationname_score  = 0.66.to_f
+#       @TRgroupname_TRrequiredinformationname_presence = true
+#       end
+#     end
+#   end
+#
+#
+#
+#Finally, Add those new variables to initialize, cgvu_scorer and cgvu_generator
+#Don't forget to train LUIS
+#Enjoy !!!!!
 
 
 
