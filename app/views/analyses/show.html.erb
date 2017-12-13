@@ -147,13 +147,14 @@
     //     }
     //   }
     // );
+
     App['identification_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'IdentificationChannel', analysis_id: <%= @analysis.id %> },
       {
-        received: (data) => {
-          const i_header = document.getElementById('identification-header-remote');
+        received: function(data) {
+          var i_header = document.getElementById('identification-header-remote');
           i_header.innerHTML = data.identification_header_partial;
-          const i_panel = document.getElementById('identification-panel-remote');
+          var i_panel = document.getElementById('identification-panel-remote');
           i_panel.innerHTML = data.identification_panel_partial;
           panelShow("mentions-legales")
         }
@@ -163,14 +164,15 @@
     App['cookie_system_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'CookieSystemChannel', analysis_id: <%= @analysis.id %> },
       {
-        received: (data) => {
-          const c_header = document.getElementById('cookie-header-remote');
+        received: function(data) {
+          var c_header = document.getElementById('cookie-header-remote');
           c_header.innerHTML = data.cookie_header_partial;
-          const c_panel = document.getElementById('cookie-panel-remote');
+          var c_panel = document.getElementById('cookie-panel-remote');
           c_panel.innerHTML = data.cookie_panel_partial;
           panelShow("cookies")
         }
       }
     );
+
   </script>
 <% end %>
