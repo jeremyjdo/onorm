@@ -15,17 +15,20 @@ class CookieService
   end
 
   def call
+    init_capybara
+
     cookie_list
     cookie_banner?
 
     cookie_system_scorer
     cookie_system_generator
+
+    quit_capybara
   end
 
   def cookie_list
-    url = @analysis.website_url
     cookie_l = {}
-    presence(url).split("; ").each do |c|
+    presence.split("; ").each do |c|
       a = c.split("=")
       cookie_l[a[0].to_sym] = a[1]
     end
@@ -39,17 +42,8 @@ class CookieService
   end
 
   def cookie_banner?
-    # has_banner = false
-    url = @analysis.website_url
-    init_capybara
 
-    @browser = Capybara.current_session
-
-    # @browser.driver.resize(3072, 2304)
-
-    @browser.visit(url)
-
-    raw_data = browser.first('div', text:'cookie')
+    raw_data = @session.first('div', text:'cookie')
 
     # returns true if site has banner
     if !raw_data.nil?
@@ -89,10 +83,11 @@ class CookieService
     @cookie_system.save!
   end
 
-  # # test sur plusieurs sites
+  # test sur plusieurs sites
   # def cookie_test
   #   puts ""
   #   puts "TEST Blizzard : True"
+  #   puts
   #   puts cookie_banner?('https://www.blizzard.com/fr-fr/')
 
   #   puts ""
@@ -115,42 +110,61 @@ class CookieService
 
   private
 
-  def presence(url)
-    init_capybara
-    @browser = Capybara.current_session
+  def presence
 
     # To get the desktop version for the scraped page, in order to get access
     # to the flat booking form
-    @browser.driver.resize(3072, 2304)
-    @browser.visit(url)
 
-    cookies = @browser.evaluate_script("document.cookie")
+    cookies = @session.evaluate_script("document.cookie")
+
     return cookies
   end
 
   def init_capybara
     require 'capybara/poltergeist'
-    Capybara.register_driver :poltergeist do |app|
+     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app,
-       phantomjs: Phantomjs.path,
+        phantomjs: Phantomjs.path,
         js_errors: false,
-        phantomjs_options: ['--load-images=no'],
+        autoLoadImages: false,
+        ignoreSslErrors: true
         # url_blacklist: ['*/analytics_tool.js'] # can use * and ? wildcards in these
-        )
+      )
     end
 
-    Capybara.default_driver = :poltergeist
+    @session = Capybara::Session.new(:poltergeist)
+    url = @analysis.website_url
+    @session.visit(url)
 
-    # To debug with a real browser, if needed
-    # Capybara.register_driver :selenium do |app|
-    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
-    # end
+    # Capybara.default_driver = :poltergeist
 
-    # Capybara.javascript_driver = :chrome
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
+    # puts Capybara.methods - Object.methods
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
+    # puts @session
+    # puts @session.class
+    # puts @session.methods - Object.methods
+    # puts ""
+    # puts ""
+    # puts '<=====================>'
+    # puts ""
+    # puts ""
 
-    # Capybara.configure do |config|
-    #   config.default_max_wait_time = 10 # seconds
-    #   config.default_driver        = :selenium
-    # end
+    # @session.driver.clear_memory_cache
+
+  end
+
+  def quit_capybara
+    @session.reset_session!
+    @session.driver.quit
+    @session = nil
   end
 end

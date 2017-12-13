@@ -20,7 +20,6 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
   end
 
   def call
-    start = Time.now
     url = @analysis.website_url
     html_file = open(url).read
     html_doc = Nokogiri::HTML(html_file)
@@ -51,9 +50,20 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     @analysis.cookie_system_url = @cookie_system_url
     @analysis.data_privacy_url = @data_privacy_url
 
+    #Run Identification Analysis if identification_url is present
+
     unless @analysis.save!
       render "root"
     end
-    puts Time.now - start
+
+    # Must be after the analysis save
+    if @analysis.identification_url != ""
+      IdentificationJob.perform_later(@analysis.id)
+    end
+
+    # Identification cable test
+    # ActionCable.server.broadcast("presence_for_analysis_#{@analysis.id}", {
+    #   identification_url: @analysis.identification_url
+    # })
   end
 end
