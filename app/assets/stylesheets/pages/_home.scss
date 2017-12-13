@@ -3,9 +3,9 @@
 .home-body {
   align-items: center;
   justify-content: center;
-  h1 {
-    text-transform: uppercase;
-  }
+  // h1 {
+  //   text-transform: uppercase;
+  // }
 }
 
 .slogan  {
@@ -48,6 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 3px;
 }
 
 .banner-landing {
