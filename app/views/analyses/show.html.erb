@@ -139,14 +139,7 @@
 </div>
 <% content_for :after_js do %>
   <script>
-    // App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
-    //   { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
-    //   {
-    //     received: (data) => {
-    //       console.log(data)
-    //     }
-    //   }
-    // );
+
 
     App['identification_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'IdentificationChannel', analysis_id: <%= @analysis.id %> },
@@ -170,6 +163,13 @@
           var c_panel = document.getElementById('cookie-panel-remote');
           c_panel.innerHTML = data.cookie_panel_partial;
           panelShow("cookies")
+        }
+      }
+    );
+    App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
         }
       }
     );
