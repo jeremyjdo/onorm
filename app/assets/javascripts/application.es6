@@ -60,6 +60,6 @@ if (gaugeElement) {
 
 var a = ["mentions-legales","cookies", "cgvu", "data-privacy"]
 
-a.forEach((element) =>{
+a.forEach((element) => {
   panelShow(element);
 });
