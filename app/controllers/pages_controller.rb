@@ -10,4 +10,7 @@ class PagesController < ApplicationController
 
   def cgu
   end
+
+  def blog
+  end
 end
