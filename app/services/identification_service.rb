@@ -81,7 +81,7 @@ class IdentificationService
     #FUTURE IMPROVEMENT - IF NOTHING FOUND, SEARCH ON THE NON_ACRONYME VERSION => Ex : société par actions simplifiée
     #ANNOTATION = Match if we just want the first occurence, scan if we want all the occurence
     #ANNOTATION = We can grab the full sentence by altering the regex code => ^.*\bSAS\b.*$
-    raw_target = html_doc.search("body").text.match(/\b(SA|SAS|SARL|SASU|EI|EIRL|EURL|EARL|GAEC|GEIE|GIE|SASU|SC|SCA|SCI|SCIC|SCM|SCOP|SCP|SCS|SEL|SELAFA|SELARL|SELAS|SELCA|SEM|SEML|SEP|SICA|SNC)\b/)
+    raw_target = html_doc.search("body").text.match(/\b(SA|SAS|SARL|SASU|EI|EIRL|EURL|EARL|GAEC|GEIE|GIE|SASU|SC|SCA|SCI|SCIC|SCM|SCOP|SCP|SCS|SEL|SELAFA|SELARL|SELAS|SELCA|SEM|SEML|SEP|SICA|SNC|GmbH)\b/)
     if raw_target
       @identification_legal_form_text  = raw_target.to_s
       @identification_legal_form_presence = true
