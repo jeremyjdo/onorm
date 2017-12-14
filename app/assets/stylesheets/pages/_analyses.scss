@@ -46,7 +46,6 @@ div.panel {
   color: black;
   position: relative;
   border: 5px;
-  border-radius: 10px;
   text-align: left;
   margin-bottom: 0px;
   p {
@@ -60,17 +59,15 @@ div.panel-medal {
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
-  background-color: #60958c;
+  background-color: #fff8ef;
   height: 575px;
-  color: white;
+  color: #22304e;
   position: relative;
   border: 5px;
-  border-radius: 10px;
   width: 500px;
   cursor: pointer;
   border: none;
   outline: none;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;

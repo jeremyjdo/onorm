@@ -1,10 +1,12 @@
 .form-login {
-  background: #5e6366;
+  color: #22304e;
+  background-color: #cdb082;
   padding: 10px 20px;
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 3px;
   box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  border-radius: 0px;
   h2 {
     font-size: 25px;
     font-weight: bold;
@@ -13,7 +15,10 @@
   }
   .btn {
     width: 100%;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    background-color: #22304e;
+    color: #cdb082;
+    border-radius: 0px;
   }
   .help-block{
     font-size: 14px;
