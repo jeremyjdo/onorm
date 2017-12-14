@@ -59,7 +59,22 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
     # Must be after the analysis save
     if @analysis.identification_url != ""
       IdentificationJob.perform_later(@analysis.id)
+    else
+      i = Identification.new
+      i.score = 0
+      i.analysis = @analysis
+      i.save!
     end
+
+    # if @analysis.cgvu_url != ""
+    # #  IdentificationJob.perform_later(@analysis.id)
+    # else
+    #   c = Cgvu.new
+    #   c.score = 0
+    #   c.analysis = @analysis
+    #   c.save!
+    # end
+
 
     # Identification cable test
     # ActionCable.server.broadcast("presence_for_analysis_#{@analysis.id}", {
