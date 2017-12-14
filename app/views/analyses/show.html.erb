@@ -66,6 +66,22 @@
       }
     );
 
+    App['cgvu_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'CgvuChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+          var cg_header = document.getElementById('cgvu-header-remote');
+          cg_header.innerHTML = data.cgvu_header_partial;
+          var cg_panel = document.getElementById('cgvu-panel-remote');
+          cg_panel.innerHTML = data.cgvu_panel_partial;
+          panelShow("cgvu");
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge(".gauge");
+        }
+      }
+    );
+
     App['cookie_system_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'CookieSystemChannel', analysis_id: <%= @analysis.id %> },
       {
