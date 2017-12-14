@@ -247,6 +247,22 @@ class IdentificationService
     identification.analysis = @analysis
 
     identification.save!
+
     @analysis.calculate_score
+
+    ActionCable.server.broadcast("identification_for_analysis_#{@analysis.id}", {
+      identification_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_header",
+        locals: { identification: identification, analysis: @analysis }
+      ),
+      identification_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+      partial: "analyses/score_header",
+      locals: { analysis: @analysis },
+      )
+    })
   end
 end
