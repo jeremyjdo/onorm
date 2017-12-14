@@ -83,6 +83,21 @@ class CookieService
     @cookie_system.save!
 
     @analysis.calculate_score
+
+    ActionCable.server.broadcast("cookie_system_for_analysis_#{@analysis.id}", {
+      cookie_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/cookie_header",
+        locals: { cookie_system: @cookie_system }
+      ),
+      cookie_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/cookie_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+      partial: "analyses/score_header",
+      locals: { analysis: @analysis },
+      )
+    })
   end
 
   # test sur plusieurs sites

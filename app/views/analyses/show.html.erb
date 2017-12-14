@@ -58,7 +58,10 @@
           i_header.innerHTML = data.identification_header_partial;
           var i_panel = document.getElementById('identification-panel-remote');
           i_panel.innerHTML = data.identification_panel_partial;
-          panelShow("mentions-legales")
+          panelShow("mentions-legales");
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge(".gauge");
         }
       }
     );
@@ -71,20 +74,23 @@
           c_header.innerHTML = data.cookie_header_partial;
           var c_panel = document.getElementById('cookie-panel-remote');
           c_panel.innerHTML = data.cookie_panel_partial;
-          panelShow("cookies")
-        }
-      }
-    );
-    App['score_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
-      { channel: 'ScoreChannel', analysis_id: <%= @analysis.id %> },
-      {
-        received: function(data) {
+          panelShow("cookies");
           var s_header = document.getElementById('score-header-remote');
           s_header.innerHTML = data.score_header_partial;
-          jauge()
+          jauge(".gauge");
         }
       }
     );
+    // App['score_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+    //   { channel: 'ScoreChannel', analysis_id: <%= @analysis.id %> },
+    //   {
+    //     received: function(data) {
+    //       var s_header = document.getElementById('score-header-remote');
+    //       s_header.innerHTML = data.score_header_partial;
+    //       jauge(".gauge");
+    //     }
+    //   }
+    // );
     App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
       {

@@ -9,9 +9,20 @@ class Analysis < ApplicationRecord
   before_validation :refactor_url, only: :website_url
 
   def calculate_score
-    if self.cookie_system != nil && self.identification != nil # && self.cgvu != nil
-      ScoreJob.perform_later(self.id)
+    # if self.cookie_system != nil && self.identification != nil # && self.cgvu != nil
+    self.total_score = 0
+    if cookie_system != nil
+      self.total_score += cookie_system.score
     end
+    if identification != nil
+      self.total_score += identification.score
+    end
+    if cgvu != nil
+      self.total_score += cgvu.score
+    end
+
+    self.save
+    # end
   end
 
   private
