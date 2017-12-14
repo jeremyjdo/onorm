@@ -81,6 +81,8 @@ class CookieService
     @cookie_system.analysis = @analysis
 
     @cookie_system.save!
+
+    @analysis.calculate_score
   end
 
   # test sur plusieurs sites

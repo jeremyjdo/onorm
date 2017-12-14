@@ -18,5 +18,12 @@ class ScoreJob < ApplicationJob
     end
 
     @analysis.save!
+
+    ActionCable.server.broadcast("score_for_analysis_#{@analysis.id}", {
+      score_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/score_header",
+        locals: { analysis: @analysis }
+      )
+    })
   end
 end
