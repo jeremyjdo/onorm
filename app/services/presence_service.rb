@@ -64,7 +64,23 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
       i.score = 0
       i.analysis = @analysis
       i.save!
+      ActionCable.server.broadcast("identification_for_analysis_#{@analysis.id}", {
+      identification_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_header",
+        locals: { identification: identification, analysis: @analysis }
+      ),
+      identification_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+      partial: "analyses/score_header",
+      locals: { analysis: @analysis },
+      )
+    })
     end
+
+
 
     if @analysis.cgvu_url != ""
       CgvuJob.perform_later(@analysis.id)
@@ -73,6 +89,20 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
       c.score = 0
       c.analysis = @analysis
       c.save!
+      ActionCable.server.broadcast("cgvu_for_analysis_#{@analysis.id}", {
+      cgvu_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/cgvu_header",
+        locals: { analysis: @analysis }
+      ),
+      cgvu_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/cgvu_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/score_header",
+        locals: { analysis: @analysis },
+      )
+    })
     end
 
 

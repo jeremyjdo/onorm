@@ -56,7 +56,7 @@ class CookieService
   def cookie_system_scorer
     if @cookie_usage
       if @cookie_user_agreement && @analysis.cookie_system_url != ""
-        @cookie_score = 1.to_f
+        @cookie_score = 0.7.to_f
       elsif @cookie_user_agreement && @analysis.cookie_system_url == ""
         @cookie_score = 0.5.to_f
       elsif !@cookie_user_agreement && @analysis.cookie_system_url != ""
