@@ -8,7 +8,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
   def initialize(analysis)
     @analysis = analysis
 
-    @cgvu_wording_library = ["CONDITIONS GéNéRALES DE VENTES","CGV","SERVICE CLIENTS","RèGLES","CONDITIONS","CGU","C.G.V","C.G.U"]
+    @cgvu_wording_library = ["CONDITIONS GéNéRALES DE VENTES","CONDITIONS GéNéRALES","CONDITIONS","CGV","SERVICE CLIENTS","RèGLES","CONDITIONS","CGU","C.G.V","C.G.U"]
     @identification_wording_library = ["INFORMATIONS LéGALES","MENTIONS LéGALES","MENTION LéGALE"]
     @cookie_system_wording_library = ["COOKIES"]
     @data_privacy_wording_library = ["DONNéES PERSONNELLES","CONFIDENTIALITé"]
