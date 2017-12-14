@@ -181,10 +181,11 @@ class CGVUService
 #You have to Train LUIS MODEL. It's possible that iterating on entities is not the best alternative for a post-MVP version. Then, you could refactor it in order to iterate on intents.
     result = @brain.luis(raw_article[0])
     entities = []
-
     raw_entities = result["entities"]
-    raw_entities.each do |raw_entity|
-     entities << raw_entity["type"]
+    if raw_entities
+      raw_entities.each do |raw_entity|
+        entities << raw_entity["type"]
+      end
     end
 
 #For each detected entities, we stock the key reference of related groups/clauses in @selected_groups + we save the article title in a ref variable + we activate related boolean
