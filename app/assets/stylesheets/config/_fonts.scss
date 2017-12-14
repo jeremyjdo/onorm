@@ -1,6 +1,6 @@
 // Define fonts for body and headers
-$body-font: "Panamera", "sans-serif";
-$headers-font: "Panamera", "sans-serif";
+$body-font: "Panamera-Regular", "sans-serif";
+$headers-font: "Panamera-Regular", "sans-serif";
 
 
 // To use a font file (.woff) uncomment following lines
@@ -14,8 +14,11 @@ $headers-font: "Panamera", "sans-serif";
 // $my-font: "Font Name";
 
 @font-face {
-    font-family: "Panamera";
+    font-family: "Panamera-Regular";
     src: font-url('Panamera-Regular.otf');
-    font-family: "Panamera-Light";
-    src: font-url('Panamera-Light.otf');
+}
+
+@font-face {
+  font-family: "Panamera-Light";
+  src: font-url('Panamera-Light.otf');
 }
