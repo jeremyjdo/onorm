@@ -55,31 +55,6 @@ class CognitiveService
     json = JSON::pretty_generate (JSON (response.body))
     result = JSON.parse(json)
 
-    p ""
-    p ""
-    p ""
-    p "<------------------>"
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
-    p result
-    p result["documents"]
-    p result["documents"][0]
-    p ""
-    p ""
-    p ""
-    p "<------------------>"
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
-    p ""
     article_key_phrases = []
     case nb_split_part
     when 1
