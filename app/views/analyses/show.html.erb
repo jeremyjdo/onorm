@@ -18,21 +18,23 @@
                   </div>
                 </div>
               <% else %>
-                <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>')";>
                   <div class="container-gauge">
                       <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
                   </div>
                 </div>
               <% end %>
             <% else %>
-              <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
+              <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+                <div class="container-gauge">
+                      <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
+                  </div>
+              </div>
             <% end %>
             <p><%= URI.parse(@analysis.website_url).host %></p>
             <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
 
             <!-- <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-              <h1><%= @analysis.total_score %></h1>
-              <h2>/100</h2>
               <div class="container-gauge">
                   <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
               </div>
