@@ -43,7 +43,8 @@
   margin-bottom: 10px;
 }
 
-/* Style the accordion panel. Note: hidden by default */
+
+
 div.panel {
   display: none;
   padding: 0 18px;
@@ -62,6 +63,14 @@ div.panel {
   p {
     font-size: 90%;
   }
+}
+
+div.panel-initial {
+  display: inline;
+  padding: 0 0 0 0;
+  height: 575px;
+  width: 750px;
+  background-color: white;
 }
 
 
