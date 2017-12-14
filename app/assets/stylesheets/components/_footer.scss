@@ -7,16 +7,21 @@
   background-color: white;
   line-height: 1.5em;
   display: flex;
+  bottom: 0;
   color: #000;
-  font-family: 'Raleway', sans-serif;
-
+  font-family: 'Panamera-Regular', sans-serif;
 }
+
 .footer-links {
   display: flex;
   align-items: center;
+  color: #787878;
+  .fa {
+    color: #1a237e;
+  }
 }
 .footer-links a {
-  color: black;
+  color: #787878;
   opacity: 0.15;
   text-decoration: none;
   font-size: 24px;
@@ -32,7 +37,7 @@
 .footer-container {
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 70px;
+  padding-bottom: 30px;
   width: 1002px;
   max-width: 95%;
 }
@@ -48,7 +53,7 @@
   font-size: 15px;
   line-height: 1.4em;
   font-weight: 600;
-  color: #323232;
+  color: #1a237e;
 }
 
 .footer-group-list-item {

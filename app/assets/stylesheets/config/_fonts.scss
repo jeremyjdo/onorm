@@ -1,9 +1,6 @@
-// Import Google fonts
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Raleway:400,100,300,700,500");
-
 // Define fonts for body and headers
-$body-font: "Open Sans", "Helvetica", "sans-serif";
-$headers-font: "Raleway", "Helvetica", "sans-serif";
+$body-font: "Panamera-Regular", "sans-serif";
+$headers-font: "Panamera-Regular", "sans-serif";
 
 
 // To use a font file (.woff) uncomment following lines
@@ -15,3 +12,13 @@ $headers-font: "Raleway", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+@font-face {
+    font-family: "Panamera-Regular";
+    src: font-url('Panamera-Regular.otf');
+}
+
+@font-face {
+  font-family: "Panamera-Light";
+  src: font-url('Panamera-Light.otf');
+}

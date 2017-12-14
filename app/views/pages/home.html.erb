@@ -1,86 +1,83 @@
-<style> .navbar-wagon{ display: none; } </style>
-<div class="banner-landing" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "banner-home-photo.jpg"  %>');">
+<div class="banner-landing" style="background-image: linear-gradient(-225deg, rgba(0, 0, 0, 0.5) 90%, rgba(0, 0, 0, 0.5) 90%), url('<%= asset_path "banner-home-photo.jpg"  %>');">
   <div class="banner-content">
-    <div class="container">
-      <div class="row">
-          <div class="col-xs-6 col-sm-8 col-lg-12">
-            <div class="body">
-              <div class="home-logo">
-              <%=image_tag("logo.png", alt: "Onorm")%>
-              </div>
-              <h4>L'assistant juridique intelligent de votre MVP</h4>
-
-            </div>
-          </div>
-      </div>
+    <div class="home-body">
+      <h1>L'assistant juridique intelligent de votre MVP</h1>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="slogan">
-    <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
-    <br>
-    <div class="wrapper">
-      <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
-        <div class=''>
-          <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' } %>
-          <%= f.submit "", class: "submit" %>
-        </div>
-      <% end %>
+    <div class="slogan">
+      <div class="wrapper">
+        <h3><strong>Vérifiez la conformité de votre site en quelques secondes</strong></h3>
+        <%= simple_form_for @analysis, wrapper: :inline_form, html: { class: 'form-inline' } do |f| %>
+          <div class=''>
+            <%= f.input :website_url, input_html: { class: 'search', style: 'width: 23em;' }, placeholder: 'http://www.domain.com/' %>
+            <%= f.submit "", class: "submit" %>
+            <%= f.error :website_url, id: "url-search-error" %>
+          </div>
+        <% end %>
+      </div>
     </div>
+
+
+  <div class="titre-temoignages">
+  <h3><strong>De nombreuses start-ups l'ont déjà adopté ...</strong></h3>
+  <br>
   </div>
-
-  <div class="row">
-    <div class="titre-temoignages">
-    <h4><strong>De nombreuses start-ups l'ont déjà adopté ...</strong></h4>
-    <br>
-    </div>
-    <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <p>« Grâce à Onorm, j'ai pu lancer mon MVP en toute sérénité. Mes mentions légales ont été vérifiées et leur légalité certifiée. »</p>
-      <div class="identity">
-        <div>
-          <%= image_tag("no_profile_picture_male 2.jpg", class:"avatar-large") %>
-        </div>
-        <div>
-          <div>
-            <b>Titi</b>
-          </div>
-          <div>
-            Cofondateur de Grosminet
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
+        <div class="card">
+          <p>« <span class="bold">Grâce à Onorm</span>, j'ai pu lancer mon MVP en toute sérénité. <span class="bold">Mes mentions légales</span> ont été <span class="bold">vérifiées</span> et leur <span class="bold">légalité certifiée. </span>»</p>
+          <div class="identity">
+            <div>
+              <%= image_tag("aurelien.jpg", class:"avatar-large avatar-bordered") %>
+            </div>
+            <div>
+              <div>
+                <b>Aurélien Allard</b>
+              </div>
+              <div>
+                Cofondateur de Weazr
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <p>« Au moment de démarrer ma marketplace, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. En quelques clics, Onorm s'est chargé de tout vérifier. »</p>
-      <div class="identity">
-        <div>
-          <%= image_tag("no_profile_picture_male 2.jpg", class:"avatar-large") %>
-        </div>
-        <div>
-          <div>
-            <b>Jack Ma</b>
-          </div>
-          <div>
-            Fondateur d'Alibaba
+      <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
+        <div class="card">
+          <p>« <span class="bold">Au moment de démarrer ma marketplace</span>, je me suis aperçu que j'avais totalement négligé de m'assurer de la conformité juridique de mes CGV. <span class="bold">En quelques clics, Onorm s'est chargé de tout vérifier.</span> »</p>
+          <div class="identity">
+            <div>
+              <%= image_tag("clement.jpg", class:"avatar-large avatar-bordered") %>
+            </div>
+            <div>
+              <div>
+                <b>Clément Flinois</b>
+              </div>
+              <div>
+                Cofondateur de Piggybnk
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
 
     <div class="col-xs-12 col-sm-4 banner_customer_interview_text">
-      <p>« La dataprivacy devient un élément clé de toute activité en ligne. Grâce à sa technologie et ses équipes juridiques, Onorm nous accompagne au quotidien pour faire de ces points de vigilance une simple formalité. »</p>
-      <div class="identity">
-        <div>
-          <%= image_tag("no_profile_picture_male 2.jpg", class:"avatar-large") %>
-        </div>
-        <div>
+      <div class="card">
+        <p>« <span class="bold">La dataprivacy devient un élément clé de toute activité en ligne.</span> Grâce à sa technologie et ses équipes juridiques, Onorm nous accompagne au quotidien pour faire de ces points de vigilance <span class="bold">une simple formalité.</span> »</p>
+        <div class="identity">
           <div>
-            <b>Sergueï Brin & Larry Page</b>
+            <%= image_tag("mathieu.jpg", class:"avatar-large avatar-bordered") %>
           </div>
           <div>
-            cofondateurs d'Alphabet
+            <div>
+              <b>Mathieu Abmont</b>
+            </div>
+            <div>
+              Cofondateur de Backpack
+            </div>
           </div>
         </div>
       </div>

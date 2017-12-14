@@ -1,55 +1,97 @@
-
-
 <div class="content padding-top-navbar">
-  <div class="banner-analyses" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%);">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <div class="card">
-            <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
-<!--               <p><%#= @analysis.identification_url == "" ? "No identification url" : @analysis.identification_url  %></p>
- -->            </div>
+  <div class="container banner-analyses">
+    <div class="row-analyses">
+      <div class="col-md-5 panel-summary">
+        <div class="panel-medal">
+          <div id="score-header-remote">
+            <%= render 'analyses/score_header', analysis: @analysis %>
           </div>
-          <div class="card">
-            <div class="red score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
-<!--               <p><%#= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
- -->            </div>
-          </div>
-          <div class="card">
-            <div class="orange score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
-<!--               <p><%#= @analysis.cookie_system_url == "" ? "No Cookie url" : @analysis.cookie_system_url%></p>
- -->            </div>
-          </div>
-          <div class="card">
-            <div class="green score round" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.6) 0%, rgba(172, 182, 229, 0.6) 100%), url('<%= asset_path "balance.png"  %>');">
-<!--               <p><%#= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p>
- -->              <%  a = @analysis.cookie_system.cookie_usage
-                  b = @analysis.cookie_system.cookie_user_agreement
 
-                  # banner but cookies without consent
-                  cookie_score = "5/10" if a && b
-                  # banner and no cookies without consent
-                  cookie_score = "10/10" if !a && b
-                  # no banner and cookies without consent
-                  cookie_score = "0/10" if a && !b
-                  # no banner and no cookies without consent
-                  cookie_score = "10/10" if !a && !b
-               %>
 
-              <p> <%= cookie_score %></p>
-
-            </div>
+          <div id="identification-header-remote">
+            <%= render 'analyses/identification_header', identification: @analysis.identification, analysis: @analysis %>
           </div>
+
+
+          <div id="cookie-header-remote">
+            <%= render 'analyses/cookie_header', cookie_system: @analysis.cookie_system %>
+          </div>
+
+          <div id="cgvu-header-remote">
+            <%= render 'analyses/cgvu_header', analysis: @analysis %>
+          </div>
+
+<!--             <div id="data-privacy-header-remote">
+              <%#= render 'analyses/_data_privacy_header', analysis: @analysis %>
+            </div> -->
         </div>
-        <div class="col-md-6">
-          <br>
-          <div class="score-image">
-            <div class="score-image-divide" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-              <h1>Résultat <strong>100/100</strong></h1>
-            </div>
-          </div>
+      </div>
+      <div class="col-md-7 panel-results">
+        <div id="identification-panel-remote">
+          <%= render 'analyses/identification_panel', analysis: @analysis %>
         </div>
+
+        <div id="cookie-panel-remote">
+          <%= render 'analyses/cookie_panel', analysis: @analysis %>
+        </div>
+
+        <div id="cgvu-panel-remote">
+          <%= render 'analyses/cgvu_panel', analysis: @analysis %>
+        </div>
+
+        <!-- <div id="data-privacy-panel-remote">
+          <%#= render 'analyses/data_privacy_panel', analysis: @analysis %>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
+<% content_for :after_js do %>
+  <script>
+
+
+    App['identification_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'IdentificationChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+          var i_header = document.getElementById('identification-header-remote');
+          i_header.innerHTML = data.identification_header_partial;
+          var i_panel = document.getElementById('identification-panel-remote');
+          i_panel.innerHTML = data.identification_panel_partial;
+          panelShow("mentions-legales")
+        }
+      }
+    );
+
+    App['cookie_system_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'CookieSystemChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+          var c_header = document.getElementById('cookie-header-remote');
+          c_header.innerHTML = data.cookie_header_partial;
+          var c_panel = document.getElementById('cookie-panel-remote');
+          c_panel.innerHTML = data.cookie_panel_partial;
+          panelShow("cookies")
+        }
+      }
+    );
+    App['score_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'ScoreChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge()
+        }
+      }
+    );
+    App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+        }
+      }
+    );
+
+  </script>
+<% end %>

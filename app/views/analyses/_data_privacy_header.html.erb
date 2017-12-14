@@ -1,0 +1,31 @@
+<button class="accordion bouton-dataprivacy">
+  <div class="col-xs-3">
+
+    <% if @analysis.cookie_system != nil %>
+      <% if @analysis.cookie_system.score > 33.33  %>
+        <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+          <h2>/50</h2>
+        </div>
+      <% elsif @analysis.cookie_system.score > 16.66 %>
+        <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+          <h2>/50</h2>
+        </div>
+      <% else %>
+        <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
+          <h2>/50</h2>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+        <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></h1>
+        <h2>/50</h2>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xs-9 text-center analyses-header">
+    <p>Données Confidentielles</p>
+  </div>
+</button>

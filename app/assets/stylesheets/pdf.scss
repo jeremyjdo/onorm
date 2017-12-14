@@ -1,0 +1,56 @@
+body {
+  color: black;
+  font-family: 'Panamera-Regular', sans-serif;
+  color: #5e6366;
+}
+
+h1 {
+  text-align: center;
+}
+
+.title {
+  background: white;
+  padding: 10px 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 490px;
+  margin: 0 auto;
+}
+
+.result {
+   background: white;
+  padding: 10px 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 570px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-decoration: underline;
+  text-align: center;
+}
+
+#link {
+  text-align: center;
+}
+
+.slogan-pdf {
+  color: #5e6366;
+  font-family: 'Panamera-Regular', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+ }
+
+ .footer-pdf {
+  color: #5e6366;
+  font-family: 'Panamera-Regular', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+  padding: 30px 0 25px;
+  bottom: 0;
+ }
+

@@ -14,3 +14,11 @@
 @import "components/index";
 @import "pages/index";
 
+// Padding nécessaire pour le navbar
+body {
+  padding-top: 3em;
+    a, a:hover, a:active, a:visited, a:focus {
+      text-decoration: none;
+  }
+}
+

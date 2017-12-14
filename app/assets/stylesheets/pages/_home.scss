@@ -1,15 +1,30 @@
-// Specific CSS for your home-pag
+// Specific CSS for your home-page
+
+.home-body {
+  align-items: center;
+  justify-content: center;
+  // h1 {
+  //   text-transform: uppercase;
+  // }
+}
 
 .slogan  {
-  font-size: 25px;
-  color: #5e6366;
-  margin-bottom: 30px;
+  color: #1E3051;
+  margin-top: 75px;
   text-align: center;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Panamera-Regular', sans-serif;
+  h3 {
+  font-size: 25px;
+  margin-bottom: 25px;
+  }
 }
 
 .titre-temoignages {
-  color: #5f6265;
+  color: #1E3051;
+  text-align: center;
+  h3 {
+  font-size: 25px;
+  }
 }
 
 .banner {
@@ -23,10 +38,23 @@
   align-items: center;
   justify-content: center;
 }
+.banner-content {
+  color: white;
+  text-align: center;
+  height: 70vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  background: no-repeat center center fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 3px;
+}
+
 .banner-landing {
   color: white;
   text-align: center;
-  height: 400px;
+  height: 300px;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   background-size: cover !important;
   background: no-repeat center center fixed;
@@ -44,9 +72,10 @@
   font-size: 31px;
   color: white;
 }
-.banner-content h4 {
-  font-size: 31px;
-  text-shadow: 1px 1px #528a76;
+.banner-content h1 {
+  font-size: 45px;
+  text-shadow: 2px 2px #22304e;
+  font-weight: bold;
 }
 .banner p {
   font-size: 25px;
@@ -64,15 +93,12 @@
 }
 
 .banner_customer_interview_text {
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 20px;
   color: rgba(0,0,0,.54);
-  font-style: italic;
-  font-family: 'Raleway', sans-serif;
   font-weight: 300;
   p {
-    font-family: 'Vollkorn', serif;
-    font-size: 18px;
+    font-size: 16px;
     min-height: 160px;
   }
 }

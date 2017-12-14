@@ -1,13 +1,90 @@
+.panel {
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 0px;
+  box-shadow: 0px 0px 0px;
+}
+
+.content {
+  min-height: 70vh;
+  padding-bottom: 40px;
+}
 .banner-analyses {
   color: white;
   text-align: center;
-  height: 70vh;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   background-size: cover !important;
   background: no-repeat center center fixed;
   display: flex;
   align-items: center;
+  padding-top: 40px;
+  padding-left: 30px;
+  width: 1441px;
+}
+.panel-results {
+  margin: auto;
+  display: flex;
+  align-items: right;
+  flex-direction: column;
+  height: 100%;
+}
+.panel-summary {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.row-analyses {
+  width: 1441px;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+  display: none;
+  padding: 0 18px;
+  background-color: white;
+  padding-top: 15px;
+  padding-left: 15px;
+  height: 575px;
+  width: 750px;
+  background-size: cover !important;
+  background-position: center;
+  color: black;
+  position: relative;
+  border: 5px;
+  text-align: left;
+  margin-bottom: 0px;
+  p {
+    font-size: 90%;
+  }
+}
+
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel-medal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  background-color: white;
+  height: 575px;
+  color: #22304e;
+  position: relative;
+  border: 5px;
+  width: 500px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  p {
+    margin: 0 0 0 0;
+  }
+  .btn-medium {
+  font-size: 14px;
+  margin-bottom: 10px;
+  }
 }
 
 .resultat p {
@@ -15,17 +92,23 @@
 }
 
 .score-image-divide {
-  width: 300px;
-  height: 300px;
+  width: 125px;
+  height: 125px;
   align-items: center;
   justify-content: center;
   display: flex;
   background-size: cover !important;
   background: no-repeat center center;
   color: black;
-  .h1 {
-    font-size: 120px;
+  h1 {
+    font-size: 65px;
     font-weight: bold;
+    margin: 0 0 0 0;
+    text-shadow: 1px 1px 1px #5f6264;
+  }
+  h2 {
+    font-size: 14px;
+    margin: 0 0 0 0;
   }
 }
 
@@ -34,32 +117,40 @@
   text-align: center;
   color: #5f6265;
   font-weight: bold;
-  padding-left: 200px;
-  padding-top: 65px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 
-
-.score-image:hover {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
+.analyses-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-right: 100px;
+  p {
+    font-size: 18px;
+    margin: 0 0 0 0;
   }
 }
+pre {
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;}
+
+code {
+font-family: Courier, 'New Courier', monospace;
+font-size: 12px;}
+
+#codeStyler {
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+margin: 1em 0;}
+
+.computerGreen {
+background-color: #000000;
+color: green;}
