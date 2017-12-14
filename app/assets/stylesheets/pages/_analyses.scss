@@ -65,12 +65,18 @@ div.panel {
   }
 }
 
+#initial-panel-remote {
+  display: flex;
+  background-color: white;
+}
+
 div.panel-initial {
-  display: inline;
-  padding: 0 0 0 0;
   height: 575px;
   width: 750px;
-  background-color: white;
+  display: inline;
+  padding: 0 18px;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 
