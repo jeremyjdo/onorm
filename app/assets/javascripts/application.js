@@ -15,7 +15,7 @@ if (gaugeElement) {
       value: gaugeElement.dataset.analysisScore,
       valueFontColor: "black",
       labelFontColor: "black",
-      valueFontFamily: "Raleway",
+      valueFontFamily: "Panamera-Regular",
       min: 0,
       max: 100,
       donut: true,
