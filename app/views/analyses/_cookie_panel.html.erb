@@ -1,38 +1,51 @@
 <div class="panel panel-cookies">
+  <h3> Cookies </h3>
   <% if !analysis.cookie_system.nil? %>
     <% if !analysis.cookie_system_url.blank?  %>
       <p> Votre page d'information pour les cookies : <%= link_to analysis.cookie_system_url , analysis.cookie_system_url %></p>
     <% elsif analysis.cookie_system_url.blank? && analysis.cookie_system.cookie_usage %>
-      <p> Il semblerait que votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies.</p>
+      <p> Aucune page d'information pour les cookies n'a été identifiée </p>
     <% else %>
     <% end %>
 
     <br>
 
     <% if analysis.cookie_system.cookie_usage %>
-      <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous utilisez des cookies sans acceptation explicite de l'utilisateur.</p>
+      <p><%= image_tag "warning.png", size: "20x20"  %>Vous déposez des cookies sans acceptation préalable et explicite de l'utilisateur.</p>
       <% if analysis.cookie_system.cookie_user_agreement %>
-        <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies</p>
+        <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies à l'aide d'une bannière</p>
       <% else  %>
-        <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas informer de manière suffisante sur l'usage de vos cookies</p>
+        <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas utiliser d'alerte sur l'usage de vos cookies</p>
       <% end  %>
+      <% if analysis.cookie_system_url != "" %>
+        <p><%= image_tag "green-tick.png", size: "20x20" %> Vous disposez d'une page d'information facilement accessible sur l'usage de vos cookies.</p>
+        <% else %>
+        <p><%= image_tag "red-cross.png", size: "20x20" %> votre site internet ne possède pas de page d'information facilement accesssible sur l'usage de vos cookies. </p>
+        <% end %>
     <% else  %>
       <p><%= image_tag "green-tick.png", size: "20x20" %>Vous ne semblez pas utiliser de cookies sans acceptation explicite de l'utilisateur.</p>
+      <% if analysis.cookie_system.cookie_user_agreement %>
+        <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies à l'aide d'une bannière</p>
+      <% else %>
+        <p><%= image_tag "warning.png", size: "20x20" %>Si vous utilisez des cookies dans le futur ou bien que vous en déposez ailleurs sur votre site, n'oubliez pas d'informer l'utilisateur par une bannière.</p>
+      <% end %>
     <% end  %>
 
-<p> Pour être aux normes, veuillez ajouter ce code sur votre site</p>
-    <div id="codeSnippet">
- <pre>
- <code><%= '<script src="js/jquery-2.1.3.min.js"></script>
- <link rel="stylesheet" type="text/css" href="css/jquery-eu-cookie-law-popup.css"/>
- <script src="js/jquery-eu-cookie-law-popup.js"></script>
+    <p> Pour ajouter une alerte, vous pouvez :</p>
 
- <body class="eupopup eupopup-top">'%>
- </code>
- </pre>
-    </div>
+
+    <!--     <div id="codeSnippet">
+     <pre>
+     <code><%#= '<script src="js/jquery-2.1.3.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="css/jquery-eu-cookie-law-popup.css"/>
+     <script src="js/jquery-eu-cookie-law-popup.js"></script>
+
+     <body class="eupopup eupopup-top">'%>
+     </code>
+     </pre>
+     </div> -->
   <% else %>
-    <p> Chargement en cours</p>
+    <p> Chargement en cours </p>
   <% end %>
 
   <p><small><i><a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228">Source officielle</a></i></small></p>
