@@ -1,19 +1,19 @@
-<button class="accordion bouton-cookies">
+<button class="accordion bouton-cgvu">
   <div class="col-xs-3">
-    <% if cookie_system != nil %>
-      <% if cookie_system.score > 33.33  %>
+    <% if @analysis.cookie_system != nil %>
+      <% if @analysis.cookie_system.score > 33.33  %>
         <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-          <h1><%= cookie_system.score.to_i%></h1>
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
           <h2>/50</h2>
         </div>
-      <% elsif cookie_system.score > 16.66 %>
+      <% elsif @analysis.cookie_system.score > 16.66 %>
         <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
-          <h1><%= cookie_system.score.to_i%></h1>
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
           <h2>/50</h2>
         </div>
       <% else %>
         <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-          <h1><%= cookie_system.score.to_i%></h1>
+          <h1><%= @analysis.cookie_system.score.to_i%></h1>
           <h2>/50</h2>
         </div>
       <% end %>
@@ -23,8 +23,9 @@
         <h2>/50</h2>
       </div>
     <% end %>
+
   </div>
   <div class="col-xs-9 text-center analyses-header">
-    <p>Cookies</p>
+    <p>CGU / CGV</p>
   </div>
 </button>
