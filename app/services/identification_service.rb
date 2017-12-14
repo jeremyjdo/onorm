@@ -215,7 +215,7 @@ class IdentificationService
       @identification_score = total_points.to_f / maximum_points.to_f
     end
 
-    @identification_score = (@identification_score * 50)
+    @identification_score = (@identification_score * 40)
   end
 
   def identification_generator
