@@ -1,21 +1,21 @@
-<div class="banner" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%), url('<%= asset_path "bannergavin.jpg"  %>');">
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0, 0, 0, 0.5) 90%, rgba(0, 0, 0, 0.5) 90%), url('<%= asset_path "banner-home-photo.jpg"  %>');">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-sm-offset-4">
         <div class="form-login">
-          <h2>Sign up</h2>
+          <h2>Créer un compte</h2>
 
         <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= f.error_notification %>
 
           <div class="form-inputs">
             <%= f.input :email, required: true, autofocus: true %>
-            <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-            <%= f.input :password_confirmation, required: true %>
+            <%= f.input :password, label: "Mot de passe", required: true, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length) %>
+            <%= f.input :password_confirmation, label: "Confirmer mot de passe", required: true %>
           </div>
 
           <div class="form-actions">
-            <%= f.button :submit, "Sign up" %>
+            <%= f.button :submit, "Valider" %>
           </div>
         <% end %>
 

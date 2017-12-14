@@ -1,3 +1,9 @@
+.panel {
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 0px;
+  box-shadow: 0px 0px 0px;
+}
+
 .content {
   min-height: 70vh;
   padding-bottom: 40px;
@@ -32,7 +38,13 @@
   width: 1441px;
 }
 
-/* Style the accordion panel. Note: hidden by default */
+.url-parsed-website {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
 div.panel {
   display: none;
   padding: 0 18px;
@@ -46,12 +58,25 @@ div.panel {
   color: black;
   position: relative;
   border: 5px;
-  border-radius: 10px;
   text-align: left;
   margin-bottom: 0px;
   p {
     font-size: 90%;
   }
+}
+
+#initial-panel-remote {
+  display: flex;
+  background-color: white;
+}
+
+div.panel-initial {
+  height: 575px;
+  width: 750px;
+  display: inline;
+  padding: 0 18px;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 
@@ -60,17 +85,15 @@ div.panel-medal {
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
-  background-color: #60958c;
+  background-color: white;
   height: 575px;
-  color: white;
+  color: #22304e;
   position: relative;
   border: 5px;
-  border-radius: 10px;
   width: 500px;
   cursor: pointer;
   border: none;
   outline: none;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -97,6 +120,7 @@ div.panel-medal {
   background-size: cover !important;
   background: no-repeat center center;
   color: black;
+  margin-bottom: 30px;
   h1 {
     font-size: 65px;
     font-weight: bold;

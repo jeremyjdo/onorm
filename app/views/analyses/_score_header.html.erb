@@ -1,0 +1,31 @@
+ <% if analysis.total_score != nil %>
+  <% if analysis.total_score > 66.66  %>
+    <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
+      <div class="container-gauge">
+          <div id="g1" class="gauge" data-analysis-score="<%= analysis.total_score %>"></div>
+      </div>
+    </div>
+  <% elsif analysis.total_score > 33.33 %>
+    <div class="score-image-divide orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
+      <div class="container-gauge">
+          <div id="g1" class="gauge" data-analysis-score="<%= analysis.total_score %>"></div>
+      </div>
+    </div>
+  <% else %>
+    <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>')";>
+      <div class="container-gauge">
+          <div id="g1" class="gauge" data-analysis-score="<%= analysis.total_score %>"></div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
+    <div class="container-gauge">
+      <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></h1>
+    </div>
+  </div>
+<% end %>
+<div class="url-parsed-website">
+  <p><%= URI.parse(analysis.website_url).host %></p>
+</div>
+<%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>

@@ -81,7 +81,7 @@ class IdentificationService
     #FUTURE IMPROVEMENT - IF NOTHING FOUND, SEARCH ON THE NON_ACRONYME VERSION => Ex : société par actions simplifiée
     #ANNOTATION = Match if we just want the first occurence, scan if we want all the occurence
     #ANNOTATION = We can grab the full sentence by altering the regex code => ^.*\bSAS\b.*$
-    raw_target = html_doc.search("body").text.match(/\b(SA|SAS|SARL|SASU|EI|EIRL|EURL|EARL|GAEC|GEIE|GIE|SASU|SC|SCA|SCI|SCIC|SCM|SCOP|SCP|SCS|SEL|SELAFA|SELARL|SELAS|SELCA|SEM|SEML|SEP|SICA|SNC)\b/)
+    raw_target = html_doc.search("body").text.match(/\b(SA|SAS|SARL|SASU|EI|EIRL|EURL|EARL|GAEC|GEIE|GIE|SASU|SC|SCA|SCI|SCIC|SCM|SCOP|SCP|SCS|SEL|SELAFA|SELARL|SELAS|SELCA|SEM|SEML|SEP|SICA|SNC|GmbH)\b/)
     if raw_target
       @identification_legal_form_text  = raw_target.to_s
       @identification_legal_form_presence = true
@@ -215,7 +215,7 @@ class IdentificationService
       @identification_score = total_points.to_f / maximum_points.to_f
     end
 
-    @identification_score = (@identification_score * 50)
+    @identification_score = (@identification_score * 40)
   end
 
   def identification_generator
@@ -247,5 +247,22 @@ class IdentificationService
     identification.analysis = @analysis
 
     identification.save!
+
+    @analysis.calculate_score
+
+    ActionCable.server.broadcast("identification_for_analysis_#{@analysis.id}", {
+      identification_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_header",
+        locals: { identification: identification, analysis: @analysis }
+      ),
+      identification_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/identification_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+      partial: "analyses/score_header",
+      locals: { analysis: @analysis },
+      )
+    })
   end
 end

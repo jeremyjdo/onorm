@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213094155) do
+ActiveRecord::Schema.define(version: 20171214100212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 20171213094155) do
     t.string "guaranteeandsav_article_ref"
     t.boolean "guaranteeandsav_guarantee_presence"
     t.boolean "guaranteeandsav_sav_presence"
+    t.boolean "offer_durability_presence"
+    t.string "offer_durability_article_ref"
     t.index ["analysis_id"], name: "index_cgvus_on_analysis_id"
   end
 

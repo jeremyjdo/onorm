@@ -20,24 +20,10 @@ class AnalysesController < ApplicationController
   def create
     @analysis = Analysis.new(analysis_params)
     if @analysis.save
-      # gets the URLS
-      PresenceJob.perform_later(@analysis.id)
+      # MOST JOBS ARE STARTED IN THEIR RESPECTIVE CHANNELS
+      # SOME JOBS ARE STARTED in the Presence Service because of dependencies
 
-      #Checks if cookies are present
-      CookieSystemJob.perform_later(@analysis.id)
-
-      # ALL OTHER JOBS ARE STARTED in the Presence Service because of dependencies
-
-
-        # @analysis.total_score = 0
-        # if @analysis.cookie_system != nil
-        #   @analysis.total_score = @analysis.total_score + @analysis.cookie_system.score
-        # end
-        # if @analysis.identification != nil
-        #   @analysis.total_score = @analysis.total_score + @analysis.identification.score
-        # end
-
-        redirect_to analysis_path(@analysis)
+      redirect_to analysis_path(@analysis)
     else
       render 'pages/home'
     end

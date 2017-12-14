@@ -1,152 +1,58 @@
-<div class="content padding-top-navbar" style="background-image: linear-gradient(-225deg, rgba(116, 235, 213, 0.5) 0%, rgba(172, 182, 229, 0.5) 100%);">
+<div class="content padding-top-navbar">
   <div class="container banner-analyses">
     <div class="row-analyses">
-    <div class="col-md-5 panel-summary">
-          <div class="panel-medal">
+      <div class="col-md-5 panel-summary">
+        <div class="panel-medal">
+          <div id="score-header-remote">
+            <%= render 'analyses/score_header', analysis: @analysis %>
+          </div>
 
-            <% if @analysis.total_score != nil %>
-              <% if @analysis.total_score > 66.66  %>
-                <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-                  <div class="container-gauge">
-                      <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
-                  </div>
-                </div>
-              <% elsif @analysis.total_score > 33.33 %>
-                <div class="score-image-divide orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
-                  <div class="container-gauge">
-                      <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
-                  </div>
-                </div>
-              <% else %>
-                <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                  <div class="container-gauge">
-                      <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
-                  </div>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="score-image-divide red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');"></div>
-            <% end %>
-            <p><%= URI.parse(@analysis.website_url).host %></p>
-            <%= link_to 'Recevoir par email', "#", class:"btn btn-medium" %>
 
-            <!-- <div class="score-image-divide green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-              <h1><%= @analysis.total_score %></h1>
-              <h2>/100</h2>
-              <div class="container-gauge">
-                  <div id="g1" class="gauge" data-analysis-score="<%= @analysis.total_score %>"></div>
-              </div>
+          <div id="identification-header-remote">
+            <%= render 'analyses/identification_header', identification: @analysis.identification, analysis: @analysis %>
+          </div>
+
+
+          <div id="cookie-header-remote">
+            <%= render 'analyses/cookie_header', cookie_system: @analysis.cookie_system %>
+          </div>
+
+          <div id="cgvu-header-remote">
+            <%= render 'analyses/cgvu_header', analysis: @analysis %>
+          </div>
+
+<!--             <div id="data-privacy-header-remote">
+              <%#= render 'analyses/_data_privacy_header', analysis: @analysis %>
             </div> -->
-                      <div id="identification-header-remote">
-                        <%= render 'analyses/identification_header', identification: @analysis.identification, analysis: @analysis %>
-                      </div>
-
-
-                      <div id="cookie-header-remote">
-                        <%= render 'analyses/cookie_header', cookie_system: @analysis.cookie_system %>
-                      </div>
-
-
-      <button class="accordion bouton-cgvu">
-          <div class="col-xs-3">
-            <% if @analysis.cookie_system != nil %>
-              <% if @analysis.cookie_system.score > 33.33  %>
-                <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-                  <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                  <h2>/50</h2>
-                </div>
-              <% elsif @analysis.cookie_system.score > 16.66 %>
-                <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
-                  <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                  <h2>/50</h2>
-                </div>
-              <% else %>
-                <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                  <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                  <h2>/50</h2>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                <h1><%#= @analysis.cookie_system.score.to_i%></h1>
-                <h2>/50</h2>
-              </div>
-            <% end %>
-
-          </div>
-          <div class="col-xs-9 text-center analyses-header">
-            <p>CGU / CGV</p>
-          </div>
-      </button>
-      <button class="accordion bouton-dataprivacy">
-        <div class="col-xs-3">
-
-          <% if @analysis.cookie_system != nil %>
-            <% if @analysis.cookie_system.score > 33.33  %>
-              <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
-                <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                <h2>/50</h2>
-              </div>
-            <% elsif @analysis.cookie_system.score > 16.66 %>
-              <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
-                <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                <h2>/50</h2>
-              </div>
-            <% else %>
-              <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-                <h1><%= @analysis.cookie_system.score.to_i%></h1>
-                <h2>/50</h2>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
-              <h1><%#= @analysis.cookie_system.score.to_i%></h1>
-              <h2>/50</h2>
-            </div>
-          <% end %>
         </div>
-        <div class="col-xs-9 text-center analyses-header">
-          <p>Données Confidentielles</p>
+      </div>
+      <div class="col-md-7 panel-results">
+        <div id="initial-panel-remote">
+          <%= render 'analyses/initial_panel', analysis: @analysis %>
         </div>
-      </button>
-            <!--  FIN DU PLACEHOLDER A DELETER -->
-
-</div>
-
-    </div>
-    <div class="col-md-7 panel-results">
 
         <div id="identification-panel-remote">
           <%= render 'analyses/identification_panel', analysis: @analysis %>
         </div>
 
-
         <div id="cookie-panel-remote">
           <%= render 'analyses/cookie_panel', analysis: @analysis %>
         </div>
 
-                <div class="panel panel-cgvu">
-                    <p><%#= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
-                   <p>Lorem ipsum...</p>
-                </div>
-                <div class="panel panel-dataprivacy">
-                     <p><%#= @analysis.data_privacy_url == "" ? "No Data privacy url" : @analysis.data_privacy_url %></p>
-                   <p>Lorem ipsum...</p>
-                </div>
+        <div id="cgvu-panel-remote">
+          <%= render 'analyses/cgvu_panel', analysis: @analysis %>
+        </div>
+
+        <!-- <div id="data-privacy-panel-remote">
+          <%#= render 'analyses/data_privacy_panel', analysis: @analysis %>
+        </div> -->
+      </div>
     </div>
-</div>
-</div>
+  </div>
 </div>
 <% content_for :after_js do %>
   <script>
-    // App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
-    //   { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
-    //   {
-    //     received: (data) => {
-    //       console.log(data)
-    //     }
-    //   }
-    // );
+
 
     App['identification_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
       { channel: 'IdentificationChannel', analysis_id: <%= @analysis.id %> },
@@ -156,7 +62,26 @@
           i_header.innerHTML = data.identification_header_partial;
           var i_panel = document.getElementById('identification-panel-remote');
           i_panel.innerHTML = data.identification_panel_partial;
-          panelShow("mentions-legales")
+          panelShow("mentions-legales");
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge(".gauge");
+        }
+      }
+    );
+
+    App['cgvu_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'CgvuChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
+          var cg_header = document.getElementById('cgvu-header-remote');
+          cg_header.innerHTML = data.cgvu_header_partial;
+          var cg_panel = document.getElementById('cgvu-panel-remote');
+          cg_panel.innerHTML = data.cgvu_panel_partial;
+          panelShow("cgvu");
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge(".gauge");
         }
       }
     );
@@ -169,7 +94,27 @@
           c_header.innerHTML = data.cookie_header_partial;
           var c_panel = document.getElementById('cookie-panel-remote');
           c_panel.innerHTML = data.cookie_panel_partial;
-          panelShow("cookies")
+          panelShow("cookies");
+          var s_header = document.getElementById('score-header-remote');
+          s_header.innerHTML = data.score_header_partial;
+          jauge(".gauge");
+        }
+      }
+    );
+    // App['score_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+    //   { channel: 'ScoreChannel', analysis_id: <%= @analysis.id %> },
+    //   {
+    //     received: function(data) {
+    //       var s_header = document.getElementById('score-header-remote');
+    //       s_header.innerHTML = data.score_header_partial;
+    //       jauge(".gauge");
+    //     }
+    //   }
+    // );
+    App['presence_for_analysis_<%= @analysis.id %>'] = App.cable.subscriptions.create(
+      { channel: 'PresenceChannel', analysis_id: <%= @analysis.id %> },
+      {
+        received: function(data) {
         }
       }
     );

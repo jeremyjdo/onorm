@@ -80,6 +80,8 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+  config.action_cable.url = "wss://www.onorm.io/cable"
+  config.action_cable.allowed_request_origins = [ "http://www.onorm.io", "https://www.onorm.io" ]
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
@@ -89,4 +91,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Loupe
+  config.serve_static_assets = true
+  config.assets.compile = true
 end
