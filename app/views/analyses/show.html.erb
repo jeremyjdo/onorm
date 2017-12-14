@@ -27,6 +27,10 @@
         </div>
       </div>
       <div class="col-md-7 panel-results">
+        <div id="initial-panel-remote">
+          <%= render 'analyses/initial_panel', analysis: @analysis %>
+        </div>
+
         <div id="identification-panel-remote">
           <%= render 'analyses/identification_panel', analysis: @analysis %>
         </div>
