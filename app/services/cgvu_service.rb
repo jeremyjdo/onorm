@@ -122,8 +122,6 @@ class CGVUService
 
     cgvu_scorer
     cgvu_generator
-    binding.pry
-
   end
 
   private
@@ -135,7 +133,7 @@ class CGVUService
     if raw_target
       raw_target.each_with_index do |header, index|
 #We seach with a regex various Article Title Patterns
-        if header.text.strip.match(/(article \d+\b)|(\A\d+ \b)|(\A\d+. \b)/i)
+        if header.text.strip.match(/(article \d+)|(\A\d+)|(\A\d+.)/i)
 
           raw_article = []
           raw_article << header.text.strip
@@ -193,38 +191,38 @@ class CGVUService
     entities.each do |entity|
 
       if entity == "service"
-        @selected_groups << "service" if @service_presence == false
+        @selected_groups << "service"
         @service_article_ref = raw_article[0] if @service_presence == false
         @service_presence = true
 
       elsif entity == "price"
-        @selected_groups << "price" if @price_presence == false
+        @selected_groups << "price"
         @price_article_ref = raw_article[0] if @price_presence == false
         @price_presence = true
 
       elsif entity == "delivery"
-        @selected_groups << "delivery" if @delivery_presence == false
+        @selected_groups << "delivery"
         @delivery_article_ref = raw_article[0] if @delivery_presence == false
         @delivery_presence = true
 
       elsif entity == "payment"
-        @selected_groups << "payment" if @payment_presence == false
+        @selected_groups << "payment"
         @payment_article_ref = raw_article[0] if @payment_presence == false
         @payment_presence = true
 
       elsif entity == "contract_conclusion"
-        @selected_groups << "contract_conclusion" if @contract_conclusion_presence == false
+        @selected_groups << "contract_conclusion"
         @contract_conclusion_article_ref = raw_article[0] if @contract_conclusion_presence == false
         @contract_conclusion_presence = true
 
       elsif entity == "offer_durability"
-        @selected_groups << "offer_durability" if @offer_durability_presence == false
+        @selected_groups << "offer_durability"
         @offer_durability_article_ref = raw_article[0] if @offer_durability_presence == false
         @offer_durability_presence = true
 
 
       elsif entity == "retractation"
-        @selected_groups << "retractation" if @retractation_presence == false
+        @selected_groups << "retractation"
         @retractation_article_ref = raw_article[0] if @retractation_presence == false
         @retractation_presence = true
 
@@ -380,6 +378,23 @@ class CGVUService
     cgvu.analysis = @analysis
 
     cgvu.save!
+
+    @analysis.calculate_score
+
+    ActionCable.server.broadcast("cgvu_for_analysis_#{@analysis.id}", {
+      cgvu_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/cgvu_header",
+        locals: { analysis: @analysis }
+      ),
+      cgvu_panel_partial: ApplicationController.renderer.render(
+        partial: "analyses/cgvu_panel",
+        locals: { analysis: @analysis },
+      ),
+      score_header_partial: ApplicationController.renderer.render(
+        partial: "analyses/score_header",
+        locals: { analysis: @analysis },
+      )
+    })
   end
 
 ###############################################################

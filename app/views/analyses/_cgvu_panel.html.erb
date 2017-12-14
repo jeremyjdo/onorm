@@ -1,4 +1,7 @@
 <div class="panel panel-cgvu">
-    <p><%#= @analysis.cgvu_url == "" ? "No CGVU url" : @analysis.cgvu_url %></p>
+  <% if !analysis.cgvu.nil? %>
+    <p>chargement en cours</p>
+  <% else %>
    <p>Lorem ipsum...</p>
+  <% end %>
 </div>
