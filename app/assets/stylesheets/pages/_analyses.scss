@@ -1,3 +1,9 @@
+.panel {
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 0px;
+  box-shadow: 0px 0px 0px;
+}
+
 .content {
   min-height: 70vh;
   padding-bottom: 40px;
@@ -59,7 +65,7 @@ div.panel-medal {
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
-  background-color: #fff8ef;
+  background-color: white;
   height: 575px;
   color: #22304e;
   position: relative;
