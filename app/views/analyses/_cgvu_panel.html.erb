@@ -1,7 +1,84 @@
 <div class="panel panel-cgvu">
+  <h3> Conditions Générales de Vente </h3>
   <% if !analysis.cgvu.nil? %>
-    <p>chargement en cours</p>
+    <% if !analysis.cgvu_url.blank?  %>
+      <p> Vos CGV : <%= link_to analysis.cgvu_url , analysis.cgvu_url, target: '_blank' %></p>
+    <% elsif analysis.cgvu_url.blank? %>
+      <p> Il semblerait que votre site internet ne possède pas de page dédiée aux CGV.</p>
+    <% else %>
+    <% end %>
+
+    <% if analysis.cgvu %>
+      <p>Extrait de l'analyse Onorm des CGV:</p>
+
+      <p><% if analysis.cgvu.service_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+          <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+          <% end  %>
+        Accès aux services : <i><%= analysis.cgvu.service_article_ref != "" ? analysis.cgvu.service_article_ref : "Aucune clause détectée" %></i></p>
+
+      <p><% if analysis.cgvu.delivery_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>
+      Livraison : <i><%= analysis.cgvu.delivery_article_ref != "" ? analysis.cgvu.delivery_article_ref : "Aucune clause détectée" %></i></p>
+        <p>     <% if analysis.cgvu.delivery_time_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>Délai de livraison</p>
+        <p>     <% if analysis.cgvu.delivery_shipping_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>Frais de livraison</p>
+
+        <p><% if analysis.cgvu.price_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>
+      Prix : <i><%= analysis.cgvu.price_article_ref != "" ? analysis.cgvu.price_article_ref : "Aucune clause détectée" %></i></p>
+        <p>     <% if analysis.cgvu.price_ttc_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>TVA</p>
+
+        <p><% if analysis.cgvu.retractation_presence %>
+        <%= image_tag "green-tick.png", size: "20x20" %>
+        <% else  %>
+        <%= image_tag "red-cross.png", size: "20x20"  %>
+        <% end  %>
+      Droit de rétractation : <i><%= analysis.cgvu.retractation_article_ref != "" ? analysis.cgvu.retractation_article_ref : "Aucune clause détectée" %></i></p>
+
+        <p><% if analysis.cgvu.guaranteeandsav_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+          <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+          <% end  %>
+        Garantie légale : <i><%= analysis.cgvu.guaranteeandsav_article_ref != "" ? analysis.cgvu.guaranteeandsav_article_ref : "Aucune clause détectée" %></i></p>
+
+        <p><% if analysis.cgvu.payment_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+          <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+          <% end  %>
+        Paiement : <i><%= analysis.cgvu.payment_article_ref != "" ? analysis.cgvu.payment_article_ref : "Aucune clause détectée" %></i></p>
+          <p>     <% if analysis.cgvu.payment_presence %>
+          <%= image_tag "green-tick.png", size: "20x20" %>
+          <% else  %>
+          <%= image_tag "red-cross.png", size: "20x20"  %>
+          <% end  %>Conditions de paiement</p>
+
   <% else %>
-   <p>Lorem ipsum...</p>
+    <p> Chargement en cours</p>
+  <% end %>
+  <%= link_to 'Mettre vos CGV Onorm', "#", class:"btn btn-medium" %>
+
+  <% else %>
+   <p>Il semblerait que votre site ne dispose pas de CGV</p>
   <% end %>
 </div>
