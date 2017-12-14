@@ -1,26 +1,26 @@
 <button class="accordion bouton-cookies">
   <div class="col-xs-3">
     <% if cookie_system != nil %>
-      <% if cookie_system.score > 33.33  %>
+      <% if cookie_system.score > 12  %>
         <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
           <h1><%= cookie_system.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/20</h2>
         </div>
-      <% elsif cookie_system.score > 16.66 %>
+      <% elsif cookie_system.score > 6 %>
         <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
           <h1><%= cookie_system.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/20</h2>
         </div>
       <% else %>
         <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
           <h1><%= cookie_system.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/20</h2>
         </div>
       <% end %>
     <% else %>
       <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
         <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></h1>
-        <h2>/50</h2>
+        <h2>/20</h2>
       </div>
     <% end %>
   </div>

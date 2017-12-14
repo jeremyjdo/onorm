@@ -1,26 +1,26 @@
 <button class="accordion bouton-cgvu">
   <div class="col-xs-3">
     <% if analysis.cgvu != nil %>
-      <% if analysis.cgvu.score > 33.33  %>
+      <% if analysis.cgvu.score > 26  %>
         <div class="green score round" style="background-image: url('<%= asset_path "green-medal.png"  %>');">
           <h1><%= analysis.cgvu.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/40</h2>
         </div>
-      <% elsif analysis.cgvu.score > 16.66 %>
+      <% elsif analysis.cgvu.score > 13 %>
         <div class="orange score round" style="background-image: url('<%= asset_path "orange-medal.png"  %>');">
           <h1><%= analysis.cgvu.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/40</h2>
         </div>
       <% else %>
         <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
           <h1><%= analysis.cgvu.score.to_i%></h1>
-          <h2>/50</h2>
+          <h2>/40</h2>
         </div>
       <% end %>
     <% else %>
       <div class="red score round" style="background-image: url('<%= asset_path "red-medal.png"  %>');">
         <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i></h1>
-        <h2>/50</h2>
+        <h2>/40</h2>
       </div>
     <% end %>
 
