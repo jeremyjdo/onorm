@@ -81,8 +81,11 @@ class CognitiveService
     article_key_phrases = article_key_phrases.flatten
 
     else
+      if result["documents"] != []
     article_key_phrases = result["documents"][0]["keyPhrases"]
-
+      else
+        article_key_phrases = [""]
+      end
     end
     return article_key_phrases
   end

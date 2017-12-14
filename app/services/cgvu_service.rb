@@ -86,6 +86,9 @@ class CGVUService
       @contract_conclusion_agreement_presence = false
       @contract_conclusion_agreement_score = 0
 
+    @offer_durability_presence = false
+    @offer_durability_article_ref = ""
+
       @contract_conclusion_offer_durability_presence = false
       @contract_conclusion_offer_durability_score = 0
 
@@ -119,6 +122,7 @@ class CGVUService
 
     cgvu_scorer
     cgvu_generator
+    binding.pry
 
   end
 
@@ -146,8 +150,10 @@ class CGVUService
                 if el == raw_target[index + 1] || index == raw_target.size - 1 || el.text.strip.match(/(\A\d+ \b)|(\A\d+. \b)/i)
                   break
                 end
-            else
+            elsif el.try(:text)
               raw_article_body = raw_article_body + el.text
+              break
+            else
               break
             end
           end
@@ -211,13 +217,19 @@ class CGVUService
         @contract_conclusion_article_ref = raw_article[0] if @contract_conclusion_presence == false
         @contract_conclusion_presence = true
 
+      elsif entity == "offer_durability"
+        @selected_groups << "offer_durability" if @offer_durability_presence == false
+        @offer_durability_article_ref = raw_article[0] if @offer_durability_presence == false
+        @offer_durability_presence = true
+
+
       elsif entity == "retractation"
         @selected_groups << "retractation" if @retractation_presence == false
         @retractation_article_ref = raw_article[0] if @retractation_presence == false
         @retractation_presence = true
 
       elsif entity == "guaranteeandsav"
-        @selected_groups << "guaranteeandsav" if @guaranteeandsav_presence == false
+        @selected_groups << "guaranteeandsav" #if @guaranteeandsav_presence == false
         @guaranteeandsav_article_ref = raw_article[0] if @guaranteeandsav_presence == false
         @guaranteeandsav_presence = true
       end
@@ -256,12 +268,15 @@ class CGVUService
         #We test for all the required information of the payment group
         cgvu_payment_mention(article_body, article_key_phrases)
 
-      elsif group == "contract_conslusion"
-        #We test for all the required information of the contract_conslusion group
-        cgvu_contract_conslusion_modality(article_body, article_key_phrases)
-        cgvu_contract_conslusion_human_error(article_body, article_key_phrases)
-        cgvu_contract_conslusion_agreement(article_body, article_key_phrases)
-        cgvu_contract_conslusion_offer_durability(article_body, article_key_phrases)
+      elsif group == "contract_conclusion"
+        #We test for all the required information of the contract_conclusion group
+        cgvu_contract_conclusion_modality(article_body, article_key_phrases)
+        cgvu_contract_conclusion_human_error(article_body, article_key_phrases)
+        cgvu_contract_conclusion_agreement(article_body, article_key_phrases)
+
+      elsif group == "offer_durability"
+        #We test for all the required information of the contract_conclusion group
+        cgvu_contract_conclusion_offer_durability(article_body, article_key_phrases)
 
       elsif group == "retractation"
         #We test for all the required information of the retractation group
@@ -305,6 +320,7 @@ class CGVUService
 
     scorer_table.each do |factor|
 
+        factor = 1 if factor > 1
         total_points = total_points + factor.to_f
 
       maximum_points = maximum_points + 1
@@ -313,7 +329,7 @@ class CGVUService
       @cgvu_score = total_points.to_f / maximum_points.to_f
     end
 
-    @cgvu_score = (@cgvu_score * 25)
+    @cgvu_score = (@cgvu_score * 40)
   end
 
   def cgvu_generator
@@ -354,6 +370,8 @@ class CGVUService
     cgvu.contract_conclusion_human_error_presence = @contract_conclusion_human_error_presence
     cgvu.contract_conclusion_offer_durability_presence = @contract_conclusion_offer_durability_presence
 
+    cgvu.offer_durability_presence = @offer_durability_presence
+    cgvu.offer_durability_article_ref = @offer_durability_article_ref
     cgvu.guaranteeandsav_presence = @guaranteeandsav_presence
     cgvu.guaranteeandsav_article_ref = @guaranteeandsav_article_ref
     cgvu.guaranteeandsav_guarantee_presence = @guaranteeandsav_guarantee_presence
@@ -367,28 +385,29 @@ class CGVUService
 ###############################################################
 ###############################################################
 #METHODS FOR REQUIRED INFORMATION IDENTIFICATION
-#For each of the following methods :
+#For most of the following methods :
 #1. We try to detect the required information in the Key Phrases of the Article, extracted by Text Analysis
 # => If we have a match, we save its presence and we attribute the maximum score. (Deep semantic relationships => ++ probability of a coherent concept and ++ probability of a reader-friendly article)
 #2. If the first try has no result, we reconduct the test with the whole Article
 # => If we have a match, we save its presence and we attribute a score with a penalty. (No Deep semantic relationships => -- probability of a coherent concept and -- probability of a reader-friendly article)
+#For some other methods :
+#Because the evaluation is based on complex syntaxic pattern, we combinate each of us : 1/3 of points if present in KeyPhrases + 2/3 if present in body article
 ###############################################################
 #SERVICE
-
+#LUIS - PREAMBULE OBJET GENERAL
   def cgvu_service_access(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/^.*\b(service)|(services)\b.*$/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*accès)(?=.*service).*|/i)
 
     if raw_target
-      @service_access_score  = 1.to_f
+      @service_access_score  = @service_access_score + 0.30.to_f
       @service_access_presence = true
-    else
+    end
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/^.*\bservice\b.*$/)
-      if raw_target
-      @service_access_score = 0.66.to_f
+    raw_target = article_body.match(/(?=.*société)(?=.*access)(?=.*édit).*|(?=.*société)(?=.*accè)(?=.*édit).*|(?=.*société)(?=.*access)(?=.*propos).*|(?=.*société)(?=.*accè)(?=.*propos).*/i)
+    if raw_target
+      @service_access_score = @service_access_score + 0.70.to_f
       @service_access_presence = true
-      end
     end
   end
 
@@ -401,7 +420,7 @@ class CGVUService
       @service_description_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*desti)(?=.*permet)(?=.*à)(?=.*\bde\b).*|(?=.*desti)(?=.*permet)(?=.*à)(?=.*\bdes\b).*|(?=.*propos)(?=.*permet)(?=.*à)(?=.*\bde\b).*|(?=.*propos)(?=.*permet)(?=.*à)(?=.*\bdes\b).*/i)
 
       if raw_target
       @service_description_score = 0.66.to_f
@@ -414,15 +433,16 @@ class CGVUService
 #DELIVERY
 
   def cgvu_delivery_modality(article_body, article_key_phrases)
+    #Article 5 - Livraison  ARTICLE 5 – MODALITES DE LIVRAISON
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*modalité de livraison).*|(?=.*mode de livraison).*/i)
 
     if raw_target
       @delivery_modality_score  = 1.to_f
       @delivery_modality_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*modalité de livraison).*|(?=.*mode de livraison).*|(?=.*livré à).*|(?=.*livrés à).*/i)
 
       if raw_target
       @delivery_modality_score = 0.66.to_f
@@ -433,14 +453,14 @@ class CGVUService
 
   def cgvu_delivery_shipping(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*frais de livraison).*|(?=.*frais d'expédition).*/i)
 
     if raw_target
       @delivery_shipping_score  = 1.to_f
       @delivery_shipping_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*frais de livraison).*|(?=.*frais d'expédition).*/i)
 
       if raw_target
       @delivery_shipping_score = 0.66.to_f
@@ -451,14 +471,14 @@ class CGVUService
 
   def cgvu_delivery_time(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*délai).*(?=.*livraison)(?=.*\d+).*/i)
 
     if raw_target
       @delivery_delivery_score  = 1.to_f
       @delivery_delivery_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*délai).*(?=.*livraison)(?=.*\d+).*/i)
 
       if raw_target
       @delivery_time_score = 0.66.to_f
@@ -526,17 +546,17 @@ class CGVUService
 
 ###############################################################
 #PAYMENT
-
+#LUIS -     #Paiement, Modalités de paiement, Modalités de paiement et de reversement,Article 6 - Paiement, Paiement et facturation,
   def cgvu_payment_mention(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*modalités)(?=.*paiement).*|(?=.*conditions)(?=.*paiement).*/i)
 
     if raw_target
       @payment_mention_score  = 1.to_f
       @payment_mention_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*obligation)(?=.*règlement)(?=.*moyen)(?=.*accepté).*|(?=.*obligation)(?=.*paiement)(?=.*moyen)(?=.*accepté).*|(?=.*paiement)(?=.*exigible).*|(?=.*mandat)(?=.*encaissement).*|(?=.*modalités)(?=.*paiement).*|(?=.*conditions)(?=.*paiement).*/i)
 
       if raw_target
       @payment_mention_score = 0.66.to_f
@@ -549,25 +569,26 @@ class CGVUService
 #CONTRACT CONCLUSION
 
   def cgvu_contract_conclusion_modality(article_body, article_key_phrases)
+    # Article 2 - Commande,   Validation de votre commande,   réservation
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*commande)(?=.*pass).*|(?=.*commande)(?=.*effect).*/i)
 
     if raw_target
-      @contract_conclusion_modality_score  = 1.to_f
+      @contract_conclusion_modality_score  = @contract_conclusion_modality_score + 0.30.to_f
       @contract_conclusion_modality_presence = true
-    else
+    end
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+    raw_target = article_body.match(/(?=.*pouvez passer commande).*|(?=.*peut passer commande).*|(?=.*peut effectuer).*|(?=.*pouvez effectuer).*/i)
 
-      if raw_target
-      @contract_conclusion_modality_score = 0.66.to_f
+    if raw_target
+      @contract_conclusion_modality_score  = @contract_conclusion_modality_score + 0.70.to_f
       @contract_conclusion_modality_presence = true
-      end
     end
   end
 
   def cgvu_contract_conclusion_offer_durability(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
+    #Article 4 - Disponibilité
     raw_target = article_key_phrases.join(" ").match(/#REGEX/)
 
     if raw_target
@@ -575,10 +596,10 @@ class CGVUService
       @contract_conclusion_offer_durability_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*offre)(?=.*valable)(?=.*tant).*|(?=.*offre)(?=.*valable)(?=.*jusqu).*/i)
 
       if raw_target
-      @contract_conclusion_offer_durability_score = 0.66.to_f
+      @contract_conclusion_offer_durability_score = 1.to_f
       @contract_conclusion_offer_durability_presence = true
       end
     end
@@ -586,32 +607,31 @@ class CGVUService
 
   def cgvu_contract_conclusion_human_error(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*commande)(?=.*information)(?=.*contractuelle).*/i)
 
     if raw_target
-      @contract_conclusion_human_error_score  = 1.to_f
+      @contract_conclusion_human_error_score  = @contract_conclusion_human_error_score + 0.30.to_f
       @contract_conclusion_human_error_presence = true
-    else
+    end
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*information)(?=.*contract)(?=.*confirm).*/i)
 
-      if raw_target
-      @contract_conclusion_human_error_score = 0.66.to_f
+    if raw_target
+      @contract_conclusion_human_error_score = @contract_conclusion_human_error_score + 0.70.to_f
       @contract_conclusion_human_error_presence = true
-      end
     end
   end
 
   def cgvu_contract_conclusion_agreement(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/#REGEX/)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*commande)(?=.*accept).*|(?=.*commande)(?=.*confirm).*/i)
 
     if raw_target
       @contract_conclusion_agreement_score  = 1.to_f
       @contract_conclusion_agreement_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*accept)(?=.*CGV).*|(?=.*accept)(?=.*Conditions Générales).*|(?=.*accept)(?=.*contrat).*|(?=.*accept)(?=.*contract).*/i)
 
       if raw_target
       @contract_conclusion_agreement_score = 0.66.to_f
@@ -624,6 +644,8 @@ class CGVUService
 #RETRACTATION
 
   def cgvu_retractation_right(article_body, article_key_phrases)
+    #Article 8 - Droit de rétractation  Politique d’annulation - Obligation de l'offreur
+
     #We firstly test on the article_key_phrases => Score maximized
     raw_target = article_key_phrases.join(" ").match(/#REGEX/)
 
@@ -632,10 +654,10 @@ class CGVUService
       @retractation_right_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*délai)(?=.*légal)(?=.*\d+)(?=.*droit)(?=.*rétract)(?=.*modalités).*|(?=.*délai)(?=.*légal)(?=.*\d+)(?=.*droit)(?=.*rétract)(?=.*conditions).*|(?=.*en cas)(?=.*rétract)(?=.*\d+)(?=.*rembourse).*|(?=.*annul)(?=.*rétract)(?=.*\d+)(?=.*droit).*|(?=.*renonce)(?=.*rétract)(?=.*délai).*/i)
 
       if raw_target
-      @retractation_right_score = 0.66.to_f
+      @retractation_right_score = 1.to_f
       @retractation_right_presence = true
       end
     end
@@ -645,6 +667,7 @@ class CGVUService
 #guarantee AND SAV
 
   def cgvu_guaranteeandsav_guarantee(article_body, article_key_phrases)
+    # Article 9 - Garanties, Article 10 - Service clientèle, Assistance, 8. RECLAMATIONS, DROIT DE RETRACTATION ET GARANTIES,
     #We firstly test on the article_key_phrases => Score maximized
     raw_target = article_key_phrases.join(" ").match(/#REGEX/)
 
@@ -653,7 +676,7 @@ class CGVUService
       @guaranteeandsav_guarantee_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*garantie)(?=.*conformité).*/i)
 
       if raw_target
       @guaranteeandsav_guarantee_score = 0.66.to_f
@@ -662,7 +685,7 @@ class CGVUService
     end
   end
 
-  def cgvu_guaranteeandsav_guarantee(article_body, article_key_phrases)
+  def cgvu_guaranteeandsav_sav(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
     raw_target = article_key_phrases.join(" ").match(/#REGEX/)
 
@@ -671,7 +694,7 @@ class CGVUService
       @guaranteeandsav_guarantee_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/#REGEX/)
+      raw_target = article_body.match(/(?=.*\bSAV\b).*|(?=.*service client)(?=.*contact).*|(?=.*assistance)(?=.*contact).*/i)
 
       if raw_target
       @guaranteeandsav_guarantee_score = 0.66.to_f
