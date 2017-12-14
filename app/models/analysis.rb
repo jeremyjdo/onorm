@@ -8,6 +8,12 @@ class Analysis < ApplicationRecord
 
   before_validation :refactor_url, only: :website_url
 
+  def calculate_score
+    if self.cookie_system != nil && self.identification != nil # && self.cgvu != nil
+      ScoreJob.perform_later(self.id)
+    end
+  end
+
   private
 
   def test_url(url)

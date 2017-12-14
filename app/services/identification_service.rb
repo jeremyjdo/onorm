@@ -247,5 +247,6 @@ class IdentificationService
     identification.analysis = @analysis
 
     identification.save!
+    @analysis.calculate_score
   end
 end
