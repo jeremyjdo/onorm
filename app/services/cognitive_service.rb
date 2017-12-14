@@ -55,9 +55,37 @@ class CognitiveService
     json = JSON::pretty_generate (JSON (response.body))
     result = JSON.parse(json)
 
+    p ""
+    p ""
+    p ""
+    p "<------------------>"
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    p result
+    p result["documents"]
+    p result["documents"][0]
+    p ""
+    p ""
+    p ""
+    p "<------------------>"
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    p ""
+    article_key_phrases = []
     case nb_split_part
     when 1
-    article_key_phrases = result["documents"][0]["keyPhrases"]
+    split_0 = result["documents"][0]["keyPhrases"]
+    article_key_phrases << split_0 if split_0
+    article_key_phrases = article_key_phrases.flatten
 
     when 2
     article_key_phrases = []
@@ -132,6 +160,6 @@ class CognitiveService
     end
 
     json = JSON::pretty_generate(JSON(response.body))
-    JSON.parse(json)
+    p JSON.parse(json)
   end
 end
