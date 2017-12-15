@@ -8,7 +8,7 @@ class WebsiteUrlValidator < ActiveModel::EachValidator
   end
 
   def self.exist?(value)
-    RestClient.get(value)
+    RestClient::Request.execute(url: value, method: :get, verify_ssl: false)
   rescue
     false
   end

@@ -2,6 +2,12 @@
   border-radius: 0px;
   -webkit-box-shadow: 0px 0px 0px;
   box-shadow: 0px 0px 0px;
+  h3 {
+    margin-top: 0px;
+  }
+  img {
+    margin-right: 10px;
+  }
 }
 
 .content {
@@ -47,11 +53,12 @@
 
 div.panel {
   display: none;
-  padding: 0 18px;
+  padding: 40px;
+  // padding: 0 18px;
   background-color: white;
-  padding-top: 15px;
-  padding-left: 15px;
-  height: 575px;
+  // padding-top: 15px;
+  // padding-left: 15px;
+  min-height: 575px;
   width: 650px;
   background-size: cover !important;
   background-position: center;
@@ -77,6 +84,11 @@ div.panel-initial {
   padding: 0 18px;
   padding-top: 15px;
   padding-left: 15px;
+}
+
+.sub-result{
+  margin-left: 30px;
+  margin-top: 0px;
 }
 
 

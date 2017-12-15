@@ -21,22 +21,25 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
 
   def call
     url = @analysis.website_url
-    html_file = open(url).read
+    # html_file = open(url).read
+    html_file = RestClient::Request.execute(url: url, method: :get, verify_ssl: false).body
     html_doc = Nokogiri::HTML(html_file)
     url = url.chomp("/")
 
     html_doc.css('a').each do |target|
       wording = target.text.strip.upcase
-      target_url = target.attribute('href').value
-      target_url = url + target_url if target_url.first == "/"
-      if @cgvu_wording_library.include?(wording)
-          puts @cgvu_url = target_url
-      elsif @identification_wording_library.include?(wording)
-          puts @identification_url = target_url
-      elsif @cookie_system_wording_library.include?(wording)
-          puts @cookie_system_url = target_url
-      elsif @data_privacy_wording_library.include?(wording)
-          puts @data_privacy_url = target_url
+      unless target.attribute('href').nil?
+        target_url = target.attribute('href').value
+        target_url = url + target_url if target_url.first == "/"
+        if @cgvu_wording_library.include?(wording)
+            puts @cgvu_url = target_url
+        elsif @identification_wording_library.include?(wording)
+            puts @identification_url = target_url
+        elsif @cookie_system_wording_library.include?(wording)
+            puts @cookie_system_url = target_url
+        elsif @data_privacy_wording_library.include?(wording)
+            puts @data_privacy_url = target_url
+        end
       end
     end
 
@@ -82,7 +85,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
 
 
 
-    if @analysis.cgvu_url != ""
+    if !@analysis.cgvu_url.blank?
       CgvuJob.perform_later(@analysis.id)
     else
       c = Cgvu.new

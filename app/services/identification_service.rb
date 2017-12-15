@@ -57,7 +57,8 @@ class IdentificationService
 
   def call
     url = @analysis.identification_url
-    html_file = open(url).read
+    # html_file = open(url).read
+    html_file = RestClient::Request.execute(url: url, method: :get, verify_ssl: false).body
     html_doc = Nokogiri::HTML(html_file)
 
     identification_legal_form(html_doc) #also identificate company name

@@ -24,12 +24,12 @@
         <%= image_tag "red-cross.png", size: "20x20"  %>
         <% end  %>
       Livraison : <i><%= analysis.cgvu.delivery_article_ref != "" ? analysis.cgvu.delivery_article_ref : "Aucune clause détectée" %></i></p>
-        <p>     <% if analysis.cgvu.delivery_time_presence %>
+        <p class="sub-result">     <% if analysis.cgvu.delivery_time_presence %>
         <%= image_tag "green-tick.png", size: "20x20" %>
         <% else  %>
         <%= image_tag "red-cross.png", size: "20x20"  %>
         <% end  %>Délai de livraison</p>
-        <p>     <% if analysis.cgvu.delivery_shipping_presence %>
+        <p class="sub-result">     <% if analysis.cgvu.delivery_shipping_presence %>
         <%= image_tag "green-tick.png", size: "20x20" %>
         <% else  %>
         <%= image_tag "red-cross.png", size: "20x20"  %>
@@ -41,7 +41,7 @@
         <%= image_tag "red-cross.png", size: "20x20"  %>
         <% end  %>
       Prix : <i><%= analysis.cgvu.price_article_ref != "" ? analysis.cgvu.price_article_ref : "Aucune clause détectée" %></i></p>
-        <p>     <% if analysis.cgvu.price_ttc_presence %>
+        <p  class="sub-result">     <% if analysis.cgvu.price_ttc_presence %>
         <%= image_tag "green-tick.png", size: "20x20" %>
         <% else  %>
         <%= image_tag "red-cross.png", size: "20x20"  %>
