@@ -110,12 +110,22 @@ class CGVUService
     # html_file = open(url).read
     html_file = RestClient::Request.execute(url: url, method: :get, verify_ssl: false).body
     html_doc = Nokogiri::HTML(html_file)
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts "--------ezfzefzefze-----------------"
+    puts "Hello from call"
 
 #Firstly we scrap and parse articles, by using the headers pattern (Article Title)
     scrap_by_header_pattern(html_doc)
 
     unless @raw_articles.any?
-      return #FALLBACK A INTEGRER si aucun article n'a été trouvé. Possible Improvement : Create a another scraper/parser, using for ex the index article table
+      cgvu_scorer
+      cgvu_generator
     end
 
 #Secondly, we run the analysis of the different articles
@@ -240,9 +250,12 @@ class CGVUService
   #We send the body article to MICROSOFT TEXT ANALYSIS COGNITIVE SERVICE, in order to extract Key Contents of the Article. (Based on deep semantic relationships)
     article_body = raw_article[1]
 
-    raw_article_key_phrases = @brain.text_analysis(article_body)
-
-    article_key_phrases = raw_article_key_phrases.map { |kp| kp.downcase }
+    if raw_article[1] != ""
+      raw_article_key_phrases = @brain.text_analysis(article_body)
+      article_key_phrases = raw_article_key_phrases.map { |kp| kp.downcase }
+    else
+      article_key_phrases = [""]
+    end
 
   #We use each group/clause key saved in @selected_groups in order to call the related functions
     @selected_groups.each do |group|
@@ -379,7 +392,9 @@ class CGVUService
 
     cgvu.analysis = @analysis
 
-    cgvu.save!
+    puts 'GOOD BRANCH'
+
+    cgvu.save
 
     @analysis.calculate_score
 

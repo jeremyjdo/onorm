@@ -55,7 +55,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
 
     #Run Identification Analysis if identification_url is present
 
-    unless @analysis.save!
+    unless @analysis.save
       render "root"
     end
 
@@ -66,7 +66,7 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
       i = Identification.new
       i.score = 0
       i.analysis = @analysis
-      i.save!
+      i.save
       ActionCable.server.broadcast("identification_for_analysis_#{@analysis.id}", {
       identification_header_partial: ApplicationController.renderer.render(
         partial: "analyses/identification_header",
@@ -85,11 +85,12 @@ attr_accessor :cgvu_url, :identification_url, :cookie_system_url, :data_privacy_
 
 
 
-    if !@analysis.cgvu_url.blank?
+    if @analysis.cgvu_url != ""
       CgvuJob.perform_later(@analysis.id)
     else
+      puts "--------------------- BAD BRANCH"
       c = Cgvu.new
-      c.score = 0
+      c.score = 40
       c.analysis = @analysis
       c.save!
       ActionCable.server.broadcast("cgvu_for_analysis_#{@analysis.id}", {
