@@ -16,6 +16,7 @@
         <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies à l'aide d'une bannière</p>
       <% else  %>
         <p><%= image_tag "red-cross.png", size: "20x20"  %>Vous ne semblez pas utiliser d'alerte sur l'usage de vos cookies</p>
+        <p> Pour ajouter une bannière, votre développeur peut utiliser cette solution : <a href="https://cookieconsent.insites.com/"> CookieConsent </a></p>
       <% end  %>
       <% if analysis.cookie_system_url != "" %>
         <p><%= image_tag "green-tick.png", size: "20x20" %> Vous disposez d'une page d'information facilement accessible sur l'usage de vos cookies.</p>
@@ -28,10 +29,9 @@
         <p><%= image_tag "green-tick.png", size: "20x20" %>Vous informez l'utilisateur sur l'usage de vos cookies à l'aide d'une bannière</p>
       <% else %>
         <p><%= image_tag "warning.png", size: "20x20" %>Si vous utilisez des cookies dans le futur ou bien que vous en déposez ailleurs sur votre site, n'oubliez pas d'informer l'utilisateur par une bannière.</p>
+        <p> Pour ajouter une bannière, votre développeur peut utiliser cette solution : <a href="https://cookieconsent.insites.com/"> CookieConsent </a></p>
       <% end %>
     <% end  %>
-
-    <p> Pour ajouter une alerte, vous pouvez :</p>
 
 
     <!--     <div id="codeSnippet">
