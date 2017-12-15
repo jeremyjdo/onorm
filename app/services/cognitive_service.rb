@@ -56,45 +56,49 @@ class CognitiveService
     result = JSON.parse(json)
 
     article_key_phrases = []
+    p result
     case nb_split_part
     when 1
-    split_0 = result["documents"][0]["keyPhrases"]
-    article_key_phrases << split_0 if split_0
-    article_key_phrases = article_key_phrases.flatten
-
+      if result["documents"][0]["keyPhrases"]
+        article_key_phrases << result["documents"][0]["keyPhrases"]
+        article_key_phrases = article_key_phrases.flatten
+      end
     when 2
-    article_key_phrases = []
-    split_1 = result["documents"][0]["keyPhrases"]
-    article_key_phrases << split_1 if split_1
-    split_2 = result["documents"][1]["keyPhrases"]
-    article_key_phrases << split_2 if split_2
-    article_key_phrases = article_key_phrases.flatten
-
+      if result["documents"][0]["keyPhrases"]
+        article_key_phrases << result["documents"][0]["keyPhrases"]
+        if result["documents"][1]["keyPhrases"]
+          article_key_phrases << result["documents"][1]["keyPhrases"]
+        end
+        article_key_phrases = article_key_phrases.flatten
+      end
     when 3
-    article_key_phrases = []
-    split_1 = result["documents"][0]["keyPhrases"]
-    article_key_phrases << split_1 if split_1
-    split_2 = result["documents"][1]["keyPhrases"]
-    article_key_phrases << split_2 if split_2
-    split_3 = result["documents"][2]["keyPhrases"]
-    article_key_phrases << split_3 if split_3
-    article_key_phrases = article_key_phrases.flatten
-
+      if result["documents"][0]["keyPhrases"]
+        article_key_phrases << result["documents"][0]["keyPhrases"]
+        if result["documents"][1]["keyPhrases"]
+          article_key_phrases << result["documents"][1]["keyPhrases"]
+        end
+        if result["documents"][2]["keyPhrases"]
+          article_key_phrases << result["documents"][2]["keyPhrases"]
+        end
+        article_key_phrases = article_key_phrases.flatten
+      end
     when 4
-    article_key_phrases = []
-    split_1 = result["documents"][0]["keyPhrases"]
-    article_key_phrases << split_1 if split_1
-    split_2 = result["documents"][1]["keyPhrases"]
-    article_key_phrases << split_2 if split_2
-    split_3 = result["documents"][2]["keyPhrases"]
-    article_key_phrases << split_3 if split_3
-    split_4 = result["documents"][3]["keyPhrases"]
-    article_key_phrases << split_4 if split_4
-    article_key_phrases = article_key_phrases.flatten
-
+      if result["documents"][0]["keyPhrases"]
+        article_key_phrases << result["documents"][0]["keyPhrases"]
+        if result["documents"][1]["keyPhrases"]
+          article_key_phrases << result["documents"][1]["keyPhrases"]
+        end
+        if result["documents"][2]["keyPhrases"]
+          article_key_phrases << result["documents"][2]["keyPhrases"]
+        end
+        if result["documents"][3]["keyPhrases"]
+          article_key_phrases << result["documents"][2]["keyPhrases"]
+        end
+        article_key_phrases = article_key_phrases.flatten
+      end
     else
-      if result["documents"] != []
-    article_key_phrases = result["documents"][0]["keyPhrases"]
+      if result["documents"][0]["keyPhrases"]
+        article_key_phrases = result["documents"][0]["keyPhrases"]
       else
         article_key_phrases = [""]
       end
