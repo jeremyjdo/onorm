@@ -503,14 +503,14 @@ class CGVUService
 
   def cgvu_delivery_time(article_body, article_key_phrases)
     #We firstly test on the article_key_phrases => Score maximized
-    raw_target = article_key_phrases.join(" ").match(/(?=.*délai).*(?=.*livraison)(?=.*\d+).*/i)
+    raw_target = article_key_phrases.join(" ").match(/(?=.*délai).*(?=.*livraison).*/i)
 
     if raw_target
       @delivery_delivery_score  = 1.to_f
       @delivery_delivery_presence = true
     else
       #We give it a second try on the whole body of the article => Score minimized
-      raw_target = article_body.match(/(?=.*délai).*(?=.*livraison)(?=.*\d+).*/i)
+      raw_target = article_body.match(/(?=.*délai).*(?=.*livraison).*/i)
 
       if raw_target
       @delivery_time_score = 0.66.to_f
