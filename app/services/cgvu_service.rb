@@ -107,7 +107,8 @@ class CGVUService
 
   def call
     url = @analysis.cgvu_url
-    html_file = open(url).read
+    # html_file = open(url).read
+    html_file = RestClient::Request.execute(url: url, method: :get, verify_ssl: false).body
     html_doc = Nokogiri::HTML(html_file)
 
 #Firstly we scrap and parse articles, by using the headers pattern (Article Title)
